@@ -25,9 +25,22 @@ interface CartItem {
   quantity: number;
 }
 
+interface User {
+  phone: string;
+  firstName: string;
+  lastName: string;
+  cashback: number;
+}
+
 const Index = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [authStep, setAuthStep] = useState<'phone' | 'code' | 'register'>('phone');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [activeSection, setActiveSection] = useState('home');
-  const [userCashback, setUserCashback] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedCar, setSelectedCar] = useState('');
@@ -37,6 +50,11 @@ const Index = () => {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+
     let deferredPrompt: any;
     
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -51,6 +69,60 @@ const Index = () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
+
+  const handleSendCode = () => {
+    if (!phoneNumber || phoneNumber.length < 10) {
+      alert('Введите корректный номер телефона');
+      return;
+    }
+    vibrate(50);
+    const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+    if (savedUsers[phoneNumber]) {
+      setAuthStep('code');
+    } else {
+      setAuthStep('register');
+    }
+  };
+
+  const handleVerifyCode = () => {
+    if (verificationCode === '1234') {
+      vibrate(50);
+      const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+      const userData = savedUsers[phoneNumber];
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      setIsAuthenticating(false);
+    } else {
+      alert('Неверный код. Используйте 1234 для демо');
+    }
+  };
+
+  const handleRegister = () => {
+    if (!firstName || !lastName) {
+      alert('Заполните имя и фамилию');
+      return;
+    }
+    vibrate(50);
+    const newUser: User = {
+      phone: phoneNumber,
+      firstName,
+      lastName,
+      cashback: 0
+    };
+    const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+    savedUsers[phoneNumber] = newUser;
+    localStorage.setItem('users', JSON.stringify(savedUsers));
+    localStorage.setItem('user', JSON.stringify(newUser));
+    setUser(newUser);
+    setIsAuthenticating(false);
+  };
+
+  const handleLogout = () => {
+    vibrate([30, 50]);
+    localStorage.removeItem('user');
+    setUser(null);
+    setCart([]);
+  };
 
   const handleInstallApp = () => {
     const deferredPrompt = (window as any).deferredPrompt;
@@ -447,6 +519,146 @@ const Index = () => {
   const cartCashback = Math.floor(cartTotal * 0.03);
   const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md animate-scale-in">
+          <CardHeader className="text-center">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+              <Icon name="Battery" size={40} className="text-primary" />
+            </div>
+            <CardTitle className="text-3xl">Мир Аккумуляторов</CardTitle>
+            <CardDescription>Войдите в личный кабинет</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {authStep === 'phone' && (
+              <>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Номер телефона</label>
+                  <Input
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                    maxLength={11}
+                    className="text-lg"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Введите номер телефона для входа или регистрации
+                  </p>
+                </div>
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={handleSendCode}
+                  disabled={phoneNumber.length < 10}
+                >
+                  <Icon name="ArrowRight" size={20} className="mr-2" />
+                  Продолжить
+                </Button>
+              </>
+            )}
+
+            {authStep === 'code' && (
+              <>
+                <div className="text-center mb-4">
+                  <p className="text-sm text-muted-foreground">
+                    Код отправлен на номер
+                  </p>
+                  <p className="font-semibold">+{phoneNumber}</p>
+                  <Button 
+                    variant="link" 
+                    size="sm"
+                    onClick={() => {
+                      setAuthStep('phone');
+                      setVerificationCode('');
+                    }}
+                  >
+                    Изменить номер
+                  </Button>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Код подтверждения</label>
+                  <Input
+                    type="text"
+                    placeholder="____"
+                    value={verificationCode}
+                    onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))}
+                    maxLength={4}
+                    className="text-center text-2xl tracking-widest"
+                  />
+                  <p className="text-xs text-muted-foreground text-center">
+                    Для демо используйте код: <span className="font-semibold">1234</span>
+                  </p>
+                </div>
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={handleVerifyCode}
+                  disabled={verificationCode.length !== 4}
+                >
+                  <Icon name="CheckCircle" size={20} className="mr-2" />
+                  Подтвердить
+                </Button>
+              </>
+            )}
+
+            {authStep === 'register' && (
+              <>
+                <div className="text-center mb-4">
+                  <p className="text-sm text-muted-foreground">
+                    Создание нового аккаунта
+                  </p>
+                  <p className="font-semibold">+{phoneNumber}</p>
+                </div>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Имя</label>
+                    <Input
+                      type="text"
+                      placeholder="Иван"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Фамилия</label>
+                    <Input
+                      type="text"
+                      placeholder="Иванов"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={handleRegister}
+                  disabled={!firstName || !lastName}
+                >
+                  <Icon name="UserPlus" size={20} className="mr-2" />
+                  Зарегистрироваться
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    setAuthStep('phone');
+                    setFirstName('');
+                    setLastName('');
+                  }}
+                >
+                  Назад
+                </Button>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 pb-20">
       <header className="sticky top-0 z-50 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border shadow-sm">
@@ -477,7 +689,7 @@ const Index = () => {
               </Button>
               <Badge variant="secondary" className="hidden md:flex items-center gap-1">
                 <Icon name="Wallet" size={14} />
-                {userCashback} ₽
+                {user.cashback} ₽
               </Badge>
             </div>
           </div>
@@ -1026,7 +1238,27 @@ const Index = () => {
 
         {activeSection === 'profile' && (
           <div className="space-y-6 animate-fade-in max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold">Личный кабинет</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold">Личный кабинет</h2>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <Icon name="LogOut" size={16} className="mr-2" />
+                Выйти
+              </Button>
+            </div>
+
+            <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-blue-600/5">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Icon name="User" size={32} className="text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">{user.firstName} {user.lastName}</CardTitle>
+                    <p className="text-muted-foreground">+{user.phone}</p>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
 
             <Card className="border-2 border-primary/20">
               <CardHeader>
@@ -1036,7 +1268,7 @@ const Index = () => {
                     <CardTitle>Мой кэшбек</CardTitle>
                   </div>
                   <div className="text-3xl font-bold text-primary">
-                    {userCashback} ₽
+                    {user.cashback} ₽
                   </div>
                 </div>
               </CardHeader>
