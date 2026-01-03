@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -33,6 +33,39 @@ const Index = () => {
   const [selectedCar, setSelectedCar] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedStore, setSelectedStore] = useState('');
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+
+  useEffect(() => {
+    let deferredPrompt: any;
+    
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setShowInstallPrompt(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallApp = () => {
+    const deferredPrompt = (window as any).deferredPrompt;
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        setShowInstallPrompt(false);
+      });
+    }
+  };
+
+  const vibrate = (pattern: number | number[]) => {
+    if ('vibrate' in navigator) {
+      navigator.vibrate(pattern);
+    }
+  };
 
   const products: Product[] = [
     {
@@ -262,6 +295,7 @@ const Index = () => {
   };
 
   const addToCart = (product: Product) => {
+    vibrate(50);
     setCart(prev => {
       const existing = prev.find(item => item.product.id === product.id);
       if (existing) {
@@ -276,10 +310,12 @@ const Index = () => {
   };
 
   const removeFromCart = (productId: number) => {
+    vibrate([30, 50]);
     setCart(prev => prev.filter(item => item.product.id !== productId));
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
+    vibrate(30);
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
@@ -333,6 +369,29 @@ const Index = () => {
       </header>
 
       <main className="container mx-auto px-4 py-6 space-y-6">
+        {showInstallPrompt && (
+          <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-2 border-blue-500/20 animate-slide-up">
+            <CardContent className="pt-4">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Icon name="Download" size={24} className="text-blue-600" />
+                  <div>
+                    <p className="font-semibold">Установить приложение</p>
+                    <p className="text-xs text-muted-foreground">Быстрый доступ с главного экрана</p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="sm" onClick={handleInstallApp}>
+                    Установить
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => setShowInstallPrompt(false)}>
+                    <Icon name="X" size={16} />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
         {activeSection === 'home' && (
           <div className="space-y-8 animate-fade-in">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
@@ -413,7 +472,7 @@ const Index = () => {
             </Card>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('catalog')}>
+              <Card className="hover:shadow-lg smooth-transition cursor-pointer hover:scale-105" onClick={() => { vibrate(30); setActiveSection('catalog'); }}>
                 <CardContent className="pt-6 text-center space-y-3">
                   <Icon name="ShoppingBag" size={48} className="mx-auto text-primary" />
                   <h3 className="text-xl font-semibold">Каталог товаров</h3>
