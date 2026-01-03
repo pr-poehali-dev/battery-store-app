@@ -31,6 +31,7 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedCar, setSelectedCar] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedStore, setSelectedStore] = useState('');
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
@@ -368,6 +369,7 @@ const Index = () => {
   };
 
   const allCars = Array.from(new Set(products.flatMap(p => p.compatible))).sort();
+  const categories = Array.from(new Set(products.map(p => p.category))).sort();
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = 
@@ -381,13 +383,16 @@ const Index = () => {
       product.compatible.includes(selectedCar) ||
       product.compatible.includes('Универсальное');
     
-    return matchesSearch && matchesPrice && matchesCar;
+    const matchesCategory = !selectedCategory || product.category === selectedCategory;
+    
+    return matchesSearch && matchesPrice && matchesCar && matchesCategory;
   });
 
   const resetFilters = () => {
     setSearchQuery('');
     setPriceRange([0, 50000]);
     setSelectedCar('');
+    setSelectedCategory('');
   };
 
   const addToCart = (product: Product) => {
@@ -635,6 +640,20 @@ const Index = () => {
                 </div>
 
                 <div className="space-y-2">
+                  <label className="text-sm font-medium">Категория товара</label>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full p-2 border border-input rounded-md bg-background"
+                  >
+                    <option value="">Все категории</option>
+                    {categories.map((category, index) => (
+                      <option key={index} value={category}>{category}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
                   <label className="text-sm font-medium">Совместимость с автомобилем</label>
                   <select
                     value={selectedCar}
@@ -649,7 +668,7 @@ const Index = () => {
                   </select>
                 </div>
 
-                {(searchQuery || priceRange[0] > 0 || priceRange[1] < 50000 || selectedCar) && (
+                {(searchQuery || priceRange[0] > 0 || priceRange[1] < 50000 || selectedCar || selectedCategory) && (
                   <Button variant="outline" onClick={resetFilters} className="w-full">
                     <Icon name="X" size={18} className="mr-2" />
                     Сбросить фильтры
