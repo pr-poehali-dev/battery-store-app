@@ -3,497 +3,170 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
-  const [userBonus, setUserBonus] = useState(3240);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [userCashback, setUserCashback] = useState(0);
 
-  const products = [
-    { 
-      id: 1, 
-      name: 'Bosch S4 60Ah 540A', 
-      category: 'Автомобильные',
-      subcategory: 'Легковые',
-      price: 5990,
-      voltage: '12V',
-      capacity: '60Ah',
-      current: '540A',
-      image: '🔋',
-      brand: 'Bosch'
-    },
-    { 
-      id: 2, 
-      name: 'Varta Blue Dynamic 74Ah 680A', 
-      category: 'Автомобильные',
-      subcategory: 'Легковые',
-      price: 7490,
-      voltage: '12V',
-      capacity: '74Ah',
-      current: '680A',
-      image: '🔋',
-      brand: 'Varta'
-    },
-    { 
-      id: 3, 
-      name: 'Mutlu 100Ah 850A', 
-      category: 'Автомобильные',
-      subcategory: 'Грузовые',
-      price: 12990,
-      voltage: '12V',
-      capacity: '100Ah',
-      current: '850A',
-      image: '⚡',
-      brand: 'Mutlu'
-    },
-    { 
-      id: 4, 
-      name: 'Тюмень 190Ah 1200A', 
-      category: 'Автомобильные',
-      subcategory: 'Грузовые',
-      price: 18990,
-      voltage: '12V',
-      capacity: '190Ah',
-      current: '1200A',
-      image: '⚡',
-      brand: 'Тюмень'
-    },
-    { 
-      id: 5, 
-      name: 'Exide AGM 12V 70Ah', 
-      category: 'Специальные',
-      subcategory: 'AGM',
-      price: 14990,
-      voltage: '12V',
-      capacity: '70Ah',
-      current: '760A',
-      image: '🔌',
-      brand: 'Exide'
-    },
-    { 
-      id: 6, 
-      name: 'Varta Silver Dynamic EFB 65Ah', 
-      category: 'Специальные',
-      subcategory: 'EFB',
-      price: 11490,
-      voltage: '12V',
-      capacity: '65Ah',
-      current: '650A',
-      image: '🔌',
-      brand: 'Varta'
-    },
-    { 
-      id: 7, 
-      name: 'Makita 18V 5.0Ah Li-Ion', 
-      category: 'Инструментальные',
-      subcategory: 'Электроинструмент',
-      price: 4990,
-      voltage: '18V',
-      capacity: '5.0Ah',
-      current: '—',
-      image: '🔧',
-      brand: 'Makita'
-    },
-    { 
-      id: 8, 
-      name: 'DeWalt 20V MAX 6.0Ah', 
-      category: 'Инструментальные',
-      subcategory: 'Электроинструмент',
-      price: 5990,
-      voltage: '20V',
-      capacity: '6.0Ah',
-      current: '—',
-      image: '🔧',
-      brand: 'DeWalt'
-    },
-    { 
-      id: 9, 
-      name: 'Bosch C3 (6V/12V 3.8A)', 
-      category: 'Зарядные устройства',
-      subcategory: 'Автомобильные',
-      price: 3990,
-      voltage: '6V/12V',
-      capacity: '—',
-      current: '3.8A',
-      image: '🔌',
-      brand: 'Bosch'
-    },
-    { 
-      id: 10, 
-      name: 'CTEK MXS 5.0 (12V 5A)', 
-      category: 'Зарядные устройства',
-      subcategory: 'Автомобильные',
-      price: 7490,
-      voltage: '12V',
-      capacity: '—',
-      current: '5A',
-      image: '🔌',
-      brand: 'CTEK'
-    },
-    { 
-      id: 11, 
-      name: 'Hyundai LE 4200 (1.6кВт)', 
-      category: 'Садовая техника',
-      subcategory: 'Газонокосилки',
-      price: 12990,
-      voltage: '220V',
-      capacity: '—',
-      current: '1.6кВт',
-      image: '🌿',
-      brand: 'Hyundai'
-    },
-    { 
-      id: 12, 
-      name: 'Makita DLM382Z (36V)', 
-      category: 'Садовая техника',
-      subcategory: 'Газонокосилки',
-      price: 21990,
-      voltage: '36V',
-      capacity: 'Аккумуляторная',
-      current: '—',
-      image: '🌿',
-      brand: 'Makita'
-    },
-    { 
-      id: 13, 
-      name: 'Аком 55Ah 460A', 
-      category: 'Автомобильные',
-      subcategory: 'Легковые',
-      price: 4490,
-      voltage: '12V',
-      capacity: '55Ah',
-      current: '460A',
-      image: '🔋',
-      brand: 'Аком'
-    },
-    { 
-      id: 14, 
-      name: 'Banner Running Bull EFB 70Ah', 
-      category: 'Специальные',
-      subcategory: 'EFB',
-      price: 13490,
-      voltage: '12V',
-      capacity: '70Ah',
-      current: '720A',
-      image: '🔌',
-      brand: 'Banner'
-    },
-    { 
-      id: 15, 
-      name: 'Bosch S5 A08 AGM 70Ah', 
-      category: 'Специальные',
-      subcategory: 'AGM',
-      price: 15990,
-      voltage: '12V',
-      capacity: '70Ah',
-      current: '760A',
-      image: '🔌',
-      brand: 'Bosch'
-    },
-    { 
-      id: 16, 
-      name: 'Зверь 132Ah 950A', 
-      category: 'Автомобильные',
-      subcategory: 'Грузовые',
-      price: 14990,
-      voltage: '12V',
-      capacity: '132Ah',
-      current: '950A',
-      image: '⚡',
-      brand: 'Зверь'
-    },
-    { 
-      id: 17, 
-      name: 'Milwaukee M18 B5 (18V 5.0Ah)', 
-      category: 'Инструментальные',
-      subcategory: 'Электроинструмент',
-      price: 6490,
-      voltage: '18V',
-      capacity: '5.0Ah',
-      current: '—',
-      image: '🔧',
-      brand: 'Milwaukee'
-    },
-    { 
-      id: 18, 
-      name: 'Berkut SP-8N (12V 8A)', 
-      category: 'Зарядные устройства',
-      subcategory: 'Автомобильные',
-      price: 2490,
-      voltage: '12V',
-      capacity: '—',
-      current: '8A',
-      image: '🔌',
-      brand: 'Berkut'
-    }
-  ];
-
-  const categories = [
-    { id: 'all', name: 'Все товары', icon: 'Grid3x3' },
-    { id: 'Автомобильные', name: 'Автомобильные', icon: 'Car' },
-    { id: 'Специальные', name: 'Специальные', icon: 'Zap' },
-    { id: 'Инструментальные', name: 'Инструментальные', icon: 'Wrench' },
-    { id: 'Зарядные устройства', name: 'Зарядные устройства', icon: 'BatteryCharging' },
-    { id: 'Садовая техника', name: 'Садовая техника', icon: 'Leaf' }
+  const brands = [
+    'Carku', 'Vtoman', 'Titan', 'Solite', 'FB', 'R drive', 
+    'Tubor', 'Volt', 'Gladiator', 'Varta', 'Mutlu', 
+    'ELECTRO', 'Delta'
   ];
 
   const stores = [
-    { name: 'ТЦ "Вертикаль"', address: 'ул. Тихоокеанская, 113' },
-    { name: 'ТЦ "Самбери"', address: 'ул. Волочаевская, 118' },
-    { name: 'Центральный рынок', address: 'ул. Муравьёва-Амурского, 18' },
-    { name: 'Южный', address: 'ул. Серышева, 24' },
-    { name: 'Северный', address: 'ул. Краснореченская, 92' },
-    { name: 'Промышленный', address: 'ул. Промышленная, 8' }
+    { name: 'Павловича, 26', address: 'ул. Павловича, 26' },
+    { name: 'Павловича, 11', address: 'ул. Павловича, 11' },
+    { name: 'Краснореченская, 149', address: 'ул. Краснореченская, 149' },
+    { name: 'Воронежская, 66', address: 'ул. Воронежская, 66' },
+    { name: 'Суворова, 73а/2', address: 'ул. Суворова, 73а/2' },
+    { name: 'Пр. 60-летия Октября, 154', address: 'Проспект 60-летия Октября, 154' }
   ];
 
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.brand.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const calculateBonus = (price: number) => Math.floor(price * 0.08);
-
-  const nextLevelBonus = 10000;
-  const bonusProgress = (userBonus / nextLevelBonus) * 100;
+  const serviceCenter = {
+    name: 'Сервисный центр',
+    address: 'ул. Павловича, 11/2',
+    description: 'Обслуживание аккумуляторных батарей'
+  };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border">
-        <div className="container mx-auto px-4 py-3">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 pb-20">
+      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border shadow-sm">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="text-3xl animate-pulse-glow">⚡</div>
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Icon name="Battery" size={24} className="text-primary" />
+              </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-bold text-primary">Мир Аккумуляторов</h1>
-                <p className="text-xs text-muted-foreground hidden md:block">С 1998 года в Хабаровске</p>
+                <h1 className="text-lg md:text-xl font-bold text-primary">Мир Аккумуляторов</h1>
+                <p className="text-xs text-muted-foreground">С 1998 года</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => setActiveSection('profile')}
-              className="hidden md:flex"
-            >
-              <Icon name="User" size={18} className="mr-2" />
-              {userBonus.toLocaleString()} бонусов
-            </Button>
+            <Badge variant="secondary" className="hidden md:flex items-center gap-1">
+              <Icon name="Wallet" size={14} />
+              {userCashback} ₽
+            </Badge>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6 space-y-6">
         {activeSection === 'home' && (
           <div className="space-y-8 animate-fade-in">
-            <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 p-8 md:p-12 text-center">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiLz48L2c+PC9zdmc+')] opacity-20" />
-              <div className="relative z-10">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">Энергия для вашей жизни</h2>
-                <p className="text-lg md:text-xl text-muted-foreground mb-6">
-                  Надёжные аккумуляторы и оборудование с 1998 года
-                </p>
-                <div className="flex flex-wrap gap-3 justify-center">
-                  <Badge variant="secondary" className="text-sm md:text-lg py-2 px-3 md:px-4">
-                    <Icon name="Building2" size={18} className="mr-2" />
-                    6 магазинов
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm md:text-lg py-2 px-3 md:px-4">
-                    <Icon name="Award" size={18} className="mr-2" />
-                    15+ брендов
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm md:text-lg py-2 px-3 md:px-4">
-                    <Icon name="Percent" size={18} className="mr-2" />
-                    8% кэшбэк
-                  </Badge>
-                </div>
-              </div>
-            </section>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://cdn.poehali.dev/files/IMG_0744.jpeg" 
+                alt="Мир Аккумуляторов"
+                className="w-full h-auto object-cover"
+              />
+            </div>
 
-            <section className="text-center space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold">О компании</h3>
-              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-                "Мир Аккумуляторов" работает с 1998 года. У нас 6 магазинов в Хабаровске, 
-                собственный сервисный центр и доставка по России через СДЭК. 
-                Система лояльности 8% — получайте бонусы с каждой покупки!
-              </p>
-              <Button 
-                size="lg" 
-                onClick={() => setActiveSection('catalog')}
-              >
-                <Icon name="ShoppingBag" size={20} className="mr-2" />
-                Перейти в каталог
-              </Button>
-            </section>
+            <Card className="border-2 border-primary/20">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Icon name="Award" size={24} className="text-primary" />
+                  <CardTitle className="text-2xl">О компании</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="text-center p-4 bg-primary/5 rounded-lg">
+                    <div className="text-3xl font-bold text-primary">1998</div>
+                    <p className="text-sm text-muted-foreground">Год основания</p>
+                  </div>
+                  <div className="text-center p-4 bg-primary/5 rounded-lg">
+                    <div className="text-3xl font-bold text-primary">1000+</div>
+                    <p className="text-sm text-muted-foreground">Довольных клиентов</p>
+                  </div>
+                  <div className="text-center p-4 bg-primary/5 rounded-lg">
+                    <div className="text-3xl font-bold text-primary">6</div>
+                    <p className="text-sm text-muted-foreground">Точек в городе</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Мы специализируемся на продаже аккумуляторов, зарядных устройств и комплектующих. 
+                  Работаем оптом и в розницу, предлагая одни из самых выгодных цен в Хабаровске.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-2 border-green-500/20">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Icon name="Percent" size={24} className="text-green-600" />
+                  <CardTitle className="text-2xl">Кэшбек 3%</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-lg font-medium">Копи и покупай дешевле!</p>
+                <div className="flex items-center justify-between p-4 bg-card rounded-lg">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Ваш кэшбек</p>
+                    <p className="text-2xl font-bold text-green-600">{userCashback} ₽</p>
+                  </div>
+                  <Icon name="TrendingUp" size={32} className="text-green-600" />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  С каждой покупки возвращается 3% на ваш счёт. Используйте для следующих заказов!
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Icon name="Package" size={24} className="text-primary" />
+                  <CardTitle className="text-2xl">Наши бренды</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {brands.map((brand, index) => (
+                    <Badge key={index} variant="outline" className="text-sm py-1.5 px-3">
+                      {brand}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('catalog')}>
+                <CardContent className="pt-6 text-center space-y-3">
+                  <Icon name="ShoppingBag" size={48} className="mx-auto text-primary" />
+                  <h3 className="text-xl font-semibold">Каталог товаров</h3>
+                  <p className="text-sm text-muted-foreground">Широкий выбор аккумуляторов и зарядных устройств</p>
+                  <Button className="w-full">Перейти в каталог</Button>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('contacts')}>
+                <CardContent className="pt-6 text-center space-y-3">
+                  <Icon name="MapPin" size={48} className="mx-auto text-primary" />
+                  <h3 className="text-xl font-semibold">Точки самовывоза</h3>
+                  <p className="text-sm text-muted-foreground">6 магазинов в Хабаровске для удобного самовывоза</p>
+                  <Button variant="outline" className="w-full">Смотреть адреса</Button>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         )}
 
         {activeSection === 'catalog' && (
           <div className="space-y-6 animate-fade-in">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Каталог товаров</h2>
-              <Input 
-                placeholder="Поиск по названию или бренду..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="max-w-md"
-              />
-            </div>
-
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {categories.map((cat) => (
-                <Button
-                  key={cat.id}
-                  variant={selectedCategory === cat.id ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className="whitespace-nowrap"
-                >
-                  <Icon name={cat.icon as any} size={16} className="mr-2" />
-                  {cat.name}
+            <h2 className="text-3xl font-bold">Каталог товаров</h2>
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <Icon name="Package" size={64} className="mx-auto mb-4 text-muted-foreground" />
+                <p className="text-lg text-muted-foreground mb-4">
+                  Каталог с ценами скоро появится
+                </p>
+                <Button onClick={() => setActiveSection('contacts')}>
+                  <Icon name="MessageCircle" size={18} className="mr-2" />
+                  Связаться с менеджером
                 </Button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {filteredProducts.map((product) => (
-                <Card key={product.id} className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
-                  <CardHeader>
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="text-5xl">{product.image}</div>
-                      <Badge variant="outline">{product.brand}</Badge>
-                    </div>
-                    <CardTitle className="text-lg">{product.name}</CardTitle>
-                    <CardDescription className="text-sm">{product.category} • {product.subcategory}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="font-semibold">{product.voltage}</div>
-                        <div className="text-xs text-muted-foreground">Напряжение</div>
-                      </div>
-                      {product.capacity !== '—' && (
-                        <div className="text-center p-2 bg-muted rounded">
-                          <div className="font-semibold">{product.capacity}</div>
-                          <div className="text-xs text-muted-foreground">Ёмкость</div>
-                        </div>
-                      )}
-                      {product.current !== '—' && (
-                        <div className="text-center p-2 bg-muted rounded">
-                          <div className="font-semibold">{product.current}</div>
-                          <div className="text-xs text-muted-foreground">Ток</div>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-2xl font-bold text-primary">{product.price.toLocaleString()} ₽</div>
-                        <div className="text-xs text-muted-foreground">+{calculateBonus(product.price)} бонусов (8%)</div>
-                      </div>
-                    </div>
-                    <Button className="w-full" size="sm">
-                      <Icon name="MessageCircle" size={16} className="mr-2" />
-                      Уточнить наличие
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {filteredProducts.length === 0 && (
-              <div className="text-center py-12">
-                <Icon name="Search" size={48} className="mx-auto mb-4 text-muted-foreground" />
-                <p className="text-lg text-muted-foreground">Товары не найдены</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {activeSection === 'profile' && (
-          <div className="space-y-6 animate-fade-in max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold">Личный кабинет</h2>
-
-            <Card className="bg-gradient-to-br from-primary/20 to-secondary/20">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-2xl">Ваши бонусы</CardTitle>
-                    <CardDescription>Программа лояльности 8%</CardDescription>
-                  </div>
-                  <div className="text-5xl">💎</div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <div className="text-4xl font-bold text-primary mb-2">{userBonus.toLocaleString()} бонусов</div>
-                  <p className="text-sm text-muted-foreground">= {userBonus.toLocaleString()} рублей скидки</p>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>До следующего уровня</span>
-                    <span className="font-semibold">{(nextLevelBonus - userBonus).toLocaleString()} бонусов</span>
-                  </div>
-                  <Progress value={bonusProgress} className="h-2" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-xl">Как работает программа?</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
-                    1
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Совершайте покупки</h4>
-                    <p className="text-sm text-muted-foreground">За каждые 100 ₽ начисляется 8 бонусов</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Накапливайте бонусы</h4>
-                    <p className="text-sm text-muted-foreground">Бонусы хранятся бессрочно на вашем счету</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Получайте скидки</h4>
-                    <p className="text-sm text-muted-foreground">1 бонус = 1 рубль скидки на следующую покупку</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-xl">Примеры начисления</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                  <span className="text-sm">Покупка на 5 000 ₽</span>
-                  <Badge variant="secondary">+400 бонусов</Badge>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                  <span className="text-sm">Покупка на 10 000 ₽</span>
-                  <Badge variant="secondary">+800 бонусов</Badge>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                  <span className="text-sm">Покупка на 20 000 ₽</span>
-                  <Badge variant="secondary">+1 600 бонусов</Badge>
-                </div>
               </CardContent>
             </Card>
           </div>
@@ -501,102 +174,189 @@ const Index = () => {
 
         {activeSection === 'contacts' && (
           <div className="space-y-6 animate-fade-in">
-            <div className="text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Контакты</h2>
-              <p className="text-lg text-muted-foreground">
-                6 магазинов в Хабаровске — выбирайте удобный для вас
-              </p>
-            </div>
+            <h2 className="text-3xl font-bold">Контакты</h2>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {stores.map((store, index) => (
-                <Card key={index} className="hover:shadow-xl transition-all">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Icon name="MapPin" size={18} className="text-primary" />
-                      {store.name}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-3">{store.address}</p>
-                    <Button variant="outline" className="w-full" size="sm">
-                      <Icon name="Navigation" size={14} className="mr-2" />
-                      Проложить маршрут
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <Card className="max-w-2xl mx-auto bg-gradient-to-br from-primary/10 to-secondary/10">
+            <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-blue-600/5">
               <CardHeader>
-                <CardTitle className="text-xl text-center">Персональный менеджер</CardTitle>
-                <CardDescription className="text-center">
-                  Наш специалист поможет подобрать товар и уточнит наличие
-                </CardDescription>
+                <div className="flex items-center gap-2">
+                  <Icon name="MessageCircle" size={24} className="text-blue-600" />
+                  <CardTitle>Связь с менеджером</CardTitle>
+                </div>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button size="lg" className="w-full">
-                  <Icon name="Send" size={18} className="mr-2" />
+                <p className="text-muted-foreground">
+                  Для заказа и консультации свяжитесь с нашим менеджером в Telegram
+                </p>
+                <Button 
+                  size="lg" 
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  onClick={() => window.open('https://t.me/your_manager_username', '_blank')}
+                >
+                  <Icon name="MessageCircle" size={20} className="mr-2" />
                   Написать в Telegram
                 </Button>
-                <Button size="lg" className="w-full" variant="outline">
-                  <Icon name="Mail" size={18} className="mr-2" />
-                  Отправить жалобу на почту
-                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Icon name="Mail" size={24} className="text-primary" />
+                  <CardTitle>Обратная связь</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-muted-foreground">
+                  По вопросам брака или недовольства товаром:
+                </p>
+                <a href="mailto:ispanov08@gmail.com" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Mail" size={18} />
+                  ispanov08@gmail.com
+                </a>
+              </CardContent>
+            </Card>
+
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Точки самовывоза</h3>
+              <div className="space-y-3">
+                {stores.map((store, index) => (
+                  <Card key={index} className="hover:shadow-md transition-shadow">
+                    <CardContent className="pt-4">
+                      <div className="flex items-start gap-3">
+                        <Icon name="MapPin" size={20} className="text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold">{store.name}</p>
+                          <p className="text-sm text-muted-foreground">{store.address}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-2 border-amber-500/20">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Icon name="Wrench" size={24} className="text-amber-600" />
+                  <CardTitle>{serviceCenter.name}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-2">{serviceCenter.description}</p>
+                <div className="flex items-start gap-2">
+                  <Icon name="MapPin" size={18} className="text-amber-600 mt-0.5 flex-shrink-0" />
+                  <p className="font-medium">{serviceCenter.address}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {activeSection === 'profile' && (
+          <div className="space-y-6 animate-fade-in max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold">Личный кабинет</h2>
+
+            <Card className="border-2 border-primary/20">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Icon name="Wallet" size={24} className="text-primary" />
+                    <CardTitle>Мой кэшбек</CardTitle>
+                  </div>
+                  <div className="text-3xl font-bold text-primary">
+                    {userCashback} ₽
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="Info" size={18} className="text-green-600" />
+                    <p className="font-semibold text-green-600">Как работает кэшбек?</p>
+                  </div>
+                  <ul className="text-sm text-muted-foreground space-y-1 ml-6 list-disc">
+                    <li>С каждой покупки возвращается 3% на ваш счёт</li>
+                    <li>Кэшбек можно использовать для оплаты следующих заказов</li>
+                    <li>Накопленные средства не сгорают</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Примеры начисления:</h4>
+                  <div className="grid gap-2">
+                    <div className="flex justify-between p-3 bg-muted rounded">
+                      <span className="text-muted-foreground">Покупка на 5 000 ₽</span>
+                      <Badge variant="secondary">+150 ₽</Badge>
+                    </div>
+                    <div className="flex justify-between p-3 bg-muted rounded">
+                      <span className="text-muted-foreground">Покупка на 10 000 ₽</span>
+                      <Badge variant="secondary">+300 ₽</Badge>
+                    </div>
+                    <div className="flex justify-between p-3 bg-muted rounded">
+                      <span className="text-muted-foreground">Покупка на 20 000 ₽</span>
+                      <Badge variant="secondary">+600 ₽</Badge>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>История покупок</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center py-8">
+                <Icon name="ShoppingBag" size={48} className="mx-auto mb-3 text-muted-foreground" />
+                <p className="text-muted-foreground">История покупок пока пуста</p>
               </CardContent>
             </Card>
           </div>
         )}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border md:hidden">
-        <div className="grid grid-cols-4 gap-1 p-2">
-          <Button
-            variant={activeSection === 'home' ? 'default' : 'ghost'}
-            size="sm"
-            onClick={() => setActiveSection('home')}
-            className="flex flex-col h-auto py-2"
-          >
-            <Icon name="Home" size={20} />
-            <span className="text-xs mt-1">Главная</span>
-          </Button>
-          <Button
-            variant={activeSection === 'catalog' ? 'default' : 'ghost'}
-            size="sm"
-            onClick={() => setActiveSection('catalog')}
-            className="flex flex-col h-auto py-2"
-          >
-            <Icon name="ShoppingBag" size={20} />
-            <span className="text-xs mt-1">Каталог</span>
-          </Button>
-          <Button
-            variant={activeSection === 'profile' ? 'default' : 'ghost'}
-            size="sm"
-            onClick={() => setActiveSection('profile')}
-            className="flex flex-col h-auto py-2"
-          >
-            <Icon name="User" size={20} />
-            <span className="text-xs mt-1">Профиль</span>
-          </Button>
-          <Button
-            variant={activeSection === 'contacts' ? 'default' : 'ghost'}
-            size="sm"
-            onClick={() => setActiveSection('contacts')}
-            className="flex flex-col h-auto py-2"
-          >
-            <Icon name="MapPin" size={20} />
-            <span className="text-xs mt-1">Контакты</span>
-          </Button>
+      <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
+        <div className="container mx-auto px-2">
+          <div className="flex justify-around items-center h-16">
+            <Button
+              variant={activeSection === 'home' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('home')}
+              className="flex flex-col h-auto py-2 px-3"
+            >
+              <Icon name="Home" size={20} />
+              <span className="text-xs mt-1">Главная</span>
+            </Button>
+            <Button
+              variant={activeSection === 'catalog' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('catalog')}
+              className="flex flex-col h-auto py-2 px-3"
+            >
+              <Icon name="ShoppingBag" size={20} />
+              <span className="text-xs mt-1">Каталог</span>
+            </Button>
+            <Button
+              variant={activeSection === 'contacts' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('contacts')}
+              className="flex flex-col h-auto py-2 px-3"
+            >
+              <Icon name="MapPin" size={20} />
+              <span className="text-xs mt-1">Контакты</span>
+            </Button>
+            <Button
+              variant={activeSection === 'profile' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('profile')}
+              className="flex flex-col h-auto py-2 px-3"
+            >
+              <Icon name="User" size={20} />
+              <span className="text-xs mt-1">Профиль</span>
+            </Button>
+          </div>
         </div>
       </nav>
-
-      <footer className="border-t border-border mt-16 py-6 hidden md:block">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p className="mb-2">© 1998-2026 Мир Аккумуляторов. Все права защищены.</p>
-          <p className="text-sm">Хабаровск • 6 магазинов • Доставка СДЭК по России • Кэшбэк 8%</p>
-        </div>
-      </footer>
     </div>
   );
 };
