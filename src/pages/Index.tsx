@@ -20,12 +20,18 @@ interface Product {
   image: string;
 }
 
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [userCashback, setUserCashback] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedCar, setSelectedCar] = useState('');
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   const products: Product[] = [
     {
@@ -254,6 +260,40 @@ const Index = () => {
     setSelectedCar('');
   };
 
+  const addToCart = (product: Product) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.product.id === product.id);
+      if (existing) {
+        return prev.map(item =>
+          item.product.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { product, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (productId: number) => {
+    setCart(prev => prev.filter(item => item.product.id !== productId));
+  };
+
+  const updateQuantity = (productId: number, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(productId);
+      return;
+    }
+    setCart(prev => prev.map(item =>
+      item.product.id === productId
+        ? { ...item, quantity }
+        : item
+    ));
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const cartCashback = Math.floor(cartTotal * 0.03);
+  const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 pb-20">
       <header className="sticky top-0 z-50 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border shadow-sm">
@@ -268,10 +308,25 @@ const Index = () => {
                 <p className="text-xs text-muted-foreground">С 1998 года</p>
               </div>
             </div>
-            <Badge variant="secondary" className="hidden md:flex items-center gap-1">
-              <Icon name="Wallet" size={14} />
-              {userCashback} ₽
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActiveSection('cart')}
+                className="relative"
+              >
+                <Icon name="ShoppingCart" size={18} />
+                {cartItemsCount > 0 && (
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                    {cartItemsCount}
+                  </Badge>
+                )}
+              </Button>
+              <Badge variant="secondary" className="hidden md:flex items-center gap-1">
+                <Icon name="Wallet" size={14} />
+                {userCashback} ₽
+              </Badge>
+            </div>
           </div>
         </div>
       </header>
@@ -498,10 +553,10 @@ const Index = () => {
                       </div>
                       <Button 
                         className="w-full"
-                        onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+                        onClick={() => addToCart(product)}
                       >
-                        <Icon name="MessageCircle" size={16} className="mr-2" />
-                        Заказать
+                        <Icon name="ShoppingCart" size={16} className="mr-2" />
+                        В корзину
                       </Button>
                     </div>
                   </CardContent>
@@ -520,6 +575,128 @@ const Index = () => {
                   <Button onClick={resetFilters}>Сбросить фильтры</Button>
                 </CardContent>
               </Card>
+            )}
+          </div>
+        )}
+
+        {activeSection === 'cart' && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold">Корзина</h2>
+              {cartItemsCount > 0 && (
+                <Badge variant="secondary" className="text-base">
+                  {cartItemsCount} товаров
+                </Badge>
+              )}
+            </div>
+
+            {cart.length === 0 ? (
+              <Card>
+                <CardContent className="pt-6 text-center py-12">
+                  <Icon name="ShoppingCart" size={64} className="mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="text-xl font-semibold mb-2">Корзина пуста</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Добавьте товары из каталога
+                  </p>
+                  <Button onClick={() => setActiveSection('catalog')}>
+                    <Icon name="ShoppingBag" size={18} className="mr-2" />
+                    Перейти в каталог
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <>
+                <div className="space-y-4">
+                  {cart.map(item => (
+                    <Card key={item.product.id}>
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-4">
+                          <div className="text-5xl flex-shrink-0">{item.product.image}</div>
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start mb-2">
+                              <div>
+                                <h3 className="font-semibold text-lg">{item.product.name}</h3>
+                                <p className="text-sm text-muted-foreground">{item.product.brand}</p>
+                                <div className="flex gap-2 mt-1">
+                                  <Badge variant="outline" className="text-xs">{item.product.voltage}</Badge>
+                                  <Badge variant="outline" className="text-xs">{item.product.capacity}</Badge>
+                                </div>
+                              </div>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeFromCart(item.product.id)}
+                              >
+                                <Icon name="Trash2" size={18} className="text-destructive" />
+                              </Button>
+                            </div>
+                            <div className="flex items-center justify-between mt-4">
+                              <div className="flex items-center gap-3">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                                >
+                                  <Icon name="Minus" size={14} />
+                                </Button>
+                                <span className="font-semibold w-8 text-center">{item.quantity}</span>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                                >
+                                  <Icon name="Plus" size={14} />
+                                </Button>
+                              </div>
+                              <div className="text-right">
+                                <div className="text-xl font-bold text-primary">
+                                  {(item.product.price * item.quantity).toLocaleString()} ₽
+                                </div>
+                                <div className="text-xs text-green-600">
+                                  +{Math.floor(item.product.price * item.quantity * 0.03)} ₽ кэшбек
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                <Card className="bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary/20">
+                  <CardHeader>
+                    <CardTitle className="text-2xl">Итого</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex justify-between items-center text-lg">
+                      <span>Товары ({cartItemsCount})</span>
+                      <span className="font-semibold">{cartTotal.toLocaleString()} ₽</span>
+                    </div>
+                    <div className="flex justify-between items-center text-lg border-t pt-4">
+                      <span className="font-semibold">Начислим кэшбек (3%)</span>
+                      <Badge variant="secondary" className="text-lg py-1 px-3">
+                        +{cartCashback.toLocaleString()} ₽
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between items-center text-2xl font-bold border-t pt-4">
+                      <span>К оплате</span>
+                      <span className="text-primary">{cartTotal.toLocaleString()} ₽</span>
+                    </div>
+                    <Button
+                      size="lg"
+                      className="w-full text-lg"
+                      onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+                    >
+                      <Icon name="MessageCircle" size={20} className="mr-2" />
+                      Оформить заказ
+                    </Button>
+                    <p className="text-sm text-muted-foreground text-center">
+                      Менеджер уточнит наличие и оформит заказ
+                    </p>
+                  </CardContent>
+                </Card>
+              </>
             )}
           </div>
         )}
@@ -689,13 +866,18 @@ const Index = () => {
               <span className="text-xs mt-1">Каталог</span>
             </Button>
             <Button
-              variant={activeSection === 'contacts' ? 'default' : 'ghost'}
+              variant={activeSection === 'cart' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setActiveSection('contacts')}
-              className="flex flex-col h-auto py-2 px-3"
+              onClick={() => setActiveSection('cart')}
+              className="flex flex-col h-auto py-2 px-3 relative"
             >
-              <Icon name="MapPin" size={20} />
-              <span className="text-xs mt-1">Контакты</span>
+              <Icon name="ShoppingCart" size={20} />
+              <span className="text-xs mt-1">Корзина</span>
+              {cartItemsCount > 0 && (
+                <Badge className="absolute top-1 right-1 h-4 w-4 flex items-center justify-center p-0 text-xs">
+                  {cartItemsCount}
+                </Badge>
+              )}
             </Button>
             <Button
               variant={activeSection === 'profile' ? 'default' : 'ghost'}
