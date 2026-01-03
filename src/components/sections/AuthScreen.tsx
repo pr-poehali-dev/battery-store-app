@@ -4,31 +4,39 @@ import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 
 interface AuthScreenProps {
-  authStep: 'phone' | 'code' | 'register';
+  authStep: 'method' | 'phone' | 'telegram' | 'code' | 'register';
   phoneNumber: string;
   setPhoneNumber: (value: string) => void;
+  telegramId: string;
+  setTelegramId: (value: string) => void;
   verificationCode: string;
   setVerificationCode: (value: string) => void;
   firstName: string;
   setFirstName: (value: string) => void;
   lastName: string;
   setLastName: (value: string) => void;
+  authMethod: 'sms' | 'telegram';
+  setAuthMethod: (method: 'sms' | 'telegram') => void;
   handleSendCode: () => void;
   handleVerifyCode: () => void;
   handleRegister: () => void;
-  setAuthStep: (step: 'phone' | 'code' | 'register') => void;
+  setAuthStep: (step: 'method' | 'phone' | 'telegram' | 'code' | 'register') => void;
 }
 
 const AuthScreen = ({
   authStep,
   phoneNumber,
   setPhoneNumber,
+  telegramId,
+  setTelegramId,
   verificationCode,
   setVerificationCode,
   firstName,
   setFirstName,
   lastName,
   setLastName,
+  authMethod,
+  setAuthMethod,
   handleSendCode,
   handleVerifyCode,
   handleRegister,
@@ -45,6 +53,96 @@ const AuthScreen = ({
           <CardDescription>Войдите в личный кабинет</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {authStep === 'method' && (
+            <>
+              <div className="text-center mb-4">
+                <p className="text-sm text-muted-foreground">
+                  Выберите способ входа
+                </p>
+              </div>
+              <div className="space-y-3">
+                <Button
+                  className="w-full h-auto py-6 flex flex-col gap-2"
+                  variant="outline"
+                  onClick={() => {
+                    setAuthMethod('telegram');
+                    setAuthStep('telegram');
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+                      <Icon name="MessageCircle" size={24} className="text-blue-500" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-semibold">Telegram</p>
+                      <p className="text-xs text-muted-foreground">Быстрый вход через бота</p>
+                    </div>
+                  </div>
+                </Button>
+                <Button
+                  className="w-full h-auto py-6 flex flex-col gap-2"
+                  variant="outline"
+                  onClick={() => {
+                    setAuthMethod('sms');
+                    setAuthStep('phone');
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                      <Icon name="Smartphone" size={24} className="text-green-500" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-semibold">SMS</p>
+                      <p className="text-xs text-muted-foreground">Вход через номер телефона</p>
+                    </div>
+                  </div>
+                </Button>
+              </div>
+            </>
+          )}
+
+          {authStep === 'telegram' && (
+            <>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Telegram ID</label>
+                <Input
+                  type="text"
+                  placeholder="123456789"
+                  value={telegramId}
+                  onChange={(e) => setTelegramId(e.target.value.replace(/\D/g, ''))}
+                  className="text-lg"
+                />
+                <div className="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                  <p className="text-xs text-muted-foreground mb-2">
+                    <Icon name="Info" size={14} className="inline mr-1" />
+                    Как узнать свой Telegram ID:
+                  </p>
+                  <ol className="text-xs text-muted-foreground space-y-1 ml-4 list-decimal">
+                    <li>Откройте бота <a href="https://t.me/userinfobot" target="_blank" className="text-blue-600 underline">@userinfobot</a></li>
+                    <li>Отправьте команду /start</li>
+                    <li>Скопируйте ваш ID и вставьте сюда</li>
+                  </ol>
+                </div>
+              </div>
+              <Button 
+                className="w-full" 
+                size="lg"
+                onClick={handleSendCode}
+                disabled={telegramId.length < 5}
+              >
+                <Icon name="ArrowRight" size={20} className="mr-2" />
+                Отправить код в Telegram
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full"
+                onClick={() => setAuthStep('method')}
+              >
+                Назад
+              </Button>
+            </>
+          )}
+
           {authStep === 'phone' && (
             <>
               <div className="space-y-2">
@@ -68,7 +166,14 @@ const AuthScreen = ({
                 disabled={phoneNumber.length < 10}
               >
                 <Icon name="ArrowRight" size={20} className="mr-2" />
-                Продолжить
+                Отправить SMS
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full"
+                onClick={() => setAuthStep('method')}
+              >
+                Назад
               </Button>
             </>
           )}
@@ -77,18 +182,18 @@ const AuthScreen = ({
             <>
               <div className="text-center mb-4">
                 <p className="text-sm text-muted-foreground">
-                  Код отправлен на номер
+                  Код отправлен {authMethod === 'telegram' ? 'в Telegram' : 'на номер'}
                 </p>
-                <p className="font-semibold">+{phoneNumber}</p>
+                <p className="font-semibold">{authMethod === 'telegram' ? `ID: ${telegramId}` : `+${phoneNumber}`}</p>
                 <Button 
                   variant="link" 
                   size="sm"
                   onClick={() => {
-                    setAuthStep('phone');
+                    setAuthStep(authMethod === 'telegram' ? 'telegram' : 'phone');
                     setVerificationCode('');
                   }}
                 >
-                  Изменить номер
+                  Изменить {authMethod === 'telegram' ? 'ID' : 'номер'}
                 </Button>
               </div>
               <div className="space-y-2">
@@ -123,7 +228,7 @@ const AuthScreen = ({
                 <p className="text-sm text-muted-foreground">
                   Создание нового аккаунта
                 </p>
-                <p className="font-semibold">+{phoneNumber}</p>
+                <p className="font-semibold">{authMethod === 'telegram' ? `Telegram ID: ${telegramId}` : `+${phoneNumber}`}</p>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
@@ -158,7 +263,7 @@ const AuthScreen = ({
                 variant="outline"
                 className="w-full"
                 onClick={() => {
-                  setAuthStep('phone');
+                  setAuthStep(authMethod === 'telegram' ? 'telegram' : 'phone');
                   setFirstName('');
                   setLastName('');
                 }}

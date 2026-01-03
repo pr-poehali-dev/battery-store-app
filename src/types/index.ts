@@ -17,7 +17,8 @@ export interface CartItem {
 }
 
 export interface User {
-  phone: string;
+  phone?: string;
+  telegram_id?: string;
   firstName: string;
   lastName: string;
   cashback: number;

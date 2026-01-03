@@ -4,7 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
 interface User {
-  phone: string;
+  phone?: string;
+  telegram_id?: string;
   firstName: string;
   lastName: string;
   cashback: number;
@@ -34,7 +35,9 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
             </div>
             <div>
               <CardTitle className="text-2xl">{user.firstName} {user.lastName}</CardTitle>
-              <p className="text-muted-foreground">+{user.phone}</p>
+              <p className="text-muted-foreground">
+                {user.telegram_id ? `Telegram ID: ${user.telegram_id}` : `+${user.phone}`}
+              </p>
             </div>
           </div>
         </CardHeader>

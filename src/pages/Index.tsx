@@ -31,12 +31,16 @@ const Index = () => {
         authStep={auth.authStep}
         phoneNumber={auth.phoneNumber}
         setPhoneNumber={auth.setPhoneNumber}
+        telegramId={auth.telegramId}
+        setTelegramId={auth.setTelegramId}
         verificationCode={auth.verificationCode}
         setVerificationCode={auth.setVerificationCode}
         firstName={auth.firstName}
         setFirstName={auth.setFirstName}
         lastName={auth.lastName}
         setLastName={auth.setLastName}
+        authMethod={auth.authMethod}
+        setAuthMethod={auth.setAuthMethod}
         handleSendCode={auth.handleSendCode}
         handleVerifyCode={auth.handleVerifyCode}
         handleRegister={auth.handleRegister}

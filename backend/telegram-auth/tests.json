@@ -1,0 +1,42 @@
+{
+  "tests": [
+    {
+      "name": "Send code - missing telegram_id",
+      "method": "POST",
+      "body": {
+        "action": "send"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "telegram_id is required"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Verify code - missing parameters",
+      "method": "POST",
+      "body": {
+        "action": "verify"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "telegram_id and code are required"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Verify code - code not found",
+      "method": "POST",
+      "body": {
+        "action": "verify",
+        "telegram_id": "999999999",
+        "code": "1234"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Code not found or expired"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
