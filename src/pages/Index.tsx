@@ -52,7 +52,16 @@ const Index = () => {
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        const userData = JSON.parse(savedUser);
+        if (userData && userData.phone && userData.firstName) {
+          setUser(userData);
+        } else {
+          localStorage.removeItem('user');
+        }
+      } catch (e) {
+        localStorage.removeItem('user');
+      }
     }
 
     let deferredPrompt: any;
@@ -700,6 +709,18 @@ const Index = () => {
                 </Button>
               </>
             )}
+            
+            <Button 
+              variant="ghost"
+              size="sm"
+              className="w-full text-xs text-muted-foreground"
+              onClick={() => {
+                localStorage.clear();
+                window.location.reload();
+              }}
+            >
+              Очистить данные и начать заново
+            </Button>
           </CardContent>
         </Card>
       </div>
