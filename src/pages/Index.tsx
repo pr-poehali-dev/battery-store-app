@@ -341,7 +341,7 @@ const Index = () => {
                 <Icon name="Battery" size={24} className="text-primary" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold text-primary">Мир Аккумуляторов</h1>
+                <h1 className="text-lg md:text-xl font-bold text-primary">miraccum.ru</h1>
                 <p className="text-xs text-muted-foreground">С 1998 года</p>
               </div>
             </div>
