@@ -32,6 +32,7 @@ const Index = () => {
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedCar, setSelectedCar] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [selectedStore, setSelectedStore] = useState('');
 
   const products: Product[] = [
     {
@@ -664,6 +665,36 @@ const Index = () => {
                   ))}
                 </div>
 
+                <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-2 border-amber-500/20">
+                  <CardHeader>
+                    <div className="flex items-center gap-2">
+                      <Icon name="MapPin" size={24} className="text-amber-600" />
+                      <CardTitle className="text-xl">Самовывоз из магазина</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-sm text-muted-foreground">Выберите магазин для получения заказа:</p>
+                    <select
+                      value={selectedStore}
+                      onChange={(e) => setSelectedStore(e.target.value)}
+                      className="w-full p-3 border border-input rounded-md bg-background text-sm"
+                    >
+                      <option value="">Выберите магазин...</option>
+                      {stores.map((store, index) => (
+                        <option key={index} value={store.address}>
+                          {store.name} — {store.address}
+                        </option>
+                      ))}
+                    </select>
+                    {selectedStore && (
+                      <div className="flex items-start gap-2 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                        <Icon name="CheckCircle" size={18} className="text-green-600 mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-green-600 font-medium">{selectedStore}</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
                 <Card className="bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary/20">
                   <CardHeader>
                     <CardTitle className="text-2xl">Итого</CardTitle>
@@ -679,6 +710,15 @@ const Index = () => {
                         +{cartCashback.toLocaleString()} ₽
                       </Badge>
                     </div>
+                    <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Icon name="Wallet" size={20} className="text-blue-600" />
+                        <p className="font-semibold text-blue-600">Оплата при получении</p>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Вы оплачиваете заказ наличными или картой при самовывозе в магазине
+                      </p>
+                    </div>
                     <div className="flex justify-between items-center text-2xl font-bold border-t pt-4">
                       <span>К оплате</span>
                       <span className="text-primary">{cartTotal.toLocaleString()} ₽</span>
@@ -686,13 +726,22 @@ const Index = () => {
                     <Button
                       size="lg"
                       className="w-full text-lg"
-                      onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+                      disabled={!selectedStore}
+                      onClick={() => {
+                        const message = `Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\nКэшбек: +${cartCashback} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`;
+                        window.open(`https://t.me/nobodystillhere?text=${encodeURIComponent(message)}`, '_blank');
+                      }}
                     >
                       <Icon name="MessageCircle" size={20} className="mr-2" />
                       Оформить заказ
                     </Button>
+                    {!selectedStore && (
+                      <p className="text-sm text-amber-600 text-center">
+                        ⚠️ Выберите магазин для самовывоза
+                      </p>
+                    )}
                     <p className="text-sm text-muted-foreground text-center">
-                      Менеджер уточнит наличие и оформит заказ
+                      Менеджер уточнит наличие и подтвердит заказ
                     </p>
                   </CardContent>
                 </Card>
