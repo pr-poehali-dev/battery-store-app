@@ -1,16 +1,16 @@
 {
   "tests": [
     {
-      "name": "Send SMS code",
+      "name": "Send SMS code in dev mode",
       "method": "POST",
       "path": "/",
       "body": {
+        "action": "send",
         "phone": "79991234567"
       },
       "expectedStatus": 200,
       "expectedBody": {
-        "success": true,
-        "message": "string"
+        "success": true
       },
       "bodyMatcher": "partial"
     }

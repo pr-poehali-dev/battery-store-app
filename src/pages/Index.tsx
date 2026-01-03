@@ -84,13 +84,12 @@ const Index = () => {
       const response = await fetch('https://functions.poehali.dev/56bac5a6-91d6-4585-9512-489b5f3b2518', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: phoneNumber })
+        body: JSON.stringify({ action: 'send', phone: phoneNumber })
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // В режиме разработки показываем код
         if (data.dev_code) {
           alert(`Код для входа (режим разработки): ${data.dev_code}`);
         }
@@ -118,10 +117,10 @@ const Index = () => {
     vibrate(50);
     
     try {
-      const response = await fetch('https://functions.poehali.dev/a99679e2-81e3-4af8-9459-ff352871e750', {
+      const response = await fetch('https://functions.poehali.dev/56bac5a6-91d6-4585-9512-489b5f3b2518', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: phoneNumber, code: verificationCode })
+        body: JSON.stringify({ action: 'verify', phone: phoneNumber, code: verificationCode })
       });
 
       const data = await response.json();
@@ -129,9 +128,13 @@ const Index = () => {
       if (data.success) {
         const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
         const userData = savedUsers[phoneNumber];
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-        setIsAuthenticating(false);
+        
+        if (userData) {
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          alert('Пользователь не найден');
+        }
       } else {
         alert(data.error || 'Неверный код');
       }
