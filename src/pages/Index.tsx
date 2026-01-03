@@ -395,6 +395,21 @@ const Index = () => {
     setSelectedCategory('');
   };
 
+  const getCategoryBadge = (category: string) => {
+    const badges: Record<string, { icon: string; color: string; label: string }> = {
+      'Азиатские': { icon: '🌏', color: 'bg-blue-500/10 text-blue-600 border-blue-500/20', label: 'Азия' },
+      'Азиатские премиум': { icon: '⭐', color: 'bg-purple-500/10 text-purple-600 border-purple-500/20', label: 'Премиум' },
+      'Европейские': { icon: '🇪🇺', color: 'bg-green-500/10 text-green-600 border-green-500/20', label: 'Европа' },
+      'Российские': { icon: '🇷🇺', color: 'bg-red-500/10 text-red-600 border-red-500/20', label: 'Россия' },
+      'AGM': { icon: '⚡', color: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20', label: 'AGM' },
+      'EFB': { icon: '🔌', color: 'bg-orange-500/10 text-orange-600 border-orange-500/20', label: 'EFB' },
+      'Грузовые': { icon: '🚛', color: 'bg-gray-500/10 text-gray-600 border-gray-500/20', label: 'Грузовые' },
+      'Пусковые устройства': { icon: '🔧', color: 'bg-cyan-500/10 text-cyan-600 border-cyan-500/20', label: 'Пусковое' },
+      'Зарядные устройства': { icon: '🔋', color: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20', label: 'Зарядное' }
+    };
+    return badges[category] || { icon: '🔋', color: 'bg-gray-500/10 text-gray-600 border-gray-500/20', label: category };
+  };
+
   const addToCart = (product: Product) => {
     vibrate(50);
     setCart(prev => {
@@ -681,9 +696,12 @@ const Index = () => {
               {filteredProducts.map((product) => (
                 <Card key={product.id} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between mb-2">
                       <div className="text-4xl">{product.image}</div>
-                      <Badge variant="secondary">{product.category}</Badge>
+                      <Badge className={`${getCategoryBadge(product.category).color} border`}>
+                        <span className="mr-1">{getCategoryBadge(product.category).icon}</span>
+                        {getCategoryBadge(product.category).label}
+                      </Badge>
                     </div>
                     <CardTitle className="text-lg">{product.name}</CardTitle>
                     <CardDescription>{product.brand}</CardDescription>
