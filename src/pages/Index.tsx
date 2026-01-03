@@ -341,7 +341,7 @@ const Index = () => {
                 <Icon name="Battery" size={24} className="text-primary" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold text-primary">miraccum.ru</h1>
+                <h1 className="text-lg md:text-xl font-bold text-primary">Мир Аккумуляторов</h1>
                 <p className="text-xs text-muted-foreground">С 1998 года</p>
               </div>
             </div>
@@ -425,8 +425,9 @@ const Index = () => {
                   </div>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
-                  Мы специализируемся на продаже аккумуляторов, зарядных устройств и комплектующих. 
-                  Работаем оптом и в розницу, предлагая одни из самых выгодных цен в Хабаровске.
+                  Компания "Мир Аккумуляторов" основана в 1998 году. В наших магазинах представлен широкий ассортимент 
+                  аккумуляторных батарей от 1 Ач до 240 Ач для легкового и грузового транспорта, мотоциклов, снегоходов 
+                  и гидроциклов, складской и уборочной техники.
                 </p>
               </CardContent>
             </Card>
