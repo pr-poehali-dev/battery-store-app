@@ -70,30 +70,74 @@ const Index = () => {
     };
   }, []);
 
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
     if (!phoneNumber || phoneNumber.length < 10) {
       alert('Введите корректный номер телефона');
       return;
     }
     vibrate(50);
+    
     const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
-    if (savedUsers[phoneNumber]) {
-      setAuthStep('code');
-    } else {
-      setAuthStep('register');
+    const isExistingUser = !!savedUsers[phoneNumber];
+    
+    try {
+      const response = await fetch('https://functions.poehali.dev/56bac5a6-91d6-4585-9512-489b5f3b2518', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phoneNumber })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // В режиме разработки показываем код
+        if (data.dev_code) {
+          alert(`Код для входа (режим разработки): ${data.dev_code}`);
+        }
+        
+        if (isExistingUser) {
+          setAuthStep('code');
+        } else {
+          setAuthStep('register');
+        }
+      } else {
+        alert(data.error || 'Ошибка отправки кода');
+      }
+    } catch (error) {
+      console.error('SMS error:', error);
+      alert('Ошибка отправки SMS. Проверьте подключение.');
     }
   };
 
-  const handleVerifyCode = () => {
-    if (verificationCode === '1234') {
-      vibrate(50);
-      const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
-      const userData = savedUsers[phoneNumber];
-      setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
-      setIsAuthenticating(false);
-    } else {
-      alert('Неверный код. Используйте 1234 для демо');
+  const handleVerifyCode = async () => {
+    if (!verificationCode || verificationCode.length !== 4) {
+      alert('Введите 4-значный код');
+      return;
+    }
+    
+    vibrate(50);
+    
+    try {
+      const response = await fetch('https://functions.poehali.dev/a99679e2-81e3-4af8-9459-ff352871e750', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phoneNumber, code: verificationCode })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+        const userData = savedUsers[phoneNumber];
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setIsAuthenticating(false);
+      } else {
+        alert(data.error || 'Неверный код');
+      }
+    } catch (error) {
+      console.error('Verify error:', error);
+      alert('Ошибка проверки кода');
     }
   };
 
