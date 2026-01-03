@@ -3,11 +3,212 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
+import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
+
+interface Product {
+  id: number;
+  name: string;
+  brand: string;
+  price: number;
+  voltage: string;
+  capacity: string;
+  current: string;
+  category: string;
+  compatible: string[];
+  image: string;
+}
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [userCashback, setUserCashback] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState([0, 50000]);
+  const [selectedCar, setSelectedCar] = useState('');
+
+  const products: Product[] = [
+    {
+      id: 1,
+      name: 'Varta Blue Dynamic 60Ah 540A',
+      brand: 'Varta',
+      price: 5990,
+      voltage: '12V',
+      capacity: '60Ah',
+      current: '540A',
+      category: 'Автомобильные',
+      compatible: ['Toyota Camry', 'Honda Civic', 'Mazda 6', 'Volkswagen Polo'],
+      image: '🔋'
+    },
+    {
+      id: 2,
+      name: 'Mutlu 74Ah 680A',
+      brand: 'Mutlu',
+      price: 7490,
+      voltage: '12V',
+      capacity: '74Ah',
+      current: '680A',
+      category: 'Автомобильные',
+      compatible: ['Toyota RAV4', 'Nissan X-Trail', 'Hyundai Tucson', 'Kia Sportage'],
+      image: '🔋'
+    },
+    {
+      id: 3,
+      name: 'Titan 100Ah 850A',
+      brand: 'Titan',
+      price: 8990,
+      voltage: '12V',
+      capacity: '100Ah',
+      current: '850A',
+      category: 'Автомобильные',
+      compatible: ['УАЗ Патриот', 'Mitsubishi L200', 'Toyota Land Cruiser', 'Nissan Patrol'],
+      image: '⚡'
+    },
+    {
+      id: 4,
+      name: 'Solite 65Ah 580A',
+      brand: 'Solite',
+      price: 6490,
+      voltage: '12V',
+      capacity: '65Ah',
+      current: '580A',
+      category: 'Автомобильные',
+      compatible: ['Hyundai Solaris', 'Kia Rio', 'Chevrolet Cruze', 'Renault Logan'],
+      image: '🔋'
+    },
+    {
+      id: 5,
+      name: 'FB 55Ah 480A',
+      brand: 'FB',
+      price: 4990,
+      voltage: '12V',
+      capacity: '55Ah',
+      current: '480A',
+      category: 'Автомобильные',
+      compatible: ['Lada Granta', 'Lada Vesta', 'Daewoo Nexia', 'Chevrolet Lanos'],
+      image: '🔋'
+    },
+    {
+      id: 6,
+      name: 'Tubor 90Ah 760A',
+      brand: 'Tubor',
+      price: 9490,
+      voltage: '12V',
+      capacity: '90Ah',
+      current: '760A',
+      category: 'Автомобильные',
+      compatible: ['Ford Explorer', 'Jeep Grand Cherokee', 'BMW X5', 'Audi Q7'],
+      image: '⚡'
+    },
+    {
+      id: 7,
+      name: 'Volt 70Ah 640A',
+      brand: 'Volt',
+      price: 7290,
+      voltage: '12V',
+      capacity: '70Ah',
+      current: '640A',
+      category: 'Автомобильные',
+      compatible: ['Volkswagen Tiguan', 'Skoda Octavia', 'Ford Focus', 'Opel Astra'],
+      image: '🔋'
+    },
+    {
+      id: 8,
+      name: 'Gladiator 80Ah 720A',
+      brand: 'Gladiator',
+      price: 8490,
+      voltage: '12V',
+      capacity: '80Ah',
+      current: '720A',
+      category: 'Автомобильные',
+      compatible: ['Mazda CX-5', 'Subaru Forester', 'Honda CR-V', 'Toyota Highlander'],
+      image: '⚡'
+    },
+    {
+      id: 9,
+      name: 'ELECTRO 45Ah 380A',
+      brand: 'ELECTRO',
+      price: 3990,
+      voltage: '12V',
+      capacity: '45Ah',
+      current: '380A',
+      category: 'Автомобильные',
+      compatible: ['Hyundai Getz', 'Kia Picanto', 'Daewoo Matiz', 'Suzuki Swift'],
+      image: '🔋'
+    },
+    {
+      id: 10,
+      name: 'Delta 95Ah 800A',
+      brand: 'Delta',
+      price: 10990,
+      voltage: '12V',
+      capacity: '95Ah',
+      current: '800A',
+      category: 'Автомобильные',
+      compatible: ['Mercedes-Benz E-Class', 'BMW 5-Series', 'Audi A6', 'Volvo S90'],
+      image: '⚡'
+    },
+    {
+      id: 11,
+      name: 'Varta AGM 70Ah 760A',
+      brand: 'Varta',
+      price: 14990,
+      voltage: '12V',
+      capacity: '70Ah',
+      current: '760A',
+      category: 'Специальные (AGM/EFB)',
+      compatible: ['BMW X3', 'Audi Q5', 'Mercedes GLC', 'Porsche Cayenne'],
+      image: '🔌'
+    },
+    {
+      id: 12,
+      name: 'Carku X4 Пусковое устройство',
+      brand: 'Carku',
+      price: 8990,
+      voltage: '12V',
+      capacity: '12000mAh',
+      current: '600A',
+      category: 'Зарядные устройства',
+      compatible: ['Универсальное'],
+      image: '🔧'
+    },
+    {
+      id: 13,
+      name: 'Vtoman Jump 600 Пусковое',
+      brand: 'Vtoman',
+      price: 12990,
+      voltage: '12V',
+      capacity: '15000mAh',
+      current: '800A',
+      category: 'Зарядные устройства',
+      compatible: ['Универсальное'],
+      image: '🔧'
+    },
+    {
+      id: 14,
+      name: 'R drive One Зарядное устройство',
+      brand: 'R drive',
+      price: 5490,
+      voltage: '12V/24V',
+      capacity: '—',
+      current: '10A',
+      category: 'Зарядные устройства',
+      compatible: ['Универсальное'],
+      image: '🔌'
+    },
+    {
+      id: 15,
+      name: 'Mutlu EFB 75Ah 720A',
+      brand: 'Mutlu',
+      price: 11490,
+      voltage: '12V',
+      capacity: '75Ah',
+      current: '720A',
+      category: 'Специальные (AGM/EFB)',
+      compatible: ['Volkswagen Passat', 'Skoda Superb', 'Audi A4', 'BMW 3-Series'],
+      image: '🔌'
+    }
+  ];
 
   const brands = [
     'Carku', 'Vtoman', 'Titan', 'Solite', 'FB', 'R drive', 
@@ -28,6 +229,29 @@ const Index = () => {
     name: 'Сервисный центр',
     address: 'ул. Павловича, 11/2',
     description: 'Обслуживание аккумуляторных батарей'
+  };
+
+  const allCars = Array.from(new Set(products.flatMap(p => p.compatible))).sort();
+
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.brand.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+    
+    const matchesCar = !selectedCar || 
+      selectedCar === 'all' || 
+      product.compatible.includes(selectedCar) ||
+      product.compatible.includes('Универсальное');
+    
+    return matchesSearch && matchesPrice && matchesCar;
+  });
+
+  const resetFilters = () => {
+    setSearchQuery('');
+    setPriceRange([0, 50000]);
+    setSelectedCar('');
   };
 
   return (
@@ -156,19 +380,147 @@ const Index = () => {
 
         {activeSection === 'catalog' && (
           <div className="space-y-6 animate-fade-in">
-            <h2 className="text-3xl font-bold">Каталог товаров</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold">Каталог товаров</h2>
+              <Badge variant="secondary" className="text-base">
+                {filteredProducts.length} товаров
+              </Badge>
+            </div>
+
             <Card>
-              <CardContent className="pt-6 text-center">
-                <Icon name="Package" size={64} className="mx-auto mb-4 text-muted-foreground" />
-                <p className="text-lg text-muted-foreground mb-4">
-                  Каталог с ценами скоро появится
-                </p>
-                <Button onClick={() => setActiveSection('contacts')}>
-                  <Icon name="MessageCircle" size={18} className="mr-2" />
-                  Связаться с менеджером
-                </Button>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="Filter" size={20} />
+                  Фильтры
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Поиск по названию или бренду</label>
+                  <div className="relative">
+                    <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      placeholder="Например: Varta, Mutlu, 60Ah..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">
+                    Диапазон цен: {priceRange[0].toLocaleString()} ₽ — {priceRange[1].toLocaleString()} ₽
+                  </label>
+                  <Slider
+                    min={0}
+                    max={50000}
+                    step={500}
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    className="w-full"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Совместимость с автомобилем</label>
+                  <select
+                    value={selectedCar}
+                    onChange={(e) => setSelectedCar(e.target.value)}
+                    className="w-full p-2 border border-input rounded-md bg-background"
+                  >
+                    <option value="">Все автомобили</option>
+                    <option value="all">Универсальные</option>
+                    {allCars.filter(car => car !== 'Универсальное').map((car, index) => (
+                      <option key={index} value={car}>{car}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {(searchQuery || priceRange[0] > 0 || priceRange[1] < 50000 || selectedCar) && (
+                  <Button variant="outline" onClick={resetFilters} className="w-full">
+                    <Icon name="X" size={18} className="mr-2" />
+                    Сбросить фильтры
+                  </Button>
+                )}
               </CardContent>
             </Card>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredProducts.map((product) => (
+                <Card key={product.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="text-4xl">{product.image}</div>
+                      <Badge variant="secondary">{product.category}</Badge>
+                    </div>
+                    <CardTitle className="text-lg">{product.name}</CardTitle>
+                    <CardDescription>{product.brand}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-3 gap-2 text-sm">
+                      <div className="text-center p-2 bg-muted rounded">
+                        <p className="text-muted-foreground text-xs">Напряжение</p>
+                        <p className="font-semibold">{product.voltage}</p>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <p className="text-muted-foreground text-xs">Ёмкость</p>
+                        <p className="font-semibold">{product.capacity}</p>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <p className="text-muted-foreground text-xs">Ток</p>
+                        <p className="font-semibold">{product.current}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-muted-foreground">Совместимость:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {product.compatible.slice(0, 3).map((car, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {car}
+                          </Badge>
+                        ))}
+                        {product.compatible.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{product.compatible.length - 3}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <p className="text-2xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
+                          <p className="text-xs text-green-600">+{Math.floor(product.price * 0.03)} ₽ кэшбек</p>
+                        </div>
+                      </div>
+                      <Button 
+                        className="w-full"
+                        onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+                      >
+                        <Icon name="MessageCircle" size={16} className="mr-2" />
+                        Заказать
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {filteredProducts.length === 0 && (
+              <Card>
+                <CardContent className="pt-6 text-center py-12">
+                  <Icon name="SearchX" size={64} className="mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="text-xl font-semibold mb-2">Ничего не найдено</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Попробуйте изменить фильтры или сбросить их
+                  </p>
+                  <Button onClick={resetFilters}>Сбросить фильтры</Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         )}
 
@@ -190,10 +542,10 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   className="w-full bg-blue-600 hover:bg-blue-700"
-                  onClick={() => window.open('https://t.me/your_manager_username', '_blank')}
+                  onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
                 >
                   <Icon name="MessageCircle" size={20} className="mr-2" />
-                  Написать в Telegram
+                  @nobodystillhere
                 </Button>
               </CardContent>
             </Card>
