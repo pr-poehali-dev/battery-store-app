@@ -46,9 +46,12 @@ const Index = () => {
         setLastName={auth.setLastName}
         authMethod={auth.authMethod}
         setAuthMethod={auth.setAuthMethod}
+        rememberMe={auth.rememberMe}
+        setRememberMe={auth.setRememberMe}
         handleSendCode={auth.handleSendCode}
         handleVerifyCode={auth.handleVerifyCode}
         handleRegister={auth.handleRegister}
+        handleLogin={auth.handleLogin}
         setAuthStep={auth.setAuthStep}
       />
     );

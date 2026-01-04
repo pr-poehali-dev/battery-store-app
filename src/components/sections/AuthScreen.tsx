@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 
 interface AuthScreenProps {
-  authStep: 'method' | 'phone' | 'telegram' | 'code' | 'register';
+  authStep: 'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login';
   phoneNumber: string;
   setPhoneNumber: (value: string) => void;
   telegramId: string;
@@ -17,10 +18,13 @@ interface AuthScreenProps {
   setLastName: (value: string) => void;
   authMethod: 'sms' | 'telegram';
   setAuthMethod: (method: 'sms' | 'telegram') => void;
+  rememberMe: boolean;
+  setRememberMe: (value: boolean) => void;
   handleSendCode: () => void;
   handleVerifyCode: () => void;
   handleRegister: () => void;
-  setAuthStep: (step: 'method' | 'phone' | 'telegram' | 'code' | 'register') => void;
+  handleLogin: () => void;
+  setAuthStep: (step: 'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login') => void;
 }
 
 const AuthScreen = ({
@@ -37,9 +41,12 @@ const AuthScreen = ({
   setLastName,
   authMethod,
   setAuthMethod,
+  rememberMe,
+  setRememberMe,
   handleSendCode,
   handleVerifyCode,
   handleRegister,
+  handleLogin,
   setAuthStep
 }: AuthScreenProps) => {
   return (
@@ -57,7 +64,7 @@ const AuthScreen = ({
             <>
               <div className="text-center mb-4">
                 <p className="text-sm text-muted-foreground">
-                  Выберите способ входа
+                  Выберите способ входа или регистрации
                 </p>
               </div>
               <div className="space-y-3">
@@ -98,6 +105,24 @@ const AuthScreen = ({
                   </div>
                 </Button>
               </div>
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">
+                    Уже есть аккаунт?
+                  </span>
+                </div>
+              </div>
+              <Button
+                className="w-full"
+                variant="secondary"
+                onClick={() => setAuthStep('login')}
+              >
+                <Icon name="LogIn" size={20} className="mr-2" />
+                Войти в аккаунт
+              </Button>
             </>
           )}
 
@@ -123,6 +148,19 @@ const AuthScreen = ({
                     <li>Скопируйте ваш ID и вставьте сюда</li>
                   </ol>
                 </div>
+              </div>
+              <div className="flex items-center space-x-2 mb-4">
+                <Checkbox 
+                  id="remember-telegram" 
+                  checked={rememberMe}
+                  onCheckedChange={(checked) => setRememberMe(checked === true)}
+                />
+                <label
+                  htmlFor="remember-telegram"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Запомнить меня
+                </label>
               </div>
               <Button 
                 className="w-full" 
@@ -158,6 +196,19 @@ const AuthScreen = ({
                 <p className="text-xs text-muted-foreground">
                   Введите номер телефона для входа или регистрации
                 </p>
+              </div>
+              <div className="flex items-center space-x-2 mb-4">
+                <Checkbox 
+                  id="remember-phone" 
+                  checked={rememberMe}
+                  onCheckedChange={(checked) => setRememberMe(checked === true)}
+                />
+                <label
+                  htmlFor="remember-phone"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Запомнить меня
+                </label>
               </div>
               <Button 
                 className="w-full" 
@@ -218,6 +269,61 @@ const AuthScreen = ({
               >
                 <Icon name="CheckCircle" size={20} className="mr-2" />
                 Подтвердить
+              </Button>
+            </>
+          )}
+
+          {authStep === 'login' && (
+            <>
+              <div className="text-center mb-4">
+                <p className="text-sm text-muted-foreground">
+                  Выберите способ входа
+                </p>
+              </div>
+              <div className="space-y-3">
+                <Button
+                  className="w-full h-auto py-6 flex flex-col gap-2"
+                  variant="outline"
+                  onClick={() => {
+                    setAuthMethod('telegram');
+                    setAuthStep('telegram');
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+                      <Icon name="MessageCircle" size={24} className="text-blue-500" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-semibold">Telegram</p>
+                      <p className="text-xs text-muted-foreground">Войти через Telegram ID</p>
+                    </div>
+                  </div>
+                </Button>
+                <Button
+                  className="w-full h-auto py-6 flex flex-col gap-2"
+                  variant="outline"
+                  onClick={() => {
+                    setAuthMethod('sms');
+                    setAuthStep('phone');
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                      <Icon name="Smartphone" size={24} className="text-green-500" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-semibold">SMS</p>
+                      <p className="text-xs text-muted-foreground">Войти через номер телефона</p>
+                    </div>
+                  </div>
+                </Button>
+              </div>
+              <Button
+                variant="ghost"
+                className="w-full mt-4"
+                onClick={() => setAuthStep('method')}
+              >
+                Назад
               </Button>
             </>
           )}

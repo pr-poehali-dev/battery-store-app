@@ -5,13 +5,14 @@ export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const [authStep, setAuthStep] = useState<'method' | 'phone' | 'telegram' | 'code' | 'register'>('method');
+  const [authStep, setAuthStep] = useState<'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login'>('method');
   const [authMethod, setAuthMethod] = useState<'sms' | 'telegram'>('sms');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [telegramId, setTelegramId] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   const vibrate = (pattern: number | number[]) => {
     if ('vibrate' in navigator) {
@@ -20,7 +21,10 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
+    const savedUserLocal = localStorage.getItem('user');
+    const savedUserSession = sessionStorage.getItem('user');
+    const savedUser = savedUserLocal || savedUserSession;
+    
     if (savedUser) {
       try {
         const userData = JSON.parse(savedUser);
@@ -28,9 +32,11 @@ export const useAuth = () => {
           setUser(userData);
         } else {
           localStorage.removeItem('user');
+          sessionStorage.removeItem('user');
         }
       } catch (e) {
         localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
       }
     }
     
@@ -132,7 +138,12 @@ export const useAuth = () => {
         
         if (userData) {
           setUser(userData);
-          localStorage.setItem('user', JSON.stringify(userData));
+          
+          if (rememberMe) {
+            localStorage.setItem('user', JSON.stringify(userData));
+          } else {
+            sessionStorage.setItem('user', JSON.stringify(userData));
+          }
         } else {
           alert('Пользователь не найден');
         }
@@ -170,14 +181,26 @@ export const useAuth = () => {
     const userKey = authMethod === 'telegram' ? `tg_${telegramId}` : phoneNumber;
     savedUsers[userKey] = newUser;
     localStorage.setItem('users', JSON.stringify(savedUsers));
-    localStorage.setItem('user', JSON.stringify(newUser));
+    
+    if (rememberMe) {
+      localStorage.setItem('user', JSON.stringify(newUser));
+    } else {
+      sessionStorage.setItem('user', JSON.stringify(newUser));
+    }
+    
     setUser(newUser);
     setIsAuthenticating(false);
+  };
+
+  const handleLogin = () => {
+    vibrate(50);
+    setAuthStep('login');
   };
 
   const handleLogout = () => {
     vibrate([30, 50]);
     localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     setUser(null);
   };
 
@@ -192,16 +215,19 @@ export const useAuth = () => {
     verificationCode,
     firstName,
     lastName,
+    rememberMe,
     setAuthMethod,
     setPhoneNumber,
     setTelegramId,
     setVerificationCode,
     setFirstName,
     setLastName,
+    setRememberMe,
     setAuthStep,
     handleSendCode,
     handleVerifyCode,
     handleRegister,
+    handleLogin,
     handleLogout,
     vibrate
   };
