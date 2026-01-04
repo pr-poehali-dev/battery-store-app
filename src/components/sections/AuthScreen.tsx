@@ -35,7 +35,7 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
 
             <div className="py-4">
               <TelegramLoginButton
-                botUsername="mir_akkumulyatorov_bot"
+                botUsername="mir_akkum_bot"
                 onAuth={handleTelegramAuth}
                 buttonSize="large"
                 cornerRadius={10}
