@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
+import TelegramLoginButton from '@/components/TelegramLoginButton';
 
 interface AuthScreenProps {
   authStep: 'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login';
@@ -24,6 +25,7 @@ interface AuthScreenProps {
   handleVerifyCode: () => void;
   handleRegister: () => void;
   handleLogin: () => void;
+  handleTelegramAuth: (user: any) => void;
   setAuthStep: (step: 'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login') => void;
 }
 
@@ -47,6 +49,7 @@ const AuthScreen = ({
   handleVerifyCode,
   handleRegister,
   handleLogin,
+  handleTelegramAuth,
   setAuthStep
 }: AuthScreenProps) => {
   return (
@@ -128,49 +131,46 @@ const AuthScreen = ({
 
           {authStep === 'telegram' && (
             <>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Telegram ID</label>
-                <Input
-                  type="text"
-                  placeholder="123456789"
-                  value={telegramId}
-                  onChange={(e) => setTelegramId(e.target.value.replace(/\D/g, ''))}
-                  className="text-lg"
-                />
-                <div className="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                  <p className="text-xs text-muted-foreground mb-2">
-                    <Icon name="Info" size={14} className="inline mr-1" />
-                    Как узнать свой Telegram ID:
+              <div className="space-y-4">
+                <div className="text-center space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    Нажмите кнопку ниже для входа через Telegram
                   </p>
-                  <ol className="text-xs text-muted-foreground space-y-1 ml-4 list-decimal">
-                    <li>Откройте бота <a href="https://t.me/userinfobot" target="_blank" className="text-blue-600 underline">@userinfobot</a></li>
-                    <li>Отправьте команду /start</li>
-                    <li>Скопируйте ваш ID и вставьте сюда</li>
-                  </ol>
+                  <div className="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                    <p className="text-xs text-muted-foreground">
+                      <Icon name="Info" size={14} className="inline mr-1" />
+                      Вы будете перенаправлены в Telegram для подтверждения входа
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="py-4">
+                  <TelegramLoginButton
+                    botUsername="poehali_bot"
+                    onAuth={handleTelegramAuth}
+                    buttonSize="large"
+                    cornerRadius={10}
+                    requestAccess={true}
+                    usePic={true}
+                    lang="ru"
+                  />
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="remember-telegram" 
+                    checked={rememberMe}
+                    onCheckedChange={(checked) => setRememberMe(checked === true)}
+                  />
+                  <label
+                    htmlFor="remember-telegram"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Запомнить меня
+                  </label>
                 </div>
               </div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Checkbox 
-                  id="remember-telegram" 
-                  checked={rememberMe}
-                  onCheckedChange={(checked) => setRememberMe(checked === true)}
-                />
-                <label
-                  htmlFor="remember-telegram"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Запомнить меня
-                </label>
-              </div>
-              <Button 
-                className="w-full" 
-                size="lg"
-                onClick={handleSendCode}
-                disabled={telegramId.length < 5}
-              >
-                <Icon name="ArrowRight" size={20} className="mr-2" />
-                Отправить код в Telegram
-              </Button>
+
               <Button
                 variant="ghost"
                 className="w-full"

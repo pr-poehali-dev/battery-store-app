@@ -197,6 +197,54 @@ export const useAuth = () => {
     setAuthStep('login');
   };
 
+  const handleTelegramAuth = async (telegramUser: any) => {
+    vibrate(50);
+    
+    try {
+      const response = await fetch('https://functions.poehali.dev/6f7f04e5-3e3c-4d6c-a7cf-4fcc1a7da0e8', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(telegramUser)
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.user) {
+        const savedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+        const userKey = `tg_${data.user.id}`;
+        
+        let userData = savedUsers[userKey];
+        
+        if (!userData) {
+          userData = {
+            telegram_id: data.user.id.toString(),
+            firstName: data.user.first_name,
+            lastName: data.user.last_name || '',
+            username: data.user.username || '',
+            photo_url: data.user.photo_url || '',
+            cashback: 0
+          };
+          
+          savedUsers[userKey] = userData;
+          localStorage.setItem('users', JSON.stringify(savedUsers));
+        }
+        
+        setUser(userData);
+        
+        if (rememberMe) {
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          sessionStorage.setItem('user', JSON.stringify(userData));
+        }
+      } else {
+        alert('Ошибка авторизации через Telegram');
+      }
+    } catch (error) {
+      console.error('Telegram auth error:', error);
+      alert('Ошибка авторизации через Telegram');
+    }
+  };
+
   const handleLogout = () => {
     vibrate([30, 50]);
     localStorage.removeItem('user');
@@ -228,6 +276,7 @@ export const useAuth = () => {
     handleVerifyCode,
     handleRegister,
     handleLogin,
+    handleTelegramAuth,
     handleLogout,
     vibrate
   };

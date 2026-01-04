@@ -21,6 +21,8 @@ export interface User {
   telegram_id?: string;
   firstName: string;
   lastName: string;
+  username?: string;
+  photo_url?: string;
   cashback: number;
 }
 

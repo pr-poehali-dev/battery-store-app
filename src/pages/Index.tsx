@@ -52,6 +52,7 @@ const Index = () => {
         handleVerifyCode={auth.handleVerifyCode}
         handleRegister={auth.handleRegister}
         handleLogin={auth.handleLogin}
+        handleTelegramAuth={auth.handleTelegramAuth}
         setAuthStep={auth.setAuthStep}
       />
     );
