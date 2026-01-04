@@ -146,7 +146,7 @@ const AuthScreen = ({
                 
                 <div className="py-4">
                   <TelegramLoginButton
-                    botUsername="poehali_bot"
+                    botUsername="mir_akkumulyatorov_bot"
                     onAuth={handleTelegramAuth}
                     buttonSize="large"
                     cornerRadius={10}
@@ -154,6 +154,18 @@ const AuthScreen = ({
                     usePic={true}
                     lang="ru"
                   />
+                </div>
+                
+                <div className="p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                  <p className="text-xs text-muted-foreground">
+                    <Icon name="AlertCircle" size={14} className="inline mr-1" />
+                    Если кнопка не работает, убедитесь что:
+                  </p>
+                  <ul className="text-xs text-muted-foreground ml-4 mt-2 space-y-1">
+                    <li>• Бот создан через @BotFather</li>
+                    <li>• Настроен домен командой /setdomain</li>
+                    <li>• Токен добавлен в секреты проекта</li>
+                  </ul>
                 </div>
 
                 <div className="flex items-center space-x-2">
