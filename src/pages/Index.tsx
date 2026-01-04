@@ -9,6 +9,7 @@ import CatalogSection from '@/components/sections/CatalogSection';
 import CartSection from '@/components/sections/CartSection';
 import ContactsSection from '@/components/sections/ContactsSection';
 import ProfileSection from '@/components/sections/ProfileSection';
+import LoadingScreen from '@/components/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { usePWA } from '@/hooks/usePWA';
@@ -18,12 +19,16 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const auth = useAuth();
-  const { user, handleLogout, vibrate } = auth;
+  const { user, isLoading, handleLogout, vibrate } = auth;
   
   const cart = useCart(vibrate);
   const { showInstallPrompt, setShowInstallPrompt, handleInstallApp } = usePWA();
 
   const userCashback = user ? user.cashback : 0;
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   if (!user) {
     return (

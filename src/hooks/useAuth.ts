@@ -3,6 +3,7 @@ import { User } from '@/types';
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [authStep, setAuthStep] = useState<'method' | 'phone' | 'telegram' | 'code' | 'register'>('method');
   const [authMethod, setAuthMethod] = useState<'sms' | 'telegram'>('sms');
@@ -19,19 +20,24 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      try {
-        const userData = JSON.parse(savedUser);
-        if (userData && (userData.phone || userData.telegram_id) && userData.firstName) {
-          setUser(userData);
-        } else {
+    const timer = setTimeout(() => {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        try {
+          const userData = JSON.parse(savedUser);
+          if (userData && (userData.phone || userData.telegram_id) && userData.firstName) {
+            setUser(userData);
+          } else {
+            localStorage.removeItem('user');
+          }
+        } catch (e) {
           localStorage.removeItem('user');
         }
-      } catch (e) {
-        localStorage.removeItem('user');
       }
-    }
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSendCode = async () => {
@@ -176,6 +182,7 @@ export const useAuth = () => {
 
   return {
     user,
+    isLoading,
     isAuthenticating,
     authStep,
     authMethod,
