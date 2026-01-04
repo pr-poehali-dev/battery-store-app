@@ -20,20 +20,21 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        try {
-          const userData = JSON.parse(savedUser);
-          if (userData && (userData.phone || userData.telegram_id) && userData.firstName) {
-            setUser(userData);
-          } else {
-            localStorage.removeItem('user');
-          }
-        } catch (e) {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      try {
+        const userData = JSON.parse(savedUser);
+        if (userData && (userData.phone || userData.telegram_id) && userData.firstName) {
+          setUser(userData);
+        } else {
           localStorage.removeItem('user');
         }
+      } catch (e) {
+        localStorage.removeItem('user');
       }
+    }
+    
+    const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
 

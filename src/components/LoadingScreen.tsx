@@ -1,10 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 const LoadingScreen = () => {
   const [batteryLevel, setBatteryLevel] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    // Play charging sound
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3;
+      audioRef.current.play().catch(() => {
+        // Автовоспроизведение заблокировано браузером
+      });
+    }
+
     const interval = setInterval(() => {
       setBatteryLevel((prev) => {
         if (prev >= 100) return 0;
@@ -12,7 +21,12 @@ const LoadingScreen = () => {
       });
     }, 50);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, []);
 
   const jokes = [
@@ -27,6 +41,9 @@ const LoadingScreen = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/10 flex flex-col items-center justify-center p-6">
+      <audio ref={audioRef} loop>
+        <source src="https://cdn.poehali.dev/projects/4x2nrqy/bucket/charging-sound.mp3" type="audio/mpeg" />
+      </audio>
       <div className="max-w-md w-full space-y-8 text-center">
         {/* Animated Battery Grid */}
         <div className="relative">
