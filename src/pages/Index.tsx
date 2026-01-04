@@ -18,8 +18,7 @@ import { brands, stores, serviceCenter } from '@/data/products';
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
 
-  const auth = useAuth();
-  const { user, isLoading, handleLogout, vibrate } = auth;
+  const { user, isLoading, handleLogout, handleTelegramAuth, vibrate } = useAuth();
   
   const cart = useCart(vibrate);
   const { showInstallPrompt, setShowInstallPrompt, handleInstallApp } = usePWA();
@@ -31,31 +30,7 @@ const Index = () => {
   }
 
   if (!user) {
-    return (
-      <AuthScreen
-        authStep={auth.authStep}
-        phoneNumber={auth.phoneNumber}
-        setPhoneNumber={auth.setPhoneNumber}
-        telegramId={auth.telegramId}
-        setTelegramId={auth.setTelegramId}
-        verificationCode={auth.verificationCode}
-        setVerificationCode={auth.setVerificationCode}
-        firstName={auth.firstName}
-        setFirstName={auth.setFirstName}
-        lastName={auth.lastName}
-        setLastName={auth.setLastName}
-        authMethod={auth.authMethod}
-        setAuthMethod={auth.setAuthMethod}
-        rememberMe={auth.rememberMe}
-        setRememberMe={auth.setRememberMe}
-        handleSendCode={auth.handleSendCode}
-        handleVerifyCode={auth.handleVerifyCode}
-        handleRegister={auth.handleRegister}
-        handleLogin={auth.handleLogin}
-        handleTelegramAuth={auth.handleTelegramAuth}
-        setAuthStep={auth.setAuthStep}
-      />
-    );
+    return <AuthScreen handleTelegramAuth={handleTelegramAuth} />;
   }
 
   return (

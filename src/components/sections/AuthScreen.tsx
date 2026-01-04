@@ -1,407 +1,95 @@
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 import TelegramLoginButton from '@/components/TelegramLoginButton';
 
 interface AuthScreenProps {
-  authStep: 'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login';
-  phoneNumber: string;
-  setPhoneNumber: (value: string) => void;
-  telegramId: string;
-  setTelegramId: (value: string) => void;
-  verificationCode: string;
-  setVerificationCode: (value: string) => void;
-  firstName: string;
-  setFirstName: (value: string) => void;
-  lastName: string;
-  setLastName: (value: string) => void;
-  authMethod: 'sms' | 'telegram';
-  setAuthMethod: (method: 'sms' | 'telegram') => void;
-  rememberMe: boolean;
-  setRememberMe: (value: boolean) => void;
-  handleSendCode: () => void;
-  handleVerifyCode: () => void;
-  handleRegister: () => void;
-  handleLogin: () => void;
   handleTelegramAuth: (user: any) => void;
-  setAuthStep: (step: 'method' | 'phone' | 'telegram' | 'code' | 'register' | 'login') => void;
 }
 
-const AuthScreen = ({
-  authStep,
-  phoneNumber,
-  setPhoneNumber,
-  telegramId,
-  setTelegramId,
-  verificationCode,
-  setVerificationCode,
-  firstName,
-  setFirstName,
-  lastName,
-  setLastName,
-  authMethod,
-  setAuthMethod,
-  rememberMe,
-  setRememberMe,
-  handleSendCode,
-  handleVerifyCode,
-  handleRegister,
-  handleLogin,
-  handleTelegramAuth,
-  setAuthStep
-}: AuthScreenProps) => {
+const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md animate-scale-in">
-        <CardHeader className="text-center">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+      <Card className="w-full max-w-md shadow-2xl">
+        <CardHeader className="text-center space-y-4">
+          <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
             <Icon name="Battery" size={40} className="text-primary" />
           </div>
-          <CardTitle className="text-3xl">Мир Аккумуляторов</CardTitle>
-          <CardDescription>Войдите в личный кабинет</CardDescription>
+          <div>
+            <CardTitle className="text-3xl font-bold text-primary">
+              Мир Аккумуляторов
+            </CardTitle>
+            <CardDescription className="text-lg mt-2">
+              С 1998 года на рынке
+            </CardDescription>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          {authStep === 'method' && (
-            <>
-              <div className="text-center mb-4">
-                <p className="text-sm text-muted-foreground">
-                  Выберите способ входа или регистрации
-                </p>
-              </div>
-              <div className="space-y-3">
-                <Button
-                  className="w-full h-auto py-6 flex flex-col gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    setAuthMethod('telegram');
-                    setAuthStep('telegram');
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
-                      <Icon name="MessageCircle" size={24} className="text-blue-500" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-semibold">Telegram</p>
-                      <p className="text-xs text-muted-foreground">Быстрый вход через бота</p>
-                    </div>
-                  </div>
-                </Button>
-                <Button
-                  className="w-full h-auto py-6 flex flex-col gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    setAuthMethod('sms');
-                    setAuthStep('phone');
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
-                      <Icon name="Smartphone" size={24} className="text-green-500" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-semibold">SMS</p>
-                      <p className="text-xs text-muted-foreground">Вход через номер телефона</p>
-                    </div>
-                  </div>
-                </Button>
-              </div>
-              <div className="relative my-6">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">
-                    Уже есть аккаунт?
-                  </span>
-                </div>
-              </div>
-              <Button
-                className="w-full"
-                variant="secondary"
-                onClick={() => setAuthStep('login')}
-              >
-                <Icon name="LogIn" size={20} className="mr-2" />
-                Войти в аккаунт
-              </Button>
-            </>
-          )}
 
-          {authStep === 'telegram' && (
-            <>
-              <div className="space-y-4">
-                <div className="text-center space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    Нажмите кнопку ниже для входа через Telegram
-                  </p>
-                  <div className="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                    <p className="text-xs text-muted-foreground">
-                      <Icon name="Info" size={14} className="inline mr-1" />
-                      Вы будете перенаправлены в Telegram для подтверждения входа
-                    </p>
-                  </div>
+        <CardContent className="space-y-6 pb-8">
+          <div className="space-y-4">
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-semibold">Вход в приложение</h3>
+              <p className="text-sm text-muted-foreground">
+                Войдите через Telegram, чтобы получить доступ к каталогу, корзине и бонусам
+              </p>
+            </div>
+
+            <div className="py-4">
+              <TelegramLoginButton
+                botUsername="mir_akkumulyatorov_bot"
+                onAuth={handleTelegramAuth}
+                buttonSize="large"
+                cornerRadius={10}
+                requestAccess={true}
+                usePic={true}
+                lang="ru"
+              />
+            </div>
+
+            <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+              <div className="flex gap-3">
+                <Icon name="Info" size={20} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p className="font-medium text-foreground">Для входа:</p>
+                  <ol className="space-y-1 ml-4 list-decimal">
+                    <li>Нажмите кнопку выше</li>
+                    <li>Подтвердите вход в окне Telegram</li>
+                    <li>Готово! Ваши данные подтянутся автоматически</li>
+                  </ol>
                 </div>
-                
-                <div className="py-4">
-                  <TelegramLoginButton
-                    botUsername="mir_akkumulyatorov_bot"
-                    onAuth={handleTelegramAuth}
-                    buttonSize="large"
-                    cornerRadius={10}
-                    requestAccess={true}
-                    usePic={true}
-                    lang="ru"
-                  />
-                </div>
-                
-                <div className="p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
-                  <p className="text-xs text-muted-foreground">
-                    <Icon name="AlertCircle" size={14} className="inline mr-1" />
-                    Если кнопка не работает, убедитесь что:
-                  </p>
-                  <ul className="text-xs text-muted-foreground ml-4 mt-2 space-y-1">
-                    <li>• Бот создан через @BotFather</li>
-                    <li>• Настроен домен командой /setdomain</li>
-                    <li>• Токен добавлен в секреты проекта</li>
+              </div>
+            </div>
+
+            <div className="p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+              <div className="flex gap-2">
+                <Icon name="AlertCircle" size={16} className="text-yellow-600 flex-shrink-0 mt-0.5" />
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <p className="font-medium text-foreground">Если кнопка не работает:</p>
+                  <ul className="space-y-0.5 ml-3 list-disc">
+                    <li>Убедитесь что бот создан через @BotFather</li>
+                    <li>Настройте домен командой /setdomain</li>
+                    <li>Добавьте токен бота в секреты проекта</li>
                   </ul>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="remember-telegram" 
-                    checked={rememberMe}
-                    onCheckedChange={(checked) => setRememberMe(checked === true)}
-                  />
-                  <label
-                    htmlFor="remember-telegram"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Запомнить меня
-                  </label>
-                </div>
+          <div className="pt-4 border-t">
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Icon name="Shield" size={16} />
+                <span>Безопасно</span>
               </div>
-
-              <Button
-                variant="ghost"
-                className="w-full"
-                onClick={() => setAuthStep('method')}
-              >
-                Назад
-              </Button>
-            </>
-          )}
-
-          {authStep === 'phone' && (
-            <>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Номер телефона</label>
-                <Input
-                  type="tel"
-                  placeholder="+7 (___) ___-__-__"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
-                  maxLength={11}
-                  className="text-lg"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Введите номер телефона для входа или регистрации
-                </p>
+              <div className="flex items-center gap-2">
+                <Icon name="Zap" size={16} />
+                <span>Быстро</span>
               </div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Checkbox 
-                  id="remember-phone" 
-                  checked={rememberMe}
-                  onCheckedChange={(checked) => setRememberMe(checked === true)}
-                />
-                <label
-                  htmlFor="remember-phone"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Запомнить меня
-                </label>
+              <div className="flex items-center gap-2">
+                <Icon name="Check" size={16} />
+                <span>Просто</span>
               </div>
-              <Button 
-                className="w-full" 
-                size="lg"
-                onClick={handleSendCode}
-                disabled={phoneNumber.length < 10}
-              >
-                <Icon name="ArrowRight" size={20} className="mr-2" />
-                Отправить SMS
-              </Button>
-              <Button
-                variant="ghost"
-                className="w-full"
-                onClick={() => setAuthStep('method')}
-              >
-                Назад
-              </Button>
-            </>
-          )}
-
-          {authStep === 'code' && (
-            <>
-              <div className="text-center mb-4">
-                <p className="text-sm text-muted-foreground">
-                  Код отправлен {authMethod === 'telegram' ? 'в Telegram' : 'на номер'}
-                </p>
-                <p className="font-semibold">{authMethod === 'telegram' ? `ID: ${telegramId}` : `+${phoneNumber}`}</p>
-                <Button 
-                  variant="link" 
-                  size="sm"
-                  onClick={() => {
-                    setAuthStep(authMethod === 'telegram' ? 'telegram' : 'phone');
-                    setVerificationCode('');
-                  }}
-                >
-                  Изменить {authMethod === 'telegram' ? 'ID' : 'номер'}
-                </Button>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Код подтверждения</label>
-                <Input
-                  type="text"
-                  placeholder="____"
-                  value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))}
-                  maxLength={4}
-                  className="text-center text-2xl tracking-widest"
-                />
-                <p className="text-xs text-muted-foreground text-center">
-                  Для демо используйте код: <span className="font-semibold">1234</span>
-                </p>
-              </div>
-              <Button 
-                className="w-full" 
-                size="lg"
-                onClick={handleVerifyCode}
-                disabled={verificationCode.length !== 4}
-              >
-                <Icon name="CheckCircle" size={20} className="mr-2" />
-                Подтвердить
-              </Button>
-            </>
-          )}
-
-          {authStep === 'login' && (
-            <>
-              <div className="text-center mb-4">
-                <p className="text-sm text-muted-foreground">
-                  Выберите способ входа
-                </p>
-              </div>
-              <div className="space-y-3">
-                <Button
-                  className="w-full h-auto py-6 flex flex-col gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    setAuthMethod('telegram');
-                    setAuthStep('telegram');
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
-                      <Icon name="MessageCircle" size={24} className="text-blue-500" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-semibold">Telegram</p>
-                      <p className="text-xs text-muted-foreground">Войти через Telegram ID</p>
-                    </div>
-                  </div>
-                </Button>
-                <Button
-                  className="w-full h-auto py-6 flex flex-col gap-2"
-                  variant="outline"
-                  onClick={() => {
-                    setAuthMethod('sms');
-                    setAuthStep('phone');
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
-                      <Icon name="Smartphone" size={24} className="text-green-500" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-semibold">SMS</p>
-                      <p className="text-xs text-muted-foreground">Войти через номер телефона</p>
-                    </div>
-                  </div>
-                </Button>
-              </div>
-              <Button
-                variant="ghost"
-                className="w-full mt-4"
-                onClick={() => setAuthStep('method')}
-              >
-                Назад
-              </Button>
-            </>
-          )}
-
-          {authStep === 'register' && (
-            <>
-              <div className="text-center mb-4">
-                <p className="text-sm text-muted-foreground">
-                  Создание нового аккаунта
-                </p>
-                <p className="font-semibold">{authMethod === 'telegram' ? `Telegram ID: ${telegramId}` : `+${phoneNumber}`}</p>
-              </div>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Имя</label>
-                  <Input
-                    type="text"
-                    placeholder="Иван"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Фамилия</label>
-                  <Input
-                    type="text"
-                    placeholder="Иванов"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
-              </div>
-              <Button 
-                className="w-full" 
-                size="lg"
-                onClick={handleRegister}
-                disabled={!firstName || !lastName}
-              >
-                <Icon name="UserPlus" size={20} className="mr-2" />
-                Зарегистрироваться
-              </Button>
-              <Button 
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  setAuthStep(authMethod === 'telegram' ? 'telegram' : 'phone');
-                  setFirstName('');
-                  setLastName('');
-                }}
-              >
-                Назад
-              </Button>
-            </>
-          )}
-          
-          <Button 
-            variant="ghost"
-            size="sm"
-            className="w-full text-xs text-muted-foreground"
-            onClick={() => {
-              localStorage.clear();
-              window.location.reload();
-            }}
-          >
-            Очистить данные и начать заново
-          </Button>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
