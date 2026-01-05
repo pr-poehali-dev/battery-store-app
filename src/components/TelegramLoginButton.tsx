@@ -53,7 +53,6 @@ const TelegramLoginButton = ({
     script.setAttribute('data-request-access', requestAccess ? 'write' : '');
     script.setAttribute('data-userpic', usePic.toString());
     script.setAttribute('data-lang', lang);
-    script.setAttribute('data-auth-url', 'https://battery-store-app.poehali.dev');
     script.setAttribute('data-onauth', 'TelegramLoginWidget.dataOnauth(user)');
     script.async = true;
 
