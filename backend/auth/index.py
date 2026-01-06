@@ -86,8 +86,8 @@ def handler(event: dict, context) -> dict:
                     'isBase64Encoded': False
                 }
             
-            # Деактивация старых кодов для этого номера
-            cur.execute("UPDATE sms_codes SET verified = TRUE WHERE phone = %s AND verified = FALSE AND expires_at < NOW()", (phone,))
+            # Деактивация всех старых кодов для этого номера
+            cur.execute("UPDATE sms_codes SET verified = TRUE WHERE phone = %s AND verified = FALSE", (phone,))
             
             # Генерация нового кода
             code = generate_code()
