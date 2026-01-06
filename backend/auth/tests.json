@@ -1,0 +1,39 @@
+{
+  "tests": [
+    {
+      "name": "Register new customer",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Петров",
+        "phone": "79001234567"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "customer": {
+          "id": "number",
+          "name": "string",
+          "phone": "string",
+          "cashback": "number",
+          "created_at": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Invalid phone number",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Тест",
+        "phone": "123"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

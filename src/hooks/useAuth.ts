@@ -17,7 +17,7 @@ export const useAuth = () => {
     if (savedUser) {
       try {
         const userData = JSON.parse(savedUser);
-        if (userData && userData.telegram_id && userData.firstName) {
+        if (userData && userData.firstName) {
           setUser(userData);
         } else {
           localStorage.removeItem('akkum_user');
@@ -32,36 +32,38 @@ export const useAuth = () => {
 
 
 
-  const handleTelegramAuth = async (telegramUser: any) => {
+  const handleTelegramAuth = async (authData: any) => {
     vibrate(50);
     
     try {
-      const response = await fetch('https://functions.poehali.dev/6f7f04e5-3e3c-4d6c-a7cf-4fcc1a7da0e8', {
+      const response = await fetch('https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(telegramUser)
+        body: JSON.stringify({
+          name: authData.first_name || authData.name,
+          phone: authData.phone_number || authData.phone
+        })
       });
 
       const data = await response.json();
 
-      if (data.success && data.user) {
+      if (data.success && data.customer) {
         const userData: User = {
-          telegram_id: data.user.id.toString(),
-          firstName: data.user.first_name,
-          lastName: data.user.last_name || '',
-          username: data.user.username || '',
-          photo_url: data.user.photo_url || '',
-          cashback: 0
+          id: data.customer.id,
+          firstName: data.customer.name,
+          lastName: '',
+          phone: data.customer.phone,
+          cashback: data.customer.cashback
         };
         
         localStorage.setItem('akkum_user', JSON.stringify(userData));
         setUser(userData);
       } else {
-        alert('Ошибка авторизации через Telegram');
+        alert('Ошибка авторизации');
       }
     } catch (error) {
-      console.error('Telegram auth error:', error);
-      alert('Ошибка авторизации через Telegram. Проверьте настройки бота.');
+      console.error('Auth error:', error);
+      alert('Ошибка авторизации. Попробуйте снова.');
     }
   };
 
