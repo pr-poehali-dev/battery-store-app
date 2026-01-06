@@ -10,7 +10,7 @@ import CartSection from '@/components/sections/CartSection';
 import ContactsSection from '@/components/sections/ContactsSection';
 import ProfileSection from '@/components/sections/ProfileSection';
 import AboutSection from '@/components/sections/AboutSection';
-import AdminSection from '@/components/sections/AdminSection';
+
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
@@ -163,9 +163,7 @@ const Index = () => {
           />
         )}
 
-        {activeSection === 'admin' && (
-          <AdminSection />
-        )}
+
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
@@ -221,15 +219,7 @@ const Index = () => {
               <Icon name="Info" size={18} />
               <span className="text-xs mt-1">О нас</span>
             </Button>
-            <Button
-              variant={activeSection === 'admin' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setActiveSection('admin')}
-              className="flex flex-col h-auto py-2 px-2"
-            >
-              <Icon name="ShieldCheck" size={18} />
-              <span className="text-xs mt-1">Админ</span>
-            </Button>
+
             <Button
               variant={activeSection === 'profile' ? 'default' : 'ghost'}
               size="sm"
