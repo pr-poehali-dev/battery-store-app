@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import Barcode from 'react-barcode';
 
 interface User {
   phone?: string;
@@ -56,6 +57,30 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div className="bg-white p-6 rounded-lg border-2 border-primary/30 text-center space-y-3">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Icon name="QrCode" size={20} className="text-primary" />
+              <h3 className="font-semibold text-lg">Ваш личный штрих-код</h3>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Предъявите этот код при покупке для начисления кэшбека
+            </p>
+            <div className="flex justify-center">
+              <Barcode 
+                value={user.telegram_id || user.phone || '0000000000'}
+                width={2}
+                height={80}
+                displayValue={true}
+                background="#ffffff"
+                lineColor="#000000"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              ID: {user.telegram_id || user.phone}
+            </p>
+          </div>
+
+
           <div className="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
             <div className="flex items-center gap-2 mb-2">
               <Icon name="Info" size={18} className="text-green-600" />
