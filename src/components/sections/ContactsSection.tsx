@@ -27,12 +27,12 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
         <CardHeader>
           <div className="flex items-center gap-2">
             <Icon name="MessageCircle" size={24} className="text-blue-600" />
-            <CardTitle>Связь с менеджером</CardTitle>
+            <CardTitle>Связаться с нами</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-muted-foreground">
-            Для заказа и консультации свяжитесь с нашим менеджером в Telegram
+            Для заказа и консультации свяжитесь с нашим менеджером
           </p>
           <Button 
             size="lg" 
@@ -42,6 +42,16 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
             <Icon name="MessageCircle" size={20} className="mr-2" />
             @nobodystillhere
           </Button>
+          <div className="pt-2 border-t border-border/50 space-y-2">
+            <p className="text-sm text-muted-foreground font-medium">Телефоны:</p>
+            <a 
+              href="tel:+74212461041" 
+              className="flex items-center gap-2 text-primary hover:underline"
+            >
+              <Icon name="Phone" size={18} />
+              <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для юр. лиц)</span></span>
+            </a>
+          </div>
         </CardContent>
       </Card>
 
