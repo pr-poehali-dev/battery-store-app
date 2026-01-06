@@ -229,6 +229,13 @@ const AboutSection = () => {
               Свяжитесь с нами
             </h3>
             <div className="space-y-2 text-sm">
+              <a 
+                href="tel:+74212454141" 
+                className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
+              >
+                <Icon name="Phone" size={16} className="text-primary" />
+                <span className="font-semibold text-primary">+7 (4212) 45-41-41</span>
+              </a>
               <p className="flex items-center gap-2">
                 <Icon name="MapPin" size={16} className="text-muted-foreground" />
                 <span>Хабаровск, 6 магазинов по городу</span>
