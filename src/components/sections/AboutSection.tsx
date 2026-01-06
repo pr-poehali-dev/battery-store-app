@@ -249,10 +249,15 @@ const AboutSection = () => {
                   <p className="text-xs text-primary font-medium">
                     🏆 Официальный представитель бренда Carku в России
                   </p>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground justify-center md:justify-start">
-                    <Icon name="Video" size={14} />
-                    <span>Видеообзор скоро появится</span>
-                  </div>
+                  <a 
+                    href="https://youtu.be/8ESv9PV_tpc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium"
+                  >
+                    <Icon name="Play" size={16} />
+                    Смотреть видеообзор
+                  </a>
                 </div>
               </div>
             </CardContent>
