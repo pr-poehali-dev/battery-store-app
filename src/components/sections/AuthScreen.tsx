@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
@@ -12,58 +10,42 @@ interface AuthScreenProps {
 }
 
 const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
-  const [mode, setMode] = useState<'choice' | 'login' | 'register' | 'code'>('choice');
+  const [step, setStep] = useState<'phone' | 'code'>('phone');
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [devCode, setDevCode] = useState('');
   const { toast } = useToast();
 
-  const API_URL = 'https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f';
+  const SMS_API = 'https://functions.poehali.dev/56bac5a6-91d6-4585-9512-489b5f3b2518';
 
-  const normalizePhone = (phoneStr: string): string => {
-    const digits = phoneStr.replace(/\D/g, '');
-    if (digits.startsWith('8') && digits.length === 11) {
-      return '7' + digits.slice(1);
-    }
-    if (!digits.startsWith('7') && digits.length === 10) {
-      return '7' + digits;
-    }
-    return digits;
-  };
-
-  const sendSMSCode = async () => {
+  const sendCode = async () => {
     setIsLoading(true);
-    const normalizedPhone = normalizePhone(phone);
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(SMS_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'send_code',
-          phone: normalizedPhone
-        })
+        body: JSON.stringify({ phone, action: 'send' })
       });
 
       const data = await response.json();
 
       if (data.success) {
         setDevCode(data.dev_code || '');
-        setMode('code');
+        setStep('code');
         toast({
           title: 'Код отправлен',
-          description: data.dev_code ? `Тестовый код: ${data.dev_code}` : 'Проверьте SMS',
+          description: data.dev_code ? `Тестовый: ${data.dev_code}` : 'Проверьте SMS',
         });
       } else {
         toast({
           title: 'Ошибка',
-          description: data.error || 'Не удалось отправить код',
+          description: data.error || 'Не удалось отправить',
           variant: 'destructive',
         });
       }
-    } catch (error) {
+    } catch {
       toast({
         title: 'Ошибка',
         description: 'Проблема с подключением',
@@ -76,40 +58,21 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
 
   const verifyCode = async () => {
     setIsLoading(true);
-    const normalizedPhone = normalizePhone(phone);
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(SMS_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'verify_code',
-          phone: normalizedPhone,
-          code: code,
-          is_registration: mode === 'register',
-          remember_me: rememberMe,
-          name: name || 'Клиент'
-        })
+        body: JSON.stringify({ phone, code, name: name || 'Клиент', action: 'verify' })
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // Сохранение токена если "Запомнить меня"
-        if (data.session_token) {
-          localStorage.setItem('session_token', data.session_token);
-        }
-
         handleTelegramAuth({
           id: data.user.id,
           first_name: data.user.name,
           phone_number: data.user.phone,
           cashback: data.user.cashback,
-          role: data.user.role,
-        });
-
-        toast({
-          title: mode === 'register' ? 'Регистрация успешна' : 'Вход выполнен',
-          description: `Добро пожаловать, ${data.user.name}!`,
         });
       } else {
         toast({
@@ -118,7 +81,7 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
           variant: 'destructive',
         });
       }
-    } catch (error) {
+    } catch {
       toast({
         title: 'Ошибка',
         description: 'Проблема с подключением',
@@ -126,20 +89,6 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
       });
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handlePhoneSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (phone.length >= 10) {
-      sendSMSCode();
-    }
-  };
-
-  const handleCodeSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (code.length === 6) {
-      verifyCode();
     }
   };
 
@@ -161,147 +110,82 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
         </CardHeader>
 
         <CardContent className="space-y-6 pb-8">
-          {mode === 'choice' && (
+          {step === 'phone' ? (
             <div className="space-y-4">
               <div className="text-center space-y-2">
-                <h3 className="text-lg font-semibold">Добро пожаловать!</h3>
-                <p className="text-sm text-muted-foreground">
-                  Выберите действие
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <Button 
-                  className="w-full h-12 text-base"
-                  onClick={() => setMode('login')}
-                >
-                  <Icon name="LogIn" size={20} className="mr-2" />
-                  Войти
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="w-full h-12 text-base"
-                  onClick={() => setMode('register')}
-                >
-                  <Icon name="UserPlus" size={20} className="mr-2" />
-                  Зарегистрироваться
-                </Button>
-              </div>
-            </div>
-          )}
-
-          {(mode === 'login' || mode === 'register') && (
-            <form onSubmit={handlePhoneSubmit} className="space-y-4">
-              <div className="text-center space-y-2">
-                <h3 className="text-lg font-semibold">
-                  {mode === 'register' ? 'Регистрация' : 'Вход'}
-                </h3>
+                <h3 className="text-lg font-semibold">Вход в приложение</h3>
                 <p className="text-sm text-muted-foreground">
                   Введите данные для получения SMS-кода
                 </p>
               </div>
 
               <div className="space-y-3">
-                {mode === 'register' && (
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="Ваше имя"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="h-12"
-                      required
-                    />
-                  </div>
-                )}
-                <div>
-                  <Input
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                    className="h-12"
-                    required
-                  />
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="remember" 
-                    checked={rememberMe}
-                    onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                  />
-                  <Label htmlFor="remember" className="text-sm cursor-pointer">
-                    Запомнить меня
-                  </Label>
-                </div>
+                <Input
+                  type="text"
+                  placeholder="Ваше имя"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="h-12"
+                />
+                <Input
+                  type="tel"
+                  placeholder="+7 (___) ___-__-__"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                  className="h-12"
+                  required
+                />
               </div>
 
-              <div className="space-y-2">
-                <Button 
-                  type="submit" 
-                  className="w-full h-12 text-base"
-                  disabled={phone.length < 10 || isLoading}
-                >
-                  {isLoading ? 'Отправка...' : 'Получить код'}
-                </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="w-full"
-                  onClick={() => setMode('choice')}
-                >
-                  Назад
-                </Button>
-              </div>
-            </form>
-          )}
-
-          {mode === 'code' && (
-            <form onSubmit={handleCodeSubmit} className="space-y-4">
+              <Button 
+                className="w-full h-12"
+                onClick={sendCode}
+                disabled={phone.length < 10 || isLoading}
+              >
+                {isLoading ? 'Отправка...' : 'Получить код'}
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-4">
               <div className="text-center space-y-2">
                 <h3 className="text-lg font-semibold">Введите код</h3>
                 <p className="text-sm text-muted-foreground">
-                  Код отправлен на номер {phone}
+                  Код отправлен на {phone}
                 </p>
                 {devCode && (
                   <p className="text-xs text-primary font-mono bg-primary/10 p-2 rounded">
-                    Тестовый код: {devCode}
+                    Код: {devCode}
                   </p>
                 )}
               </div>
 
-              <div className="space-y-3">
-                <Input
-                  type="text"
-                  placeholder="000000"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  className="h-12 text-center text-2xl tracking-widest"
-                  maxLength={6}
-                  autoFocus
-                />
-              </div>
+              <Input
+                type="text"
+                placeholder="____"
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                className="h-12 text-center text-2xl tracking-widest"
+                maxLength={4}
+                autoFocus
+              />
 
               <div className="space-y-2">
                 <Button 
-                  type="submit" 
-                  className="w-full h-12 text-base"
-                  disabled={code.length !== 6 || isLoading}
+                  className="w-full h-12"
+                  onClick={verifyCode}
+                  disabled={code.length !== 4 || isLoading}
                 >
                   {isLoading ? 'Проверка...' : 'Подтвердить'}
                 </Button>
                 <Button
-                  type="button"
                   variant="ghost"
                   className="w-full"
-                  onClick={() => sendSMSCode()}
-                  disabled={isLoading}
+                  onClick={() => setStep('phone')}
                 >
-                  Отправить код повторно
+                  Назад
                 </Button>
               </div>
-            </form>
+            </div>
           )}
 
           <div className="pt-4 border-t">
