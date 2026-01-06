@@ -9,6 +9,7 @@ import CatalogSection from '@/components/sections/CatalogSection';
 import CartSection from '@/components/sections/CartSection';
 import ContactsSection from '@/components/sections/ContactsSection';
 import ProfileSection from '@/components/sections/ProfileSection';
+import AboutSection from '@/components/sections/AboutSection';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
@@ -138,6 +139,10 @@ const Index = () => {
           />
         )}
 
+        {activeSection === 'about' && (
+          <AboutSection />
+        )}
+
         {activeSection === 'contacts' && (
           <ContactsSection
             stores={stores}
@@ -160,27 +165,27 @@ const Index = () => {
               variant={activeSection === 'home' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setActiveSection('home')}
-              className="flex flex-col h-auto py-2 px-3"
+              className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="Home" size={20} />
+              <Icon name="Home" size={18} />
               <span className="text-xs mt-1">Главная</span>
             </Button>
             <Button
               variant={activeSection === 'catalog' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setActiveSection('catalog')}
-              className="flex flex-col h-auto py-2 px-3"
+              className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="ShoppingBag" size={20} />
+              <Icon name="ShoppingBag" size={18} />
               <span className="text-xs mt-1">Каталог</span>
             </Button>
             <Button
               variant={activeSection === 'cart' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setActiveSection('cart')}
-              className="flex flex-col h-auto py-2 px-3 relative"
+              className="flex flex-col h-auto py-2 px-2 relative"
             >
-              <Icon name="ShoppingCart" size={20} />
+              <Icon name="ShoppingCart" size={18} />
               <span className="text-xs mt-1">Корзина</span>
               {cart.cartItemsCount > 0 && (
                 <Badge className="absolute top-1 right-1 h-4 w-4 flex items-center justify-center p-0 text-xs">
@@ -189,12 +194,21 @@ const Index = () => {
               )}
             </Button>
             <Button
+              variant={activeSection === 'about' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('about')}
+              className="flex flex-col h-auto py-2 px-2"
+            >
+              <Icon name="Info" size={18} />
+              <span className="text-xs mt-1">О нас</span>
+            </Button>
+            <Button
               variant={activeSection === 'profile' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setActiveSection('profile')}
-              className="flex flex-col h-auto py-2 px-3"
+              className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="User" size={20} />
+              <Icon name="User" size={18} />
               <span className="text-xs mt-1">Профиль</span>
             </Button>
           </div>
