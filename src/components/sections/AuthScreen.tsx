@@ -23,15 +23,27 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
 
   const API_URL = 'https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f';
 
+  const normalizePhone = (phoneStr: string): string => {
+    const digits = phoneStr.replace(/\D/g, '');
+    if (digits.startsWith('8') && digits.length === 11) {
+      return '7' + digits.slice(1);
+    }
+    if (!digits.startsWith('7') && digits.length === 10) {
+      return '7' + digits;
+    }
+    return digits;
+  };
+
   const sendSMSCode = async () => {
     setIsLoading(true);
+    const normalizedPhone = normalizePhone(phone);
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'send_code',
-          phone: phone
+          phone: normalizedPhone
         })
       });
 
@@ -64,13 +76,14 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
 
   const verifyCode = async () => {
     setIsLoading(true);
+    const normalizedPhone = normalizePhone(phone);
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'verify_code',
-          phone: phone,
+          phone: normalizedPhone,
           code: code,
           is_registration: mode === 'register',
           remember_me: rememberMe,

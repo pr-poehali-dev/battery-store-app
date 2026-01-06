@@ -20,6 +20,15 @@ def generate_session_token() -> str:
     """Генерация токена сессии"""
     return ''.join(random.choices(string.ascii_letters + string.digits, k=64))
 
+def normalize_phone(phone: str) -> str:
+    """Нормализация номера телефона к формату 7XXXXXXXXXX"""
+    digits = ''.join(filter(str.isdigit, phone))
+    if digits.startswith('8') and len(digits) == 11:
+        digits = '7' + digits[1:]
+    if not digits.startswith('7') and len(digits) == 10:
+        digits = '7' + digits
+    return digits
+
 def send_sms(phone: str, code: str) -> bool:
     """Отправка SMS через SMS.ru"""
     try:
@@ -65,9 +74,9 @@ def handler(event: dict, context) -> dict:
         
         # Отправка SMS-кода
         if action == 'send_code':
-            phone = body.get('phone', '').strip()
+            phone = normalize_phone(body.get('phone', '').strip())
             
-            if not phone:
+            if not phone or len(phone) < 11:
                 cur.close()
                 conn.close()
                 return {
@@ -77,8 +86,8 @@ def handler(event: dict, context) -> dict:
                     'isBase64Encoded': False
                 }
             
-            # Деактивация старых кодов
-            cur.execute("UPDATE sms_codes SET verified = TRUE WHERE phone = %s AND verified = FALSE", (phone,))
+            # Деактивация старых кодов для этого номера
+            cur.execute("UPDATE sms_codes SET verified = TRUE WHERE phone = %s AND verified = FALSE AND expires_at < NOW()", (phone,))
             
             # Генерация нового кода
             code = generate_code()
@@ -109,7 +118,7 @@ def handler(event: dict, context) -> dict:
         
         # Проверка кода и вход/регистрация
         elif action == 'verify_code':
-            phone = body.get('phone', '').strip()
+            phone = normalize_phone(body.get('phone', '').strip())
             code = body.get('code', '').strip()
             is_registration = body.get('is_registration', False)
             remember_me = body.get('remember_me', False)
