@@ -1,12 +1,29 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import TelegramLoginButton from '@/components/TelegramLoginButton';
 
 interface AuthScreenProps {
   handleTelegramAuth: (user: any) => void;
 }
 
 const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
+  const [phone, setPhone] = useState('');
+  const [name, setName] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (phone.length >= 10) {
+      handleTelegramAuth({
+        id: Date.now(),
+        first_name: name || 'Клиент',
+        phone_number: phone,
+        photo_url: '',
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-2xl">
@@ -25,54 +42,44 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
         </CardHeader>
 
         <CardContent className="space-y-6 pb-8">
-          <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="text-center space-y-2">
               <h3 className="text-lg font-semibold">Вход в приложение</h3>
               <p className="text-sm text-muted-foreground">
-                Войдите через Telegram, чтобы получить доступ к каталогу, корзине и бонусам
+                Введите ваши данные для доступа к каталогу и бонусам
               </p>
             </div>
 
-            <div className="py-4">
-              <TelegramLoginButton
-                botUsername="mir_akkum_shop_bot"
-                onAuth={handleTelegramAuth}
-                buttonSize="large"
-                cornerRadius={10}
-                requestAccess={true}
-                usePic={true}
-                lang="ru"
-              />
-            </div>
-
-            <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
-              <div className="flex gap-3">
-                <Icon name="Info" size={20} className="text-blue-600 flex-shrink-0 mt-0.5" />
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p className="font-medium text-foreground">Для входа:</p>
-                  <ol className="space-y-1 ml-4 list-decimal">
-                    <li>Нажмите кнопку выше</li>
-                    <li>Подтвердите вход в окне Telegram</li>
-                    <li>Готово! Ваши данные подтянутся автоматически</li>
-                  </ol>
-                </div>
+            <div className="space-y-3">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Ваше имя"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="h-12"
+                />
+              </div>
+              <div>
+                <Input
+                  type="tel"
+                  placeholder="+7 (___) ___-__-__"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                  className="h-12"
+                  required
+                />
               </div>
             </div>
 
-            <div className="p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
-              <div className="flex gap-2">
-                <Icon name="AlertCircle" size={16} className="text-yellow-600 flex-shrink-0 mt-0.5" />
-                <div className="text-xs text-muted-foreground space-y-1">
-                  <p className="font-medium text-foreground">Если кнопка не работает:</p>
-                  <ul className="space-y-0.5 ml-3 list-disc">
-                    <li>Убедитесь что бот создан через @BotFather</li>
-                    <li>Настройте домен командой /setdomain</li>
-                    <li>Добавьте токен бота в секреты проекта</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+            <Button 
+              type="submit" 
+              className="w-full h-12 text-base"
+              disabled={phone.length < 10}
+            >
+              Войти в магазин
+            </Button>
+          </form>
 
           <div className="pt-4 border-t">
             <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
