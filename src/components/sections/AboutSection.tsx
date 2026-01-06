@@ -152,6 +152,46 @@ const AboutSection = () => {
             </div>
           </div>
 
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Icon name="Star" size={20} className="text-amber-500" />
+              О нас пишут в популярных сервисах 🔝
+            </h3>
+            <div className="grid gap-3">
+              <a
+                href="https://2gis.ru/khabarovsk/geo/4926340373423463"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:shadow-lg"
+              >
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <Icon name="MapPin" size={24} className="text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-blue-700">2ГИС</h4>
+                  <p className="text-sm text-muted-foreground">Исключительно положительные отзывы</p>
+                </div>
+                <Icon name="ExternalLink" size={20} className="text-blue-600" />
+              </a>
+
+              <a
+                href="https://yandex.ru/maps/org/mir_akkumulyatorov/1263949906/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 hover:border-red-500/40 transition-all hover:shadow-lg"
+              >
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                  <Icon name="MapPin" size={24} className="text-red-600" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-red-700">Яндекс Карты</h4>
+                  <p className="text-sm text-muted-foreground">Исключительно положительные отзывы</p>
+                </div>
+                <Icon name="ExternalLink" size={20} className="text-red-600" />
+              </a>
+            </div>
+          </div>
+
           <Card className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-green-500/30 shadow-lg">
             <CardContent className="pt-6">
               <div className="text-center space-y-4">
