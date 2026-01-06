@@ -147,6 +147,30 @@ const AboutSection = () => {
             </div>
           </div>
 
+          <Card className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-green-500/30 shadow-lg">
+            <CardContent className="pt-6">
+              <div className="text-center space-y-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20">
+                  <Icon name="Wallet" size={32} className="text-green-600" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-green-700">Покупай и зарабатывай!</h3>
+                  <div className="inline-block px-4 py-2 bg-green-500/20 rounded-full">
+                    <span className="text-2xl font-bold text-green-700">3% кэшбэк</span>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                  С каждой покупки возвращаем 3% на ваш бонусный счет. Используйте кэшбэк для оплаты следующих покупок!
+                </p>
+                <div className="pt-3">
+                  <p className="text-base font-semibold text-primary">
+                    Мир Аккумуляторов — давай зарабатывать вместе! 🚀
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
             <CardContent className="pt-6">
               <div className="text-center space-y-3">
