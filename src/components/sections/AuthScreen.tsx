@@ -2,25 +2,131 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
 
 interface AuthScreenProps {
   handleTelegramAuth: (user: any) => void;
 }
 
 const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
+  const [mode, setMode] = useState<'choice' | 'login' | 'register' | 'code'>('choice');
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
+  const [code, setCode] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [devCode, setDevCode] = useState('');
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const API_URL = 'https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f';
+
+  const sendSMSCode = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'send_code',
+          phone: phone
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setDevCode(data.dev_code || '');
+        setMode('code');
+        toast({
+          title: 'Код отправлен',
+          description: data.dev_code ? `Тестовый код: ${data.dev_code}` : 'Проверьте SMS',
+        });
+      } else {
+        toast({
+          title: 'Ошибка',
+          description: data.error || 'Не удалось отправить код',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Проблема с подключением',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const verifyCode = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'verify_code',
+          phone: phone,
+          code: code,
+          is_registration: mode === 'register',
+          remember_me: rememberMe,
+          name: name || 'Клиент'
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Сохранение токена если "Запомнить меня"
+        if (data.session_token) {
+          localStorage.setItem('session_token', data.session_token);
+        }
+
+        handleTelegramAuth({
+          id: data.user.id,
+          first_name: data.user.name,
+          phone_number: data.user.phone,
+          cashback: data.user.cashback,
+          role: data.user.role,
+        });
+
+        toast({
+          title: mode === 'register' ? 'Регистрация успешна' : 'Вход выполнен',
+          description: `Добро пожаловать, ${data.user.name}!`,
+        });
+      } else {
+        toast({
+          title: 'Ошибка',
+          description: data.error || 'Неверный код',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Проблема с подключением',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePhoneSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length >= 10) {
-      handleTelegramAuth({
-        id: Date.now(),
-        first_name: name || 'Клиент',
-        phone_number: phone,
-        photo_url: '',
-      });
+      sendSMSCode();
+    }
+  };
+
+  const handleCodeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (code.length === 6) {
+      verifyCode();
     }
   };
 
@@ -42,44 +148,148 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
         </CardHeader>
 
         <CardContent className="space-y-6 pb-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="text-center space-y-2">
-              <h3 className="text-lg font-semibold">Вход в приложение</h3>
-              <p className="text-sm text-muted-foreground">
-                Введите ваши данные для доступа к каталогу и бонусам
-              </p>
-            </div>
+          {mode === 'choice' && (
+            <div className="space-y-4">
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold">Добро пожаловать!</h3>
+                <p className="text-sm text-muted-foreground">
+                  Выберите действие
+                </p>
+              </div>
 
-            <div className="space-y-3">
-              <div>
+              <div className="space-y-3">
+                <Button 
+                  className="w-full h-12 text-base"
+                  onClick={() => setMode('login')}
+                >
+                  <Icon name="LogIn" size={20} className="mr-2" />
+                  Войти
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="w-full h-12 text-base"
+                  onClick={() => setMode('register')}
+                >
+                  <Icon name="UserPlus" size={20} className="mr-2" />
+                  Зарегистрироваться
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {(mode === 'login' || mode === 'register') && (
+            <form onSubmit={handlePhoneSubmit} className="space-y-4">
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold">
+                  {mode === 'register' ? 'Регистрация' : 'Вход'}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Введите данные для получения SMS-кода
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {mode === 'register' && (
+                  <div>
+                    <Input
+                      type="text"
+                      placeholder="Ваше имя"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="h-12"
+                      required
+                    />
+                  </div>
+                )}
+                <div>
+                  <Input
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                    className="h-12"
+                    required
+                  />
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="remember" 
+                    checked={rememberMe}
+                    onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                  />
+                  <Label htmlFor="remember" className="text-sm cursor-pointer">
+                    Запомнить меня
+                  </Label>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Button 
+                  type="submit" 
+                  className="w-full h-12 text-base"
+                  disabled={phone.length < 10 || isLoading}
+                >
+                  {isLoading ? 'Отправка...' : 'Получить код'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => setMode('choice')}
+                >
+                  Назад
+                </Button>
+              </div>
+            </form>
+          )}
+
+          {mode === 'code' && (
+            <form onSubmit={handleCodeSubmit} className="space-y-4">
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold">Введите код</h3>
+                <p className="text-sm text-muted-foreground">
+                  Код отправлен на номер {phone}
+                </p>
+                {devCode && (
+                  <p className="text-xs text-primary font-mono bg-primary/10 p-2 rounded">
+                    Тестовый код: {devCode}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-3">
                 <Input
                   type="text"
-                  placeholder="Ваше имя"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="h-12"
+                  placeholder="000000"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  className="h-12 text-center text-2xl tracking-widest"
+                  maxLength={6}
+                  autoFocus
                 />
               </div>
-              <div>
-                <Input
-                  type="tel"
-                  placeholder="+7 (___) ___-__-__"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                  className="h-12"
-                  required
-                />
-              </div>
-            </div>
 
-            <Button 
-              type="submit" 
-              className="w-full h-12 text-base"
-              disabled={phone.length < 10}
-            >
-              Войти в магазин
-            </Button>
-          </form>
+              <div className="space-y-2">
+                <Button 
+                  type="submit" 
+                  className="w-full h-12 text-base"
+                  disabled={code.length !== 6 || isLoading}
+                >
+                  {isLoading ? 'Проверка...' : 'Подтвердить'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => sendSMSCode()}
+                  disabled={isLoading}
+                >
+                  Отправить код повторно
+                </Button>
+              </div>
+            </form>
+          )}
 
           <div className="pt-4 border-t">
             <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">

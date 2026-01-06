@@ -25,6 +25,7 @@ export interface User {
   username?: string;
   photo_url?: string;
   cashback: number;
+  role?: string;
 }
 
 export interface Store {
