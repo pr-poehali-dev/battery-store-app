@@ -11,6 +11,7 @@ import ContactsSection from '@/components/sections/ContactsSection';
 import ProfileSection from '@/components/sections/ProfileSection';
 import AboutSection from '@/components/sections/AboutSection';
 import AdminSection from '@/components/sections/AdminSection';
+import PromotionsSection from '@/components/sections/PromotionsSection';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
@@ -144,6 +145,10 @@ const Index = () => {
           <AboutSection />
         )}
 
+        {activeSection === 'promotions' && (
+          <PromotionsSection />
+        )}
+
         {activeSection === 'contacts' && (
           <ContactsSection
             stores={stores}
@@ -183,6 +188,15 @@ const Index = () => {
             >
               <Icon name="ShoppingBag" size={18} />
               <span className="text-xs mt-1">Каталог</span>
+            </Button>
+            <Button
+              variant={activeSection === 'promotions' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('promotions')}
+              className="flex flex-col h-auto py-2 px-2"
+            >
+              <Icon name="Sparkles" size={18} />
+              <span className="text-xs mt-1">Акции🤑</span>
             </Button>
             <Button
               variant={activeSection === 'cart' ? 'default' : 'ghost'}
