@@ -44,12 +44,16 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
                 </Badge>
                 <h3 className="text-lg font-bold">Рекомендует блогер AcademeG</h3>
               </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground justify-center md:justify-start">
+                <Icon name="Users" size={16} />
+                <span className="font-semibold">1,77 млн подписчиков</span>
+              </div>
               <p className="text-sm text-muted-foreground">
                 Популярный автоблогер советует продукцию <span className="font-bold text-primary">Carku</span>
               </p>
               <div className="flex items-center gap-2 text-xs font-semibold text-primary justify-center md:justify-start">
                 <Icon name="Award" size={16} />
-                <span>Официальный представитель бренда Carku в России</span>
+                <span>Мир Аккумуляторов — официальный представитель бренда Carku в России</span>
               </div>
               <a 
                 href="https://youtu.be/8ESv9PV_tpc"

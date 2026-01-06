@@ -223,46 +223,6 @@ const AboutSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-500/10 via-primary/10 to-purple-500/10 border-primary/30">
-            <CardContent className="pt-6">
-              <div className="flex flex-col md:flex-row items-center gap-4">
-                <div className="relative">
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-primary/20">
-                    <img 
-                      src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/f61bf599-cfe8-460a-8500-5d0db5cd6cb8.jpg"
-                      alt="Блогер AcademeG"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-1">
-                    <Icon name="CheckCircle2" size={16} className="text-white" />
-                  </div>
-                </div>
-                <div className="flex-1 text-center md:text-left space-y-2">
-                  <div className="flex items-center gap-2 justify-center md:justify-start">
-                    <Icon name="Youtube" size={20} className="text-red-500" />
-                    <h3 className="text-lg font-semibold">Рекомендует блогер AcademeG</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Популярный автоблогер советует продукцию <span className="font-semibold text-primary">Carku</span>
-                  </p>
-                  <p className="text-xs text-primary font-medium">
-                    🏆 Официальный представитель бренда Carku в России
-                  </p>
-                  <a 
-                    href="https://youtu.be/8ESv9PV_tpc"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium"
-                  >
-                    <Icon name="Play" size={16} />
-                    Смотреть видеообзор
-                  </a>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           <div className="space-y-3 pt-4 border-t">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Icon name="Phone" size={20} className="text-primary" />
