@@ -21,6 +21,50 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
         />
       </div>
 
+      <Card className="bg-gradient-to-br from-red-500/15 via-primary/10 to-blue-500/15 border-2 border-primary/40 shadow-xl">
+        <CardContent className="pt-6">
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="relative flex-shrink-0">
+              <div className="w-24 h-24 rounded-xl overflow-hidden border-4 border-white shadow-lg">
+                <img 
+                  src="https://cdn.poehali.dev/files/IMG_0793.jpeg"
+                  alt="Блогер AcademeG с продукцией Carku"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1.5 shadow-lg">
+                <Icon name="Youtube" size={20} className="text-white" />
+              </div>
+            </div>
+            <div className="flex-1 text-center md:text-left space-y-2">
+              <div className="flex items-center gap-2 justify-center md:justify-start flex-wrap">
+                <Badge className="bg-red-500 text-white">
+                  <Icon name="Video" size={14} className="mr-1" />
+                  YouTube
+                </Badge>
+                <h3 className="text-lg font-bold">Рекомендует блогер AcademeG</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Популярный автоблогер советует продукцию <span className="font-bold text-primary">Carku</span>
+              </p>
+              <div className="flex items-center gap-2 text-xs font-semibold text-primary justify-center md:justify-start">
+                <Icon name="Award" size={16} />
+                <span>Официальный представитель бренда Carku в России</span>
+              </div>
+              <a 
+                href="https://youtu.be/8ESv9PV_tpc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all text-sm font-semibold shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                <Icon name="Play" size={18} />
+                Смотреть видеообзор
+              </a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="border-2 border-primary/20">
         <CardHeader>
           <div className="flex items-center gap-2">
