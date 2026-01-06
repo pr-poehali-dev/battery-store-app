@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 
 const AboutSection = () => {
+  const [purchaseAmount, setPurchaseAmount] = useState('');
+  const cashbackAmount = purchaseAmount ? (parseFloat(purchaseAmount) * 0.03).toFixed(2) : '0';
+
   return (
     <div className="space-y-6 animate-fade-in">
       <Card className="border-primary/20">
@@ -162,6 +167,41 @@ const AboutSection = () => {
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   С каждой покупки возвращаем 3% на ваш бонусный счет. Используйте кэшбэк для оплаты следующих покупок!
                 </p>
+
+                <div className="pt-4 space-y-3 max-w-sm mx-auto">
+                  <div className="text-left space-y-2">
+                    <label className="text-sm font-medium text-green-700">
+                      Калькулятор кэшбэка
+                    </label>
+                    <div className="relative">
+                      <Input
+                        type="number"
+                        placeholder="Сумма покупки"
+                        value={purchaseAmount}
+                        onChange={(e) => setPurchaseAmount(e.target.value)}
+                        className="h-12 text-lg pr-12 border-green-500/30 focus:border-green-500"
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">
+                        ₽
+                      </span>
+                    </div>
+                  </div>
+
+                  {purchaseAmount && parseFloat(purchaseAmount) > 0 && (
+                    <div className="p-4 bg-green-500/20 rounded-lg space-y-2 animate-fade-in">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground">Ваш кэшбэк:</span>
+                        <span className="text-2xl font-bold text-green-700">
+                          {cashbackAmount} ₽
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground text-center">
+                        Эти деньги вернутся на ваш бонусный счет!
+                      </p>
+                    </div>
+                  )}
+                </div>
+
                 <div className="pt-3">
                   <p className="text-base font-semibold text-primary">
                     Мир Аккумуляторов — давай зарабатывать вместе! 🚀
