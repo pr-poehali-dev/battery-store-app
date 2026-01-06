@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Test add cashback success",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "userId": "79001234567",
+        "cashbackAmount": 150.00
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test missing parameters",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "userId": "79141234567"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
