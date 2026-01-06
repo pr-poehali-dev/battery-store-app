@@ -15,7 +15,16 @@ const AboutSection = () => {
           <div className="space-y-3 text-center">
             <h3 className="text-xl font-semibold text-primary">Мир Аккумуляторов</h3>
             <p className="text-muted-foreground">
-              Работаем с 1998 года в Хабаровске
+              Основана в 1998 году
+            </p>
+          </div>
+
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+            <p>
+              Компания «Мир Аккумуляторов» была основана в 1998 году. В наших магазинах представлен широкий ассортимент аккумуляторных батарей от 1 Ач до 240 Ач для легкового и грузового транспорта, мотоциклов, снегоходов, гидроциклов и т. п.
+            </p>
+            <p>
+              Батареи произведены по самым современным технологиям: AGM, EFB, Graphene, Nanogel, SiO2, Calcium+, TOP, ExMET, PowerPass, ChessPlate, CMF, T-Max, Magic Eye.
             </p>
           </div>
 
@@ -23,9 +32,9 @@ const AboutSection = () => {
             <Card className="bg-primary/5 border-primary/20">
               <CardContent className="pt-6 text-center">
                 <Icon name="Award" size={32} className="mx-auto mb-3 text-primary" />
-                <h4 className="font-semibold mb-2">26+ лет опыта</h4>
+                <h4 className="font-semibold mb-2">25+ лет опыта</h4>
                 <p className="text-sm text-muted-foreground">
-                  Работаем с аккумуляторами с 1998 года
+                  Крупнейшая сеть в Хабаровском крае
                 </p>
               </CardContent>
             </Card>
@@ -35,7 +44,7 @@ const AboutSection = () => {
                 <Icon name="MapPin" size={32} className="mx-auto mb-3 text-primary" />
                 <h4 className="font-semibold mb-2">6 магазинов</h4>
                 <p className="text-sm text-muted-foreground">
-                  Удобные точки продаж по всему городу
+                  Удобные точки продаж по городу
                 </p>
               </CardContent>
             </Card>
@@ -45,7 +54,7 @@ const AboutSection = () => {
                 <Icon name="Wrench" size={32} className="mx-auto mb-3 text-primary" />
                 <h4 className="font-semibold mb-2">Сервисный центр</h4>
                 <p className="text-sm text-muted-foreground">
-                  Профессиональное обслуживание АКБ
+                  Полный цикл обслуживания АКБ
                 </p>
               </CardContent>
             </Card>
@@ -53,26 +62,65 @@ const AboutSection = () => {
 
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
-              <Icon name="CheckCircle" size={20} className="text-primary" />
-              Наши преимущества
+              <Icon name="Factory" size={20} className="text-primary" />
+              Мы - официальные дилеры
+            </h3>
+            <div className="grid gap-2">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <div className="text-sm">
+                  <span className="font-medium">CARKU</span> - Jiangxi Oursun New Energy Co., Ltd (КНР)
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <div className="text-sm">
+                  <span className="font-medium">TITAN</span> - TUBOR, г. Бор (Нижегородская обл.)
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <div className="text-sm">
+                  <span className="font-medium">ROCKET</span> - Global Battery Co., Ltd (Ю. Корея)
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <div className="text-sm">
+                  <span className="font-medium">VOLT, GLADIATOR, CONTACT</span> - TUNGSTONE, г. Рязань
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <div className="text-sm">
+                  <span className="font-medium">ENEUS</span> - DTR Corporation (Ю. Корея)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Icon name="Star" size={20} className="text-primary" />
+              Почему выбирают нас?
             </h3>
             <div className="grid gap-3">
               <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="Zap" size={20} className="text-primary mt-1 flex-shrink-0" />
+                <Icon name="TrendingUp" size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium">Широкий ассортимент</h4>
+                  <h4 className="font-medium">Крупнейшая сеть в крае</h4>
                   <p className="text-sm text-muted-foreground">
-                    Аккумуляторы для всех типов автомобилей: азиатские, европейские, грузовые
+                    Мы являемся крупнейшей оптово-розничной сетью по продаже аккумуляторных батарей в Хабаровском крае
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="ShieldCheck" size={20} className="text-primary mt-1 flex-shrink-0" />
+                <Icon name="Calendar" size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium">Гарантия качества</h4>
+                  <h4 className="font-medium">Более 25 лет опыта</h4>
                   <p className="text-sm text-muted-foreground">
-                    Работаем только с проверенными брендами: Varta, Bosch, Mutlu, Solite и др.
+                    Занимаемся продажей аккумуляторных батарей с 1998 года
                   </p>
                 </div>
               </div>
@@ -80,9 +128,9 @@ const AboutSection = () => {
               <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
                 <Icon name="Headphones" size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium">Профессиональная консультация</h4>
+                  <h4 className="font-medium">Профессиональные консультации</h4>
                   <p className="text-sm text-muted-foreground">
-                    Поможем подобрать аккумулятор под ваш автомобиль
+                    Поможем выбрать аккумулятор, который подходит именно вашему транспортному средству
                   </p>
                 </div>
               </div>
@@ -90,19 +138,9 @@ const AboutSection = () => {
               <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
                 <Icon name="Wrench" size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium">Установка и обслуживание</h4>
+                  <h4 className="font-medium">Специализированный сервис</h4>
                   <p className="text-sm text-muted-foreground">
-                    Бесплатная установка АКБ в наших магазинах и сервисном центре
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="Wallet" size={20} className="text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-medium">Система кэшбэка</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Получайте бонусы с каждой покупки и используйте их для оплаты
+                    Собственный сервисный центр: проверка качества с актом, зарядка, установка на ТС, проверка электрооборудования
                   </p>
                 </div>
               </div>
@@ -113,10 +151,9 @@ const AboutSection = () => {
             <CardContent className="pt-6">
               <div className="text-center space-y-3">
                 <Icon name="Heart" size={32} className="mx-auto text-primary" />
-                <h3 className="text-lg font-semibold">Доверие клиентов</h3>
+                <h3 className="text-lg font-semibold">Доверие тысяч клиентов</h3>
                 <p className="text-sm text-muted-foreground">
-                  За 26 лет работы мы обслужили тысячи автомобилистов в Хабаровске 
-                  и заслужили репутацию надежного партнера
+                  За более чем 25 лет работы мы обслужили тысячи автомобилистов в Хабаровском крае и заслужили репутацию надежного партнера
                 </p>
               </div>
             </CardContent>
@@ -137,7 +174,7 @@ const AboutSection = () => {
                 <span>Ежедневно с 9:00 до 20:00</span>
               </p>
               <p className="text-muted-foreground">
-                Раздел "Контакты" для полной информации о наших магазинах
+                Подробная информация в разделе "Профиль" → "Контакты"
               </p>
             </div>
           </div>
