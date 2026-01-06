@@ -67,10 +67,10 @@ const PromotionsSection = () => {
                 <Button 
                   variant="outline"
                   className="flex-1"
-                  onClick={() => window.open('https://wa.me/79241234567', '_blank')}
+                  onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
                 >
-                  <Icon name="MessageCircle" size={18} className="mr-2" />
-                  WhatsApp
+                  <Icon name="Send" size={18} className="mr-2" />
+                  Телеграм
                 </Button>
               </div>
             </CardContent>
