@@ -244,6 +244,21 @@ const StoresSection = () => {
 
                 {selectedStore?.id === store.id && (
                   <div className="space-y-3 pt-3 border-t animate-slide-up">
+                    {store.id === 1 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0834.jpeg" 
+                          alt="Магазин Павловича 26 - внешний вид"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0835.jpeg" 
+                          alt="Магазин Павловича 26 - вход"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+
                     <div className="flex items-start gap-2 text-sm">
                       <Icon name="Clock" size={16} className="mt-0.5 text-primary flex-shrink-0" />
                       <div>
