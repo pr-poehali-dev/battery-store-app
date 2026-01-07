@@ -93,9 +93,9 @@ const AboutSection = () => {
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <img 
-                  src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/2ba0e3ad-81e6-4802-b312-3581751f9cd8.jpg" 
+                  src="https://cdn.poehali.dev/files/IMG_0816.jpeg" 
                   alt="ЗВЕРЬ"
-                  className="w-12 h-12 object-contain flex-shrink-0 rounded"
+                  className="w-16 h-12 object-contain flex-shrink-0"
                 />
                 <div className="text-sm">
                   <span className="font-medium">ЗВЕРЬ</span> - Актех, г. Свирск (Иркутская обл.)
