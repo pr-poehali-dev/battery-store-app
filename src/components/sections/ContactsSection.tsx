@@ -83,26 +83,19 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-blue-500/5 to-blue-600/5 border-2 border-blue-500/20">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-4">
-            <Icon name="MapPin" size={32} className="text-blue-600" />
+      <Card className="bg-gradient-to-br from-slate-700 to-slate-800 text-white border-0 overflow-hidden">
+        <CardContent className="pt-16 pb-8 px-6 text-center relative">
+          <div className="absolute top-8 left-1/2 -translate-x-1/2">
+            <div className="w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <Icon name="MapPin" size={48} className="text-blue-400" />
+            </div>
           </div>
-          <CardTitle className="text-2xl">Точки самовывоза</CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">6 магазинов в Хабаровске для удобного самовывоза</p>
-        </CardHeader>
-        <CardContent>
+          <h3 className="text-3xl font-bold mb-4 mt-8">Точки самовывоза</h3>
+          <p className="text-lg text-slate-300 mb-8">6 магазинов в Хабаровске для удобного самовывоза</p>
           <Button 
             size="lg" 
-            className="w-full"
-            onClick={() => {
-              const storesSection = document.querySelector('[data-section="stores"]');
-              if (storesSection) {
-                storesSection.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+            className="w-full max-w-md mx-auto bg-slate-600 hover:bg-slate-500 text-white border-2 border-slate-500 text-lg py-6 rounded-2xl"
           >
-            <Icon name="Map" size={20} className="mr-2" />
             Смотреть адреса
           </Button>
         </CardContent>
