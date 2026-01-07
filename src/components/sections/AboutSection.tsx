@@ -98,10 +98,10 @@ const AboutSection = () => {
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
                 <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center overflow-hidden">
                   <img 
-                    src="https://cdn.poehali.dev/files/IMG_0816.jpeg" 
+                    src="https://cdn.poehali.dev/files/IMG_0819.jpeg" 
                     alt="ЗВЕРЬ"
-                    className="w-full scale-150"
-                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    className="w-full scale-[2.5]"
+                    style={{ objectFit: 'contain', objectPosition: 'center' }}
                   />
                 </div>
                 <div className="text-sm">
