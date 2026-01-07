@@ -289,6 +289,71 @@ const StoresSection = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="space-y-4">
+        <h3 className="text-2xl font-bold">Контакты</h3>
+
+        <Card className="border-2 border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-blue-600/5">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Icon name="MessageCircle" size={24} className="text-blue-600" />
+              <CardTitle>Связаться с нами</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-muted-foreground">
+              Для заказа и консультации свяжитесь с нашим менеджером
+            </p>
+            <Button 
+              size="lg" 
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+            >
+              <Icon name="MessageCircle" size={20} className="mr-2" />
+              @nobodystillhere
+            </Button>
+            <div className="pt-2 border-t border-border/50 space-y-2">
+              <p className="text-sm text-muted-foreground font-medium">Телефоны:</p>
+              <a 
+                href="tel:+74212461041" 
+                className="flex items-center gap-2 text-primary hover:underline"
+              >
+                <Icon name="Phone" size={18} />
+                <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для юр. лиц)</span></span>
+              </a>
+            </div>
+            <div className="pt-2 border-t border-border/50 space-y-2">
+              <p className="text-sm text-muted-foreground font-medium">Время работы:</p>
+              <div className="flex items-start gap-2 text-sm">
+                <Icon name="Clock" size={18} className="flex-shrink-0 mt-0.5" />
+                <div>
+                  <p>Пн-Пт: 09:00 - 19:00</p>
+                  <p>Сб: 10:00 - 18:00</p>
+                  <p>Вс: 10:00 - 16:00</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Icon name="Mail" size={24} className="text-primary" />
+              <CardTitle>Обратная связь</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-muted-foreground">
+              По вопросам брака или недовольства товаром:
+            </p>
+            <a href="mailto:ispanov08@gmail.com" className="flex items-center gap-2 text-primary hover:underline">
+              <Icon name="Mail" size={18} />
+              ispanov08@gmail.com
+            </a>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
