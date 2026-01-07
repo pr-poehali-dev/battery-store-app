@@ -70,6 +70,7 @@ const StoresSection = () => {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [nearestStore, setNearestStore] = useState<Store | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const [showServiceCenter, setShowServiceCenter] = useState(false);
   const { toast } = useToast();
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -283,6 +284,113 @@ const StoresSection = () => {
           </Card>
         ))}
       </div>
+
+      <Card 
+        className={`transition-all hover:shadow-lg cursor-pointer border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-amber-600/5 ${
+          showServiceCenter ? 'ring-2 ring-amber-500/20' : ''
+        }`}
+        onClick={() => setShowServiceCenter(!showServiceCenter)}
+      >
+        <CardContent className="pt-4 pb-4">
+          <div className="space-y-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3 flex-1">
+                <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Wrench" size={20} className="text-amber-600" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-lg">Сервисный центр</h3>
+                    <Badge className="bg-amber-500">Обслуживание</Badge>
+                  </div>
+                  <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
+                    <Icon name="MapPin" size={16} className="mt-0.5 flex-shrink-0" />
+                    <span>ул. Павловича, 11д2</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Обслуживание аккумуляторных батарей</p>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <Badge variant="secondary" className="flex-shrink-0 bg-amber-500/20">
+                  <Icon name="Wrench" size={14} />
+                </Badge>
+                {!showServiceCenter && (
+                  <div className="flex flex-col items-center text-amber-600 animate-bounce">
+                    <Icon name="ChevronDown" size={20} />
+                    <span className="text-xs">Подробнее</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {showServiceCenter && (
+              <div className="space-y-3 pt-3 border-t border-amber-500/20 animate-slide-up">
+                <div className="grid grid-cols-2 gap-2">
+                  <img 
+                    src="https://cdn.poehali.dev/files/IMG_0831.jpeg" 
+                    alt="Сервисный центр - вид 1"
+                    className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                  />
+                  <img 
+                    src="https://cdn.poehali.dev/files/IMG_0832.jpeg" 
+                    alt="Сервисный центр - вид 2"
+                    className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+
+                <div className="flex items-start gap-2 text-sm">
+                  <Icon name="Clock" size={16} className="mt-0.5 text-amber-600 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Режим работы:</p>
+                    <p className="text-muted-foreground">Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00</p>
+                  </div>
+                </div>
+
+                <div className="bg-amber-500/10 p-3 rounded-lg">
+                  <div className="flex items-start gap-2 text-sm">
+                    <Icon name="CheckCircle2" size={16} className="mt-0.5 text-amber-600 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-amber-600">Услуги сервиса:</p>
+                      <ul className="text-xs text-muted-foreground mt-1 space-y-0.5">
+                        <li>• Диагностика аккумуляторов</li>
+                        <li>• Зарядка и обслуживание</li>
+                        <li>• Ремонт и восстановление</li>
+                        <li>• Консультация специалистов</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.location.href = 'tel:+74212459999';
+                    }}
+                    className="w-full border-amber-500/30 hover:bg-amber-500/10"
+                  >
+                    <Icon name="Phone" size={16} className="mr-2" />
+                    Позвонить
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBuildRoute([48.4790, 135.0820]);
+                    }}
+                    className="w-full bg-amber-500 hover:bg-amber-600"
+                  >
+                    <Icon name="Navigation" size={16} className="mr-2" />
+                    Маршрут
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
         <CardContent className="pt-4">
