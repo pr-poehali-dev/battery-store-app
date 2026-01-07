@@ -274,6 +274,66 @@ const StoresSection = () => {
                       </div>
                     )}
 
+                    {store.id === 3 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0843.jpeg" 
+                          alt="Магазин Краснореченская 149 - общий вид"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0842.jpeg" 
+                          alt="Магазин Краснореченская 149 - вход"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+
+                    {store.id === 4 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0841.jpeg" 
+                          alt="Магазин Воронежская 66 - фасад"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0841.jpeg" 
+                          alt="Магазин Воронежская 66"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+
+                    {store.id === 5 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0844.jpeg" 
+                          alt="Магазин Суворова 73а/2 - павильон"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0844.jpeg" 
+                          alt="Магазин Суворова 73а/2"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+
+                    {store.id === 6 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0840.jpeg" 
+                          alt="Магазин Проспект 60-летия Октября 154 - вход"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                        <img 
+                          src="https://cdn.poehali.dev/files/IMG_0840.jpeg" 
+                          alt="Магазин Проспект 60-летия Октября 154"
+                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+
                     <div className="flex items-start gap-2 text-sm">
                       <Icon name="Clock" size={16} className="mt-0.5 text-primary flex-shrink-0" />
                       <div>
