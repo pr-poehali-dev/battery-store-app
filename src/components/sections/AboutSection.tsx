@@ -72,7 +72,7 @@ const AboutSection = () => {
             </h3>
             <div className="grid gap-2">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-58 h-26 flex-shrink-0 flex items-center justify-center">
+                <div className="w-52 h-24 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0814.png" 
                     alt="CARKU"
@@ -109,7 +109,7 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-58 h-26 flex-shrink-0 flex items-center justify-center">
+                <div className="w-52 h-24 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/c9930e40-27fd-4ec6-a191-6991e35016dd.jpg" 
                     alt="VOLT"
