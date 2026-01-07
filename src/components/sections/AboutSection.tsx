@@ -86,19 +86,13 @@ const AboutSection = () => {
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
                 <div className="text-sm">
-                  <span className="font-medium">ROCKET</span> - Global Battery Co., Ltd (Ю. Корея)
+                  <span className="font-medium">ЗВЕРЬ</span> - ООО "Исток", г. Тюмень
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
                 <div className="text-sm">
                   <span className="font-medium">VOLT, GLADIATOR, CONTACT</span> - TUNGSTONE, г. Рязань
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
-                <div className="text-sm">
-                  <span className="font-medium">ENEUS</span> - DTR Corporation (Ю. Корея)
                 </div>
               </div>
             </div>
