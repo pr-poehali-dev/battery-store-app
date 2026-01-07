@@ -83,24 +83,30 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
         </CardContent>
       </Card>
 
-      <div>
-        <h3 className="text-2xl font-bold mb-4">Точки самовывоза</h3>
-        <div className="space-y-3">
-          {stores.map((store, index) => (
-            <Card key={index} className="hover:shadow-md transition-shadow">
-              <CardContent className="pt-4">
-                <div className="flex items-start gap-3">
-                  <Icon name="MapPin" size={20} className="text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold">{store.name}</p>
-                    <p className="text-sm text-muted-foreground">{store.address}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+      <Card className="bg-gradient-to-br from-blue-500/5 to-blue-600/5 border-2 border-blue-500/20">
+        <CardHeader className="text-center">
+          <div className="mx-auto w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-4">
+            <Icon name="MapPin" size={32} className="text-blue-600" />
+          </div>
+          <CardTitle className="text-2xl">Точки самовывоза</CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">6 магазинов в Хабаровске для удобного самовывоза</p>
+        </CardHeader>
+        <CardContent>
+          <Button 
+            size="lg" 
+            className="w-full"
+            onClick={() => {
+              const storesSection = document.querySelector('[data-section="stores"]');
+              if (storesSection) {
+                storesSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            <Icon name="Map" size={20} className="mr-2" />
+            Смотреть адреса
+          </Button>
+        </CardContent>
+      </Card>
 
       <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-2 border-amber-500/20">
         <CardHeader>
