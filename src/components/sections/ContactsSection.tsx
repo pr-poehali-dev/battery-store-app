@@ -52,6 +52,16 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для юр. лиц)</span></span>
             </a>
           </div>
+          <div className="pt-2 border-t border-border/50 space-y-2">
+            <p className="text-sm text-muted-foreground font-medium">Время работы:</p>
+            <div className="flex items-start gap-2 text-sm">
+              <Icon name="Clock" size={18} className="flex-shrink-0 mt-0.5" />
+              <div>
+                <p>Пн-Пт: 09:00 - 19:00</p>
+                <p>Сб-Вс: 09:00 - 18:00</p>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
