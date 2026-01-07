@@ -100,7 +100,7 @@ const AboutSection = () => {
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0819.jpeg" 
                     alt="ЗВЕРЬ"
-                    className="w-full scale-[1.8]"
+                    className="w-full scale-[1.3]"
                     style={{ objectFit: 'contain', objectPosition: 'center' }}
                   />
                 </div>
@@ -109,7 +109,7 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
+                <div className="w-44 h-20 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/c9930e40-27fd-4ec6-a191-6991e35016dd.jpg" 
                     alt="VOLT"
