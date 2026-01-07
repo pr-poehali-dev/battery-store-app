@@ -85,15 +85,10 @@ const AboutSection = () => {
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <img 
-                  src="https://cdn.poehali.dev/files/zver-logo.png" 
+                  src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/2ba0e3ad-81e6-4802-b312-3581751f9cd8.jpg" 
                   alt="ЗВЕРЬ"
-                  className="w-12 h-12 object-contain flex-shrink-0"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                  }}
+                  className="w-12 h-12 object-contain flex-shrink-0 rounded"
                 />
-                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0 hidden" />
                 <div className="text-sm">
                   <span className="font-medium">ЗВЕРЬ</span> - Актех, г. Свирск (Иркутская обл.)
                 </div>
