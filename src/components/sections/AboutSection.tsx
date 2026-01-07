@@ -280,10 +280,13 @@ const AboutSection = () => {
                 <Icon name="MapPin" size={16} className="text-muted-foreground" />
                 <span>Хабаровск, 6 магазинов по городу</span>
               </p>
-              <p className="flex items-center gap-2">
-                <Icon name="Clock" size={16} className="text-muted-foreground" />
-                <span>Ежедневно с 9:00 до 20:00</span>
-              </p>
+              <div className="flex items-start gap-2">
+                <Icon name="Clock" size={16} className="text-muted-foreground mt-0.5" />
+                <div>
+                  <div>Пн-Пт: 09:00 - 19:00</div>
+                  <div>Сб-Вс: 09:00 - 18:00</div>
+                </div>
+              </div>
               <p className="text-muted-foreground">
                 Подробная информация в разделе "Профиль" → "Контакты"
               </p>
