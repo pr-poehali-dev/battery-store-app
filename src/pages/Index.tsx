@@ -37,17 +37,22 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 pb-20">
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border shadow-sm">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 pb-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(147,197,253,0.08),transparent_50%)]" />
+      <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200/20 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-blue-300/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+      
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-blue-100 shadow-sm relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5" />
+        <div className="container mx-auto px-4 py-4 relative">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Icon name="Battery" size={24} className="text-primary" />
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <Icon name="Battery" size={24} className="text-white" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold text-primary">Мир Аккумуляторов</h1>
-                <p className="text-xs text-muted-foreground">С 1998 года</p>
+                <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">Мир Аккумуляторов</h1>
+                <p className="text-xs text-blue-600/70">С 1998 года</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -73,7 +78,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6 space-y-6">
+      <main className="container mx-auto px-4 py-6 space-y-6 relative z-10">
         {showInstallPrompt && (
           <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-2 border-blue-500/20 animate-slide-up">
             <CardContent className="pt-4">
