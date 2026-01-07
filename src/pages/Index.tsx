@@ -13,6 +13,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import LoadingScreen from '@/components/LoadingScreen';
+import ParallaxBackground from '@/components/ParallaxBackground';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { usePWA } from '@/hooks/usePWA';
@@ -38,9 +39,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 pb-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(147,197,253,0.08),transparent_50%)]" />
-      <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200/20 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-blue-300/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+      <ParallaxBackground />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(147,197,253,0.08),transparent_50%)] pointer-events-none" />
+      <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200/20 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-blue-300/15 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '1.5s' }} />
       
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-blue-100 shadow-sm relative">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5" />

@@ -228,9 +228,17 @@ const StoresSection = () => {
                       </div>
                     </div>
                   </div>
-                  <Badge variant="secondary" className="flex-shrink-0">
-                    #{store.id}
-                  </Badge>
+                  <div className="flex flex-col items-center gap-2">
+                    <Badge variant="secondary" className="flex-shrink-0">
+                      #{store.id}
+                    </Badge>
+                    {selectedStore?.id !== store.id && (
+                      <div className="flex flex-col items-center text-primary animate-bounce">
+                        <Icon name="ChevronDown" size={20} />
+                        <span className="text-xs">Подробнее</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {selectedStore?.id === store.id && (
