@@ -109,7 +109,13 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/bca410dc-bc09-47c1-8ba3-3887aece53de.jpg" 
+                    alt="VOLT"
+                    className="w-full h-full object-contain mix-blend-multiply"
+                  />
+                </div>
                 <div className="text-sm">
                   <span className="font-medium">VOLT, GLADIATOR, CONTACT</span> - TUNGSTONE, г. Рязань
                 </div>
