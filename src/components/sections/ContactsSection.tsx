@@ -34,14 +34,25 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
           <p className="text-muted-foreground">
             Для заказа и консультации свяжитесь с нашим менеджером
           </p>
-          <Button 
-            size="lg" 
-            className="w-full bg-blue-600 hover:bg-blue-700"
-            onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
-          >
-            <Icon name="MessageCircle" size={20} className="mr-2" />
-            @nobodystillhere
-          </Button>
+          <div className="space-y-2">
+            <Button 
+              size="lg" 
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              onClick={() => window.open('https://t.me/mir_akkum_shop_bot', '_blank')}
+            >
+              <Icon name="Bot" size={20} className="mr-2" />
+              Написать в Telegram-бот
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
+              onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+            >
+              <Icon name="MessageCircle" size={20} className="mr-2" />
+              @nobodystillhere (менеджер)
+            </Button>
+          </div>
           <div className="pt-2 border-t border-border/50 space-y-2">
             <p className="text-sm text-muted-foreground font-medium">Телефоны:</p>
             <a 
