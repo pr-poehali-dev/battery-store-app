@@ -83,21 +83,22 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-slate-700 to-slate-800 text-white border-0 overflow-hidden">
-        <CardContent className="pt-16 pb-8 px-6 text-center relative">
-          <div className="absolute top-8 left-1/2 -translate-x-1/2">
-            <div className="w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <Icon name="MapPin" size={48} className="text-blue-400" />
-            </div>
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Icon name="MapPin" size={24} className="text-primary" />
+            <CardTitle>Точки самовывоза</CardTitle>
           </div>
-          <h3 className="text-3xl font-bold mb-4 mt-8">Точки самовывоза</h3>
-          <p className="text-lg text-slate-300 mb-8">6 магазинов в Хабаровске для удобного самовывоза</p>
-          <Button 
-            size="lg" 
-            className="w-full max-w-md mx-auto bg-slate-600 hover:bg-slate-500 text-white border-2 border-slate-500 text-lg py-6 rounded-2xl"
-          >
-            Смотреть адреса
-          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {stores.map((store, index) => (
+              <div key={index} className="flex items-start gap-2 text-sm">
+                <Icon name="MapPin" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                <span>{store.address}</span>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 
