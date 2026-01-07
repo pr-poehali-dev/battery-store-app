@@ -84,9 +84,18 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <img 
+                  src="https://cdn.poehali.dev/files/zver-logo.png" 
+                  alt="ЗВЕРЬ"
+                  className="w-12 h-12 object-contain flex-shrink-0"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0 hidden" />
                 <div className="text-sm">
-                  <span className="font-medium">ЗВЕРЬ</span> - ООО "Исток", г. Тюмень
+                  <span className="font-medium">ЗВЕРЬ</span> - Актех, г. Свирск (Иркутская обл.)
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
