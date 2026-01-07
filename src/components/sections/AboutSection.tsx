@@ -72,11 +72,11 @@ const AboutSection = () => {
             </h3>
             <div className="grid gap-2">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
+                <div className="w-52 h-24 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0814.png" 
                     alt="CARKU"
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain scale-125"
                   />
                 </div>
                 <div className="text-sm">
