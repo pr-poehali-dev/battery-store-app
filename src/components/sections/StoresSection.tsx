@@ -87,6 +87,22 @@ const StoresSection = () => {
         </CardHeader>
       </Card>
 
+      <Card className="overflow-hidden">
+        <CardContent className="p-0">
+          <div className="relative w-full h-[400px] bg-muted">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?ll=135.0838%2C48.4808&z=12&l=map&pt=135.0838,48.4808,pm2rdm~135.0600,48.4650,pm2rdm~135.1100,48.5100,pm2rdm~135.0700,48.4700,pm2rdm~135.0850,48.4750,pm2rdm~135.0950,48.4850,pm2rdm"
+              width="100%"
+              height="400"
+              frameBorder="0"
+              allowFullScreen
+              style={{ position: 'relative' }}
+              title="Карта магазинов"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-4">
         {stores.map((store) => (
           <Card 
