@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,45 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [devCode, setDevCode] = useState('');
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Загрузка Telegram Login Widget
+    if (mode === 'choice') {
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-widget.js?22';
+      script.setAttribute('data-telegram-login', 'mir_akkum_shop_bot');
+      script.setAttribute('data-size', 'large');
+      script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+      script.setAttribute('data-request-access', 'write');
+      script.async = true;
+
+      const container = document.getElementById('telegram-login-widget');
+      if (container) {
+        container.innerHTML = '';
+        container.appendChild(script);
+      }
+
+      // Глобальная функция для обработки авторизации
+      (window as any).onTelegramAuth = (user: any) => {
+        handleTelegramAuth({
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          username: user.username,
+          photo_url: user.photo_url,
+          auth_date: user.auth_date,
+          hash: user.hash,
+          phone_number: '',
+          cashback: 0,
+          role: 'client',
+        });
+        toast({
+          title: 'Вход выполнен',
+          description: `Добро пожаловать, ${user.first_name}!`,
+        });
+      };
+    }
+  }, [mode, handleTelegramAuth, toast]);
 
   const API_URL = 'https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f';
 
@@ -166,25 +205,31 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
               <div className="text-center space-y-2">
                 <h3 className="text-lg font-semibold">Добро пожаловать!</h3>
                 <p className="text-sm text-muted-foreground">
-                  Выберите действие
+                  Войдите через Telegram для продолжения
                 </p>
+              </div>
+
+              <div id="telegram-login-widget" className="flex justify-center"></div>
+
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">
+                    или
+                  </span>
+                </div>
               </div>
 
               <div className="space-y-3">
                 <Button 
                   className="w-full h-12 text-base"
                   onClick={() => setMode('login')}
-                >
-                  <Icon name="LogIn" size={20} className="mr-2" />
-                  Войти
-                </Button>
-                <Button 
                   variant="outline"
-                  className="w-full h-12 text-base"
-                  onClick={() => setMode('register')}
                 >
-                  <Icon name="UserPlus" size={20} className="mr-2" />
-                  Зарегистрироваться
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Войти по SMS
                 </Button>
               </div>
             </div>
