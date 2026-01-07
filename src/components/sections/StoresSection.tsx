@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface Store {
   id: number;
@@ -66,6 +67,75 @@ const stores: Store[] = [
 
 const StoresSection = () => {
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  const [nearestStore, setNearestStore] = useState<Store | null>(null);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const { toast } = useToast();
+
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
+
+  const findNearestStore = (userCoords: [number, number]) => {
+    let nearest = stores[0];
+    let minDistance = calculateDistance(userCoords[0], userCoords[1], nearest.coords[0], nearest.coords[1]);
+
+    stores.forEach(store => {
+      const distance = calculateDistance(userCoords[0], userCoords[1], store.coords[0], store.coords[1]);
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearest = store;
+      }
+    });
+
+    return { store: nearest, distance: minDistance };
+  };
+
+  const handleFindNearest = () => {
+    setIsLoadingLocation(true);
+    
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords: [number, number] = [position.coords.latitude, position.coords.longitude];
+          setUserLocation(coords);
+          
+          const { store, distance } = findNearestStore(coords);
+          setNearestStore(store);
+          setSelectedStore(store);
+          setIsLoadingLocation(false);
+          
+          toast({
+            title: "Ближайший магазин найден!",
+            description: `${store.name} находится в ${distance.toFixed(1)} км от вас`,
+          });
+        },
+        (error) => {
+          setIsLoadingLocation(false);
+          toast({
+            title: "Не удалось определить местоположение",
+            description: "Разрешите доступ к геолокации в настройках браузера",
+            variant: "destructive"
+          });
+        }
+      );
+    } else {
+      setIsLoadingLocation(false);
+      toast({
+        title: "Геолокация недоступна",
+        description: "Ваш браузер не поддерживает определение местоположения",
+        variant: "destructive"
+      });
+    }
+  };
 
   const handleCallStore = (phone: string) => {
     window.location.href = `tel:${phone}`;
@@ -84,6 +154,26 @@ const StoresSection = () => {
           </div>
           <CardTitle className="text-2xl">Наши магазины</CardTitle>
           <p className="text-sm text-muted-foreground">6 точек продаж по Хабаровску</p>
+          
+          <div className="mt-4">
+            <Button 
+              onClick={handleFindNearest}
+              disabled={isLoadingLocation}
+              className="w-full md:w-auto"
+            >
+              {isLoadingLocation ? (
+                <>
+                  <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
+                  Определяем...
+                </>
+              ) : (
+                <>
+                  <Icon name="Navigation" size={16} className="mr-2" />
+                  Найти ближайший магазин
+                </>
+              )}
+            </Button>
+          </div>
         </CardHeader>
       </Card>
 
@@ -109,7 +199,7 @@ const StoresSection = () => {
             key={store.id}
             className={`transition-all hover:shadow-lg cursor-pointer ${
               selectedStore?.id === store.id ? 'border-primary ring-2 ring-primary/20' : ''
-            }`}
+            } ${nearestStore?.id === store.id ? 'bg-primary/5' : ''}`}
             onClick={() => setSelectedStore(store)}
           >
             <CardContent className="pt-4">
@@ -120,7 +210,12 @@ const StoresSection = () => {
                       <Icon name="Store" size={20} className="text-primary" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg">{store.name}</h3>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg">{store.name}</h3>
+                        {nearestStore?.id === store.id && (
+                          <Badge className="bg-green-500">Ближайший</Badge>
+                        )}
+                      </div>
                       <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
                         <Icon name="MapPin" size={16} className="mt-0.5 flex-shrink-0" />
                         <span>{store.address}</span>
