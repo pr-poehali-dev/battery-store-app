@@ -76,9 +76,9 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
           <p className="text-muted-foreground">
             По вопросам брака или недовольства товаром:
           </p>
-          <a href="mailto:ispanov08@gmail.com" className="flex items-center gap-2 text-primary hover:underline">
+          <a href="mailto:info@miraccum.ru" className="flex items-center gap-2 text-primary hover:underline">
             <Icon name="Mail" size={18} />
-            ispanov08@gmail.com
+            info@miraccum.ru
           </a>
         </CardContent>
       </Card>
