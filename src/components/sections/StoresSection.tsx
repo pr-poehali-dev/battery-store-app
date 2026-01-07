@@ -1,0 +1,185 @@
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Icon from '@/components/ui/icon';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+
+interface Store {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  coords: [number, number];
+  workHours: string;
+}
+
+const stores: Store[] = [
+  {
+    id: 1,
+    name: 'Магазин на Павловича',
+    address: 'ул. Павловича, 26',
+    phone: '+7 (4212) 45-45-45',
+    coords: [48.4808, 135.0838],
+    workHours: 'Пн-Пт: 9:00-19:00, Сб: 10:00-18:00, Вс: 10:00-16:00'
+  },
+  {
+    id: 2,
+    name: 'Магазин на Тихоокеанской',
+    address: 'ул. Тихоокеанская, 136',
+    phone: '+7 (4212) 46-46-46',
+    coords: [48.4650, 135.0600],
+    workHours: 'Пн-Пт: 9:00-19:00, Сб: 10:00-18:00, Вс: 10:00-16:00'
+  },
+  {
+    id: 3,
+    name: 'Магазин на Краснореченской',
+    address: 'ул. Краснореченская, 92',
+    phone: '+7 (4212) 47-47-47',
+    coords: [48.5100, 135.1100],
+    workHours: 'Пн-Пт: 9:00-19:00, Сб: 10:00-18:00, Вс: 10:00-16:00'
+  },
+  {
+    id: 4,
+    name: 'Магазин на Ленина',
+    address: 'ул. Ленина, 54',
+    phone: '+7 (4212) 48-48-48',
+    coords: [48.4700, 135.0700],
+    workHours: 'Пн-Пт: 9:00-19:00, Сб: 10:00-18:00, Вс: 10:00-16:00'
+  },
+  {
+    id: 5,
+    name: 'Магазин на Амурском бульваре',
+    address: 'Амурский бульвар, 23',
+    phone: '+7 (4212) 49-49-49',
+    coords: [48.4750, 135.0850],
+    workHours: 'Пн-Пт: 9:00-19:00, Сб: 10:00-18:00, Вс: 10:00-16:00'
+  },
+  {
+    id: 6,
+    name: 'Магазин на Серышева',
+    address: 'ул. Серышева, 68',
+    phone: '+7 (4212) 50-50-50',
+    coords: [48.4850, 135.0950],
+    workHours: 'Пн-Пт: 9:00-19:00, Сб: 10:00-18:00, Вс: 10:00-16:00'
+  }
+];
+
+const StoresSection = () => {
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+
+  const handleCallStore = (phone: string) => {
+    window.location.href = `tel:${phone}`;
+  };
+
+  const handleBuildRoute = (coords: [number, number]) => {
+    window.open(`https://yandex.ru/maps/?rtext=~${coords[0]},${coords[1]}&rtt=auto`, '_blank');
+  };
+
+  return (
+    <div className="space-y-6 animate-fade-in">
+      <Card className="border-primary/20">
+        <CardHeader className="text-center">
+          <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <Icon name="MapPin" size={32} className="text-primary" />
+          </div>
+          <CardTitle className="text-2xl">Наши магазины</CardTitle>
+          <p className="text-sm text-muted-foreground">6 точек продаж по Хабаровску</p>
+        </CardHeader>
+      </Card>
+
+      <div className="grid gap-4">
+        {stores.map((store) => (
+          <Card 
+            key={store.id}
+            className={`transition-all hover:shadow-lg cursor-pointer ${
+              selectedStore?.id === store.id ? 'border-primary ring-2 ring-primary/20' : ''
+            }`}
+            onClick={() => setSelectedStore(store)}
+          >
+            <CardContent className="pt-4">
+              <div className="space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3 flex-1">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon name="Store" size={20} className="text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg">{store.name}</h3>
+                      <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
+                        <Icon name="MapPin" size={16} className="mt-0.5 flex-shrink-0" />
+                        <span>{store.address}</span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
+                        <Icon name="Phone" size={16} className="flex-shrink-0" />
+                        <a href={`tel:${store.phone}`} className="hover:text-primary transition-colors">
+                          {store.phone}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <Badge variant="secondary" className="flex-shrink-0">
+                    #{store.id}
+                  </Badge>
+                </div>
+
+                {selectedStore?.id === store.id && (
+                  <div className="space-y-3 pt-3 border-t animate-slide-up">
+                    <div className="flex items-start gap-2 text-sm">
+                      <Icon name="Clock" size={16} className="mt-0.5 text-primary flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Режим работы:</p>
+                        <p className="text-muted-foreground">{store.workHours}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCallStore(store.phone);
+                        }}
+                        className="w-full"
+                      >
+                        <Icon name="Phone" size={16} className="mr-2" />
+                        Позвонить
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBuildRoute(store.coords);
+                        }}
+                        className="w-full"
+                      >
+                        <Icon name="Navigation" size={16} className="mr-2" />
+                        Маршрут
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+        <CardContent className="pt-4">
+          <div className="flex items-start gap-3">
+            <Icon name="Info" size={20} className="text-primary mt-0.5 flex-shrink-0" />
+            <div className="text-sm space-y-2">
+              <p className="font-medium">Удобный выбор магазина</p>
+              <p className="text-muted-foreground">
+                Нажмите на магазин, чтобы увидеть подробную информацию и построить маршрут. Все магазины работают по единому графику.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default StoresSection;

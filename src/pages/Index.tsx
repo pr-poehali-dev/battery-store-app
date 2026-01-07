@@ -10,7 +10,7 @@ import CartSection from '@/components/sections/CartSection';
 import ContactsSection from '@/components/sections/ContactsSection';
 import ProfileSection from '@/components/sections/ProfileSection';
 import AboutSection from '@/components/sections/AboutSection';
-
+import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
@@ -145,6 +145,10 @@ const Index = () => {
           <AboutSection />
         )}
 
+        {activeSection === 'stores' && (
+          <StoresSection />
+        )}
+
         {activeSection === 'promotions' && (
           <PromotionsSection />
         )}
@@ -209,6 +213,15 @@ const Index = () => {
                   {cart.cartItemsCount}
                 </Badge>
               )}
+            </Button>
+            <Button
+              variant={activeSection === 'stores' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('stores')}
+              className="flex flex-col h-auto py-2 px-2"
+            >
+              <Icon name="MapPin" size={18} />
+              <span className="text-xs mt-1">Магазины</span>
             </Button>
             <Button
               variant={activeSection === 'about' ? 'default' : 'ghost'}
