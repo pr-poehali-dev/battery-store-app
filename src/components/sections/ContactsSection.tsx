@@ -65,7 +65,7 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               <Icon name="Clock" size={18} className="flex-shrink-0 mt-0.5" />
               <div>
                 <p>Пн-Пт: 09:00 - 19:00</p>
-                <p>Сб-Вс: 09:00 - 18:00</p>
+                <p>Сб-Вс: 10:00 - 18:00</p>
               </div>
             </div>
           </div>
