@@ -71,20 +71,20 @@ const AboutSection = () => {
               Мы - официальные дилеры
             </h3>
             <div className="grid gap-2">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
                 <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0814.png" 
                     alt="CARKU"
-                    className="w-full h-full object-contain mix-blend-multiply"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="text-sm">
                   <span className="font-medium">CARKU</span> - Jiangxi Oursun New Energy Co., Ltd (КНР)
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <div className="w-32 h-14 flex-shrink-0 flex items-center justify-center">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
+                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0817.jpeg" 
                     alt="TITAN"
@@ -95,12 +95,12 @@ const AboutSection = () => {
                   <span className="font-medium">TITAN</span> - TUBOR, г. Бор (Нижегородская обл.)
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
                 <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center overflow-hidden">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0816.jpeg" 
                     alt="ЗВЕРЬ"
-                    className="w-full scale-150 mix-blend-multiply"
+                    className="w-full scale-150"
                     style={{ objectFit: 'cover', objectPosition: 'center' }}
                   />
                 </div>
@@ -108,12 +108,12 @@ const AboutSection = () => {
                   <span className="font-medium">ЗВЕРЬ</span> - Актех, г. Свирск (Иркутская обл.)
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
                 <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/bca410dc-bc09-47c1-8ba3-3887aece53de.jpg" 
                     alt="VOLT"
-                    className="w-full h-full object-contain mix-blend-multiply"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="text-sm">
