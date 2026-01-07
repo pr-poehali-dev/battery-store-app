@@ -31,6 +31,7 @@ export interface User {
 export interface Store {
   name: string;
   address: string;
+  phone?: string;
 }
 
 export interface ServiceCenter {

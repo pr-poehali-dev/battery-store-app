@@ -49,7 +49,7 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               className="flex items-center gap-2 text-primary hover:underline"
             >
               <Icon name="Phone" size={18} />
-              <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для юр. лиц)</span></span>
+              <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для корпоративных продаж)</span></span>
             </a>
             <a 
               href="tel:+74212454141" 
