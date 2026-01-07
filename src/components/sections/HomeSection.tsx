@@ -121,17 +121,23 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
+      <Card className="relative overflow-hidden bg-gradient-to-br from-blue-500/10 via-primary/5 to-amber-500/10 border-2 border-primary/20">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-4 left-4 text-6xl">⚡</div>
+          <div className="absolute bottom-4 right-4 text-6xl">🔋</div>
+          <div className="absolute top-1/2 left-1/4 text-4xl transform -translate-y-1/2">⚡</div>
+          <div className="absolute top-1/3 right-1/3 text-5xl">🔌</div>
+        </div>
+        <CardHeader className="relative z-10">
           <div className="flex items-center gap-2">
             <Icon name="Package" size={24} className="text-primary" />
             <CardTitle className="text-2xl">Наши бренды</CardTitle>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="relative z-10">
           <div className="flex flex-wrap gap-2">
             {brands.map((brand, index) => (
-              <Badge key={index} variant="outline" className="text-sm py-1.5 px-3">
+              <Badge key={index} variant="outline" className="text-sm py-1.5 px-3 bg-background/80 backdrop-blur-sm">
                 {brand}
               </Badge>
             ))}
