@@ -56,7 +56,7 @@ def handle_stores(chat_id: int):
     for i, store in enumerate(STORES, 1):
         text += f"{i}. {store['name']}\n📞 {store['phone']}\n\n"
     
-    text += "🌐 Все адреса и карта на сайте:\npoehali.dev"
+    text += "🌐 Все адреса и карта на сайте:\nmiraccum.ru"
     send_message(chat_id, text)
 
 
@@ -93,7 +93,7 @@ def handle_contacts(chat_id: int):
     """Контактная информация"""
     text = (
         "📞 <b>Связаться с нами:</b>\n\n"
-        "🌐 Сайт: poehali.dev\n"
+        "🌐 Сайт: miraccum.ru\n"
         "📱 Telegram: @mir_akkum_shop_bot\n\n"
         "<b>Телефоны магазинов:</b>\n"
     )
