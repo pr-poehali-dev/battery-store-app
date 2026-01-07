@@ -151,10 +151,10 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
 
         <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveSection('contacts')}>
           <CardContent className="pt-6 text-center space-y-3">
-            <Icon name="MapPin" size={48} className="mx-auto text-primary" />
-            <h3 className="text-xl font-semibold">Точки самовывоза</h3>
-            <p className="text-sm text-muted-foreground">6 магазинов в Хабаровске для удобного самовывоза</p>
-            <Button variant="outline" className="w-full">Смотреть адреса</Button>
+            <Icon name="Phone" size={48} className="mx-auto text-primary" />
+            <h3 className="text-xl font-semibold">Контакты</h3>
+            <p className="text-sm text-muted-foreground">Связаться с нами для консультации и заказа</p>
+            <Button variant="outline" className="w-full">Связаться</Button>
           </CardContent>
         </Card>
       </div>
