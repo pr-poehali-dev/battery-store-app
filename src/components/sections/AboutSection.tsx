@@ -72,11 +72,11 @@ const AboutSection = () => {
             </h3>
             <div className="grid gap-2">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <div className="w-32 h-14 flex-shrink-0 flex items-center justify-center">
+                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0814.png" 
                     alt="CARKU"
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain mix-blend-multiply"
                   />
                 </div>
                 <div className="text-sm">
@@ -96,11 +96,11 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <div className="w-32 h-14 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center overflow-hidden">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0816.jpeg" 
                     alt="ЗВЕРЬ"
-                    className="w-full scale-150"
+                    className="w-full scale-150 mix-blend-multiply"
                     style={{ objectFit: 'cover', objectPosition: 'center' }}
                   />
                 </div>
