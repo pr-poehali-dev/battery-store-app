@@ -72,21 +72,25 @@ const AboutSection = () => {
             </h3>
             <div className="grid gap-2">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <img 
-                  src="https://cdn.poehali.dev/files/IMG_0814.png" 
-                  alt="CARKU"
-                  className="w-12 h-12 object-contain flex-shrink-0 rounded"
-                />
+                <div className="w-32 h-14 flex-shrink-0 flex items-center justify-center">
+                  <img 
+                    src="https://cdn.poehali.dev/files/IMG_0814.png" 
+                    alt="CARKU"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
                 <div className="text-sm">
                   <span className="font-medium">CARKU</span> - Jiangxi Oursun New Energy Co., Ltd (КНР)
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <img 
-                  src="https://cdn.poehali.dev/files/IMG_0812.png" 
-                  alt="TITAN"
-                  className="w-12 h-12 object-contain flex-shrink-0 rounded"
-                />
+                <div className="w-32 h-14 flex-shrink-0 flex items-center justify-center">
+                  <img 
+                    src="https://cdn.poehali.dev/files/IMG_0812.png" 
+                    alt="TITAN"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
                 <div className="text-sm">
                   <span className="font-medium">TITAN</span> - TUBOR, г. Бор (Нижегородская обл.)
                 </div>
