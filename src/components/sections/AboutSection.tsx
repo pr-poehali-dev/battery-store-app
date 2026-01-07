@@ -194,7 +194,7 @@ const AboutSection = () => {
               </a>
 
               <a
-                href="https://yandex.ru/maps/org/mir_akkumulyatorov/1263949906/"
+                href="https://yandex.ru/maps/org/mir_akkumulyatorov/1011087748/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 hover:border-red-500/40 transition-all hover:shadow-lg"
