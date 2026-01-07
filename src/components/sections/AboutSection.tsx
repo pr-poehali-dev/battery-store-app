@@ -78,7 +78,11 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Icon name="CheckCircle" size={18} className="text-primary flex-shrink-0" />
+                <img 
+                  src="https://cdn.poehali.dev/files/IMG_0812.png" 
+                  alt="TITAN"
+                  className="w-12 h-12 object-contain flex-shrink-0 rounded"
+                />
                 <div className="text-sm">
                   <span className="font-medium">TITAN</span> - TUBOR, г. Бор (Нижегородская обл.)
                 </div>
