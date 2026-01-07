@@ -92,11 +92,14 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <img 
-                  src="https://cdn.poehali.dev/files/IMG_0816.jpeg" 
-                  alt="ЗВЕРЬ"
-                  className="w-16 h-12 object-contain flex-shrink-0"
-                />
+                <div className="w-32 h-14 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://cdn.poehali.dev/files/IMG_0816.jpeg" 
+                    alt="ЗВЕРЬ"
+                    className="w-full scale-150"
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  />
+                </div>
                 <div className="text-sm">
                   <span className="font-medium">ЗВЕРЬ</span> - Актех, г. Свирск (Иркутская обл.)
                 </div>
