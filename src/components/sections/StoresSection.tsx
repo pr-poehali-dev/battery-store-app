@@ -290,48 +290,27 @@ const StoresSection = () => {
                     )}
 
                     {store.id === 4 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0841.jpeg" 
-                          alt="Магазин Воронежская 66 - фасад"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0841.jpeg" 
-                          alt="Магазин Воронежская 66"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
+                      <img 
+                        src="https://cdn.poehali.dev/files/IMG_0841.jpeg" 
+                        alt="Магазин Воронежская 66 - фасад"
+                        className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                      />
                     )}
 
                     {store.id === 5 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0844.jpeg" 
-                          alt="Магазин Суворова 73а/2 - павильон"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0844.jpeg" 
-                          alt="Магазин Суворова 73а/2"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
+                      <img 
+                        src="https://cdn.poehali.dev/files/IMG_0844.jpeg" 
+                        alt="Магазин Суворова 73а/2 - павильон"
+                        className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                      />
                     )}
 
                     {store.id === 6 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0840.jpeg" 
-                          alt="Магазин Проспект 60-летия Октября 154 - вход"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0840.jpeg" 
-                          alt="Магазин Проспект 60-летия Октября 154"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
+                      <img 
+                        src="https://cdn.poehali.dev/files/IMG_0840.jpeg" 
+                        alt="Магазин Проспект 60-летия Октября 154 - вход"
+                        className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                      />
                     )}
 
                     <div className="flex items-start gap-2 text-sm">
