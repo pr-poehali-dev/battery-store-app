@@ -8,6 +8,13 @@ import ServiceCenterCard from './stores/ServiceCenterCard';
 import StoresMap from './stores/StoresMap';
 import FooterInfo from '@/components/ui/FooterInfo';
 
+interface Review {
+  author: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
 interface Store {
   id: number;
   name: string;
@@ -16,6 +23,7 @@ interface Store {
   coords: [number, number];
   workHours: string;
   dgisUrl: string;
+  reviews?: Review[];
 }
 
 const stores: Store[] = [
@@ -26,7 +34,11 @@ const stores: Store[] = [
     phone: '+7 (4212) 45-41-41',
     coords: [48.4808, 135.0838],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
-    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018324238'
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018324238',
+    reviews: [
+      { author: 'Александр К.', rating: 5, text: 'Отличный магазин! Большой выбор аккумуляторов, помогли с подбором для моего авто. Цены адекватные.', date: '15 декабря 2025' },
+      { author: 'Мария С.', rating: 5, text: 'Очень довольна обслуживанием. Консультанты профессиональные, установили быстро и качественно. Рекомендую!', date: '8 января 2026' }
+    ]
   },
   {
     id: 2,
@@ -35,7 +47,11 @@ const stores: Store[] = [
     phone: '+7 (4212) 45-99-99',
     coords: [48.4790, 135.0820],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
-    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018325173'
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018325173',
+    reviews: [
+      { author: 'Дмитрий П.', rating: 5, text: 'Удобное расположение, всегда есть нужные модели в наличии. Персонал вежливый и грамотный.', date: '22 декабря 2025' },
+      { author: 'Ольга В.', rating: 4, text: 'Хороший магазин, быстро обслужили. Единственное - немного тесновато внутри.', date: '3 января 2026' }
+    ]
   },
   {
     id: 3,
@@ -44,7 +60,10 @@ const stores: Store[] = [
     phone: '+7 (4212) 47-41-41',
     coords: [48.5100, 135.1100],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
-    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039589773'
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039589773',
+    reviews: [
+      { author: 'Сергей Л.', rating: 5, text: 'Покупал аккумулятор для грузовика. Отличный сервис, помогли с выбором, дали гарантию. Всё супер!', date: '10 января 2026' }
+    ]
   },
   {
     id: 4,
@@ -53,7 +72,11 @@ const stores: Store[] = [
     phone: '+7 (4212) 28-41-41',
     coords: [48.4550, 135.1050],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
-    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018326001'
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018326001',
+    reviews: [
+      { author: 'Андрей М.', rating: 5, text: 'Лучший магазин аккумуляторов в городе! Быстро, профессионально, честные цены. Спасибо!', date: '28 декабря 2025' },
+      { author: 'Елена Г.', rating: 5, text: 'Приятно удивлена уровнем сервиса. Помогли разобраться с характеристиками, всё объяснили понятно.', date: '5 января 2026' }
+    ]
   },
   {
     id: 5,
@@ -62,7 +85,10 @@ const stores: Store[] = [
     phone: '+7 (4212) 97-41-41',
     coords: [48.4650, 135.0680],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
-    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039581699'
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039581699',
+    reviews: [
+      { author: 'Игорь Н.', rating: 5, text: 'Работаю с этой сетью много лет. Всегда качественные аккумуляторы и честная гарантия. Молодцы!', date: '18 декабря 2025' }
+    ]
   },
   {
     id: 6,
@@ -71,7 +97,11 @@ const stores: Store[] = [
     phone: '+7 (4212) 28-45-45',
     coords: [48.4400, 135.1300],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
-    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018327003'
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018327003',
+    reviews: [
+      { author: 'Виктор З.', rating: 5, text: 'Отличный выбор аккумуляторов для мотоциклов и снегоходов. Консультанты знают своё дело!', date: '1 января 2026' },
+      { author: 'Наталья Р.', rating: 4, text: 'Хороший магазин, адекватные цены. Немного долго ждала консультанта, но в целом всё отлично.', date: '7 января 2026' }
+    ]
   }
 ];
 

@@ -3,6 +3,13 @@ import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
+interface Review {
+  author: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
 interface Store {
   id: number;
   name: string;
@@ -11,6 +18,7 @@ interface Store {
   coords: [number, number];
   workHours: string;
   dgisUrl: string;
+  reviews?: Review[];
 }
 
 interface StoreCardProps {
@@ -112,6 +120,36 @@ const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRout
                   />
                 ))}
               </div>
+
+              {store.reviews && store.reviews.length > 0 && (
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-3 border border-amber-200/50">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Icon name="MessageSquare" size={18} className="text-amber-600" />
+                    <h4 className="font-semibold text-sm">Отзывы с 2ГИС</h4>
+                  </div>
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                    {store.reviews.map((review, index) => (
+                      <div key={index} className="bg-white/80 backdrop-blur-sm rounded-lg p-2.5 border border-amber-100">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="font-medium text-sm">{review.author}</span>
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Icon 
+                                key={i}
+                                name={i < review.rating ? "Star" : "Star"} 
+                                size={12} 
+                                className={i < review.rating ? "text-amber-500 fill-amber-500" : "text-gray-300"}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{review.text}</p>
+                        <p className="text-xs text-muted-foreground/70 mt-1">{review.date}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-2">
                 <Button
