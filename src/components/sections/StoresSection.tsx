@@ -474,6 +474,14 @@ const StoresSection = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="mt-6 pt-4 border-t border-border/50">
+        <p className="text-xs text-muted-foreground/70 text-center space-y-1">
+          <span className="block">ИП ОВИС МАРК АЛЕКСАНДРОВИЧ</span>
+          <span className="block">ИП ИСРАИЛОВА ЮЛИЯ ВЛАДИМИРОВНА</span>
+          <span className="block mt-2">©2026 Мир Аккумуляторов</span>
+        </p>
+      </div>
     </div>
   );
 };
