@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import StoreCard from './stores/StoreCard';
+import ServiceCenterCard from './stores/ServiceCenterCard';
+import StoresMap from './stores/StoresMap';
+import FooterInfo from '@/components/ui/FooterInfo';
 
 interface Store {
   id: number;
@@ -67,7 +70,6 @@ const stores: Store[] = [
 
 const StoresSection = () => {
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
-  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [nearestStore, setNearestStore] = useState<Store | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const [showServiceCenter, setShowServiceCenter] = useState(false);
@@ -107,7 +109,6 @@ const StoresSection = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const coords: [number, number] = [position.coords.latitude, position.coords.longitude];
-          setUserLocation(coords);
           
           const { store, distance } = findNearestStore(coords);
           setNearestStore(store);
@@ -119,7 +120,7 @@ const StoresSection = () => {
             description: `${store.name} находится в ${distance.toFixed(1)} км от вас`,
           });
         },
-        (error) => {
+        () => {
           setIsLoadingLocation(false);
           toast({
             title: "Не удалось определить местоположение",
@@ -178,288 +179,27 @@ const StoresSection = () => {
         </CardHeader>
       </Card>
 
-      <Card className="overflow-hidden">
-        <CardContent className="p-0">
-          <div className="relative w-full h-[400px] bg-muted">
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?ll=135.0838%2C48.4808&z=12&l=map&pt=135.0838,48.4808,pm2rdm~135.0820,48.4790,pm2rdm~135.1100,48.5100,pm2rdm~135.1050,48.4550,pm2rdm~135.0680,48.4650,pm2rdm~135.1300,48.4400,pm2rdm"
-              width="100%"
-              height="400"
-              frameBorder="0"
-              allowFullScreen
-              style={{ position: 'relative' }}
-              title="Карта магазинов"
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <StoresMap />
 
       <div className="grid gap-4">
         {stores.map((store) => (
-          <Card 
+          <StoreCard
             key={store.id}
-            className={`transition-all hover:shadow-lg cursor-pointer ${
-              selectedStore?.id === store.id ? 'border-primary ring-2 ring-primary/20' : ''
-            } ${nearestStore?.id === store.id ? 'bg-primary/5' : ''}`}
-            onClick={() => setSelectedStore(store)}
-          >
-            <CardContent className="pt-4">
-              <div className="space-y-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3 flex-1">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Store" size={20} className="text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-lg">{store.name}</h3>
-                        {nearestStore?.id === store.id && (
-                          <Badge className="bg-green-500">Ближайший</Badge>
-                        )}
-                      </div>
-                      <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
-                        <Icon name="MapPin" size={16} className="mt-0.5 flex-shrink-0" />
-                        <span>{store.address}</span>
-                      </div>
-                      <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
-                        <Icon name="Phone" size={16} className="flex-shrink-0" />
-                        <a href={`tel:${store.phone}`} className="hover:text-primary transition-colors">
-                          {store.phone}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-center gap-2">
-                    <Badge variant="secondary" className="flex-shrink-0">
-                      #{store.id}
-                    </Badge>
-                    {selectedStore?.id !== store.id && (
-                      <div className="flex flex-col items-center text-primary animate-bounce">
-                        <Icon name="ChevronDown" size={20} />
-                        <span className="text-xs">Подробнее</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {selectedStore?.id === store.id && (
-                  <div className="space-y-3 pt-3 border-t animate-slide-up">
-                    {store.id === 1 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0834.jpeg" 
-                          alt="Магазин Павловича 26 - внешний вид"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0835.jpeg" 
-                          alt="Магазин Павловича 26 - вход"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-
-                    {store.id === 2 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0838.jpeg" 
-                          alt="Магазин Павловича 11 - вход зимой"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0839.jpeg" 
-                          alt="Магазин Павловича 11 - фасад"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-
-                    {store.id === 3 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0843.jpeg" 
-                          alt="Магазин Краснореченская 149 - общий вид"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                        <img 
-                          src="https://cdn.poehali.dev/files/IMG_0842.jpeg" 
-                          alt="Магазин Краснореченская 149 - вход"
-                          className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-
-                    {store.id === 4 && (
-                      <img 
-                        src="https://cdn.poehali.dev/files/IMG_0841.jpeg" 
-                        alt="Магазин Воронежская 66 - фасад"
-                        className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
-
-                    {store.id === 5 && (
-                      <img 
-                        src="https://cdn.poehali.dev/files/IMG_0844.jpeg" 
-                        alt="Магазин Суворова 73а/2 - павильон"
-                        className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
-
-                    {store.id === 6 && (
-                      <img 
-                        src="https://cdn.poehali.dev/files/IMG_0840.jpeg" 
-                        alt="Магазин Проспект 60-летия Октября 154 - вход"
-                        className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
-
-                    <div className="flex items-start gap-2 text-sm">
-                      <Icon name="Clock" size={16} className="mt-0.5 text-primary flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Режим работы:</p>
-                        <p className="text-muted-foreground">{store.workHours}</p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCallStore(store.phone);
-                        }}
-                        className="w-full"
-                      >
-                        <Icon name="Phone" size={16} className="mr-2" />
-                        Позвонить
-                      </Button>
-                      <Button
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleBuildRoute(store.coords);
-                        }}
-                        className="w-full"
-                      >
-                        <Icon name="Navigation" size={16} className="mr-2" />
-                        Маршрут
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+            store={store}
+            isSelected={selectedStore?.id === store.id}
+            isNearest={nearestStore?.id === store.id}
+            onSelect={() => setSelectedStore(store)}
+            onCall={handleCallStore}
+            onBuildRoute={handleBuildRoute}
+          />
         ))}
       </div>
 
-      <Card 
-        className={`transition-all hover:shadow-lg cursor-pointer border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-amber-600/5 ${
-          showServiceCenter ? 'ring-2 ring-amber-500/20' : ''
-        }`}
-        onClick={() => setShowServiceCenter(!showServiceCenter)}
-      >
-        <CardContent className="pt-4 pb-4">
-          <div className="space-y-3">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-start gap-3 flex-1">
-                <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Wrench" size={20} className="text-amber-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-lg">Сервисный центр</h3>
-                    <Badge className="bg-amber-500">Обслуживание</Badge>
-                  </div>
-                  <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
-                    <Icon name="MapPin" size={16} className="mt-0.5 flex-shrink-0" />
-                    <span>ул. Павловича, 11д2</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">Обслуживание аккумуляторных батарей</p>
-                </div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Badge variant="secondary" className="flex-shrink-0 bg-amber-500/20">
-                  <Icon name="Wrench" size={14} />
-                </Badge>
-                {!showServiceCenter && (
-                  <div className="flex flex-col items-center text-amber-600 animate-bounce">
-                    <Icon name="ChevronDown" size={20} />
-                    <span className="text-xs">Подробнее</span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {showServiceCenter && (
-              <div className="space-y-3 pt-3 border-t border-amber-500/20 animate-slide-up">
-                <div className="grid grid-cols-2 gap-2">
-                  <img 
-                    src="https://cdn.poehali.dev/files/IMG_0831.jpeg" 
-                    alt="Сервисный центр - вид 1"
-                    className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                  />
-                  <img 
-                    src="https://cdn.poehali.dev/files/IMG_0832.jpeg" 
-                    alt="Сервисный центр - вид 2"
-                    className="w-full h-40 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-
-                <div className="flex items-start gap-2 text-sm">
-                  <Icon name="Clock" size={16} className="mt-0.5 text-amber-600 flex-shrink-0" />
-                  <div>
-                    <p className="font-medium">Режим работы:</p>
-                    <p className="text-muted-foreground">Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00</p>
-                  </div>
-                </div>
-
-                <div className="bg-amber-500/10 p-3 rounded-lg">
-                  <div className="flex items-start gap-2 text-sm">
-                    <Icon name="CheckCircle2" size={16} className="mt-0.5 text-amber-600 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-amber-600">Услуги сервиса:</p>
-                      <ul className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                        <li>• Диагностика аккумуляторов</li>
-                        <li>• Зарядка и обслуживание</li>
-                        <li>• Ремонт и восстановление</li>
-                        <li>• Консультация специалистов</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.location.href = 'tel:+74212459999';
-                    }}
-                    className="w-full border-amber-500/30 hover:bg-amber-500/10"
-                  >
-                    <Icon name="Phone" size={16} className="mr-2" />
-                    Позвонить
-                  </Button>
-                  <Button
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleBuildRoute([48.4790, 135.0820]);
-                    }}
-                    className="w-full bg-amber-500 hover:bg-amber-600"
-                  >
-                    <Icon name="Navigation" size={16} className="mr-2" />
-                    Маршрут
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      <ServiceCenterCard
+        isExpanded={showServiceCenter}
+        onToggle={() => setShowServiceCenter(!showServiceCenter)}
+        onBuildRoute={handleBuildRoute}
+      />
 
       <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
         <CardContent className="pt-4">
@@ -475,33 +215,7 @@ const StoresSection = () => {
         </CardContent>
       </Card>
 
-      <Card className="mt-6 bg-gradient-to-br from-blue-500/10 via-green-500/10 to-blue-500/10 border-blue-300/30">
-        <CardContent className="pt-6 pb-6">
-          <div className="text-center space-y-3">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Icon name="ShieldCheck" size={24} className="text-blue-600" />
-              <h3 className="text-sm font-semibold text-blue-900">Официальные представители</h3>
-            </div>
-            
-            <div className="space-y-2">
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg px-4 py-2 border border-blue-200/50">
-                <p className="text-sm font-medium text-blue-900">ИП ОВИС МАРК АЛЕКСАНДРОВИЧ</p>
-              </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg px-4 py-2 border border-green-200/50">
-                <p className="text-sm font-medium text-green-900">ИП ИСРАИЛОВА ЮЛИЯ ВЛАДИМИРОВНА</p>
-              </div>
-            </div>
-            
-            <div className="mt-4 pt-4 border-t border-blue-200/50">
-              <div className="flex items-center justify-center gap-2">
-                <Icon name="Copyright" size={16} className="text-blue-600" />
-                <p className="text-sm font-semibold text-blue-900">2026 Мир Аккумуляторов</p>
-              </div>
-              <p className="text-xs text-blue-700 mt-1 font-medium">Все права защищены</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <FooterInfo />
     </div>
   );
 };
