@@ -26,7 +26,9 @@ def send_message(chat_id: int, text: str, reply_markup=None):
     if reply_markup:
         payload["reply_markup"] = reply_markup
     
-    requests.post(f"{TELEGRAM_API}/sendMessage", json=payload)
+    response = requests.post(f"{TELEGRAM_API}/sendMessage", json=payload)
+    print(f"Send message response: {response.status_code} - {response.text}")
+    return response
 
 
 def handle_start(chat_id: int):
