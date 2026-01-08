@@ -117,6 +117,7 @@ def handler(event: dict, context) -> dict:
     
     try:
         body = json.loads(event.get('body', '{}'))
+        print(f"[TELEGRAM LOGIN] Received data: {json.dumps(body, ensure_ascii=False)}")
         
         # Проверяем подлинность данных от Telegram
         auth_data = {
@@ -131,16 +132,21 @@ def handler(event: dict, context) -> dict:
         
         # Удаляем пустые поля для корректной проверки
         auth_data = {k: v for k, v in auth_data.items() if v}
+        print(f"[TELEGRAM LOGIN] Auth data for verification: {json.dumps(auth_data, ensure_ascii=False)}")
         
         if not verify_telegram_auth(auth_data.copy()):
+            print("[TELEGRAM LOGIN] ❌ Verification FAILED")
             return {
                 'statusCode': 403,
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps({'error': 'Invalid Telegram authentication'})
             }
         
+        print("[TELEGRAM LOGIN] ✅ Verification PASSED")
+        
         # Регистрируем или входим
         user_data = register_or_login_user(body)
+        print(f"[TELEGRAM LOGIN] User data: {json.dumps(user_data, ensure_ascii=False, default=str)}")
         
         return {
             'statusCode': 200,
@@ -153,6 +159,9 @@ def handler(event: dict, context) -> dict:
         }
     
     except Exception as e:
+        print(f"[TELEGRAM LOGIN] ❌ Exception: {str(e)}")
+        import traceback
+        print(f"[TELEGRAM LOGIN] Traceback: {traceback.format_exc()}")
         return {
             'statusCode': 500,
             'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
