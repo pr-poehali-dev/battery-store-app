@@ -15,6 +15,7 @@ interface Store {
   phone: string;
   coords: [number, number];
   workHours: string;
+  dgisUrl: string;
 }
 
 const stores: Store[] = [
@@ -24,7 +25,8 @@ const stores: Store[] = [
     address: 'ул. Павловича, 26',
     phone: '+7 (4212) 45-41-41',
     coords: [48.4808, 135.0838],
-    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00'
+    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018324238'
   },
   {
     id: 2,
@@ -32,7 +34,8 @@ const stores: Store[] = [
     address: 'ул. Павловича, 11',
     phone: '+7 (4212) 45-99-99',
     coords: [48.4790, 135.0820],
-    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00'
+    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018325173'
   },
   {
     id: 3,
@@ -40,7 +43,8 @@ const stores: Store[] = [
     address: 'ул. Краснореченская, 149',
     phone: '+7 (4212) 47-41-41',
     coords: [48.5100, 135.1100],
-    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00'
+    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039589773'
   },
   {
     id: 4,
@@ -48,7 +52,8 @@ const stores: Store[] = [
     address: 'ул. Воронежская, 66',
     phone: '+7 (4212) 28-41-41',
     coords: [48.4550, 135.1050],
-    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00'
+    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018326001'
   },
   {
     id: 5,
@@ -56,7 +61,8 @@ const stores: Store[] = [
     address: 'ул. Суворова, 73а/2',
     phone: '+7 (4212) 97-41-41',
     coords: [48.4650, 135.0680],
-    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00'
+    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039581699'
   },
   {
     id: 6,
@@ -64,7 +70,8 @@ const stores: Store[] = [
     address: 'Проспект 60-летия Октября, 154',
     phone: '+7 (4212) 28-45-45',
     coords: [48.4400, 135.1300],
-    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00'
+    workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
+    dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018327003'
   }
 ];
 
@@ -143,8 +150,12 @@ const StoresSection = () => {
     window.location.href = `tel:${phone}`;
   };
 
-  const handleBuildRoute = (coords: [number, number]) => {
-    window.open(`https://yandex.ru/maps/?rtext=~${coords[0]},${coords[1]}&rtt=auto`, '_blank');
+  const handleBuildRoute = (coords: [number, number], dgisUrl?: string) => {
+    if (dgisUrl) {
+      window.open(dgisUrl, '_blank');
+    } else {
+      window.open(`https://2gis.ru/khabarovsk?m=${coords[1]},${coords[0]}`, '_blank');
+    }
   };
 
   return (

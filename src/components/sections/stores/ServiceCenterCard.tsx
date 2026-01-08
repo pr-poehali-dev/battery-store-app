@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 interface ServiceCenterCardProps {
   isExpanded: boolean;
   onToggle: () => void;
-  onBuildRoute: (coords: [number, number]) => void;
+  onBuildRoute: (coords: [number, number], dgisUrl?: string) => void;
 }
 
 const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenterCardProps) => {
@@ -105,12 +105,12 @@ const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenter
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onBuildRoute([48.4790, 135.0820]);
+                    onBuildRoute([48.4790, 135.0820], 'https://2gis.ru/khabarovsk/firm/70000001018325173');
                   }}
                   className="w-full bg-amber-500 hover:bg-amber-600"
                 >
-                  <Icon name="Navigation" size={16} className="mr-2" />
-                  Маршрут
+                  <Icon name="Map" size={16} className="mr-2" />
+                  2ГИС
                 </Button>
               </div>
             </div>

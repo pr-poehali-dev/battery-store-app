@@ -10,6 +10,7 @@ interface Store {
   phone: string;
   coords: [number, number];
   workHours: string;
+  dgisUrl: string;
 }
 
 interface StoreCardProps {
@@ -18,7 +19,7 @@ interface StoreCardProps {
   isNearest: boolean;
   onSelect: () => void;
   onCall: (phone: string) => void;
-  onBuildRoute: (coords: [number, number]) => void;
+  onBuildRoute: (coords: [number, number], dgisUrl?: string) => void;
 }
 
 const storeImages: Record<number, string[]> = {
@@ -129,12 +130,12 @@ const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRout
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onBuildRoute(store.coords);
+                    onBuildRoute(store.coords, store.dgisUrl);
                   }}
                   className="w-full"
                 >
-                  <Icon name="Navigation" size={16} className="mr-2" />
-                  Маршрут
+                  <Icon name="Map" size={16} className="mr-2" />
+                  2ГИС
                 </Button>
               </div>
             </div>
