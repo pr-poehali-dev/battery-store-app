@@ -38,24 +38,56 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
         container.appendChild(script);
       }
 
-      // Глобальная функция для обработки авторизации
-      (window as any).onTelegramAuth = (user: any) => {
-        handleTelegramAuth({
-          id: user.id,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          username: user.username,
-          photo_url: user.photo_url,
-          auth_date: user.auth_date,
-          hash: user.hash,
-          phone_number: '',
-          cashback: 0,
-          role: 'client',
-        });
-        toast({
-          title: 'Вход выполнен',
-          description: `Добро пожаловать, ${user.first_name}!`,
-        });
+      // Глобальная функция для обработки авторизации через backend
+      (window as any).onTelegramAuth = async (user: any) => {
+        try {
+          const response = await fetch('https://functions.poehali.dev/535b5887-9e3d-4a2f-ae82-4857f8223d49', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id: user.id,
+              first_name: user.first_name,
+              last_name: user.last_name,
+              username: user.username,
+              photo_url: user.photo_url,
+              auth_date: user.auth_date,
+              hash: user.hash
+            })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            handleTelegramAuth({
+              id: data.user.id,
+              first_name: data.user.name,
+              last_name: '',
+              username: data.user.telegram_username,
+              photo_url: '',
+              auth_date: user.auth_date,
+              hash: user.hash,
+              phone_number: data.user.phone,
+              cashback: data.user.cashback,
+              role: data.user.role,
+            });
+            toast({
+              title: data.message,
+              description: `Добро пожаловать, ${data.user.name}!`,
+            });
+          } else {
+            toast({
+              title: 'Ошибка авторизации',
+              description: data.error || 'Не удалось войти',
+              variant: 'destructive',
+            });
+          }
+        } catch (error) {
+          toast({
+            title: 'Ошибка',
+            description: 'Проблема с подключением к серверу',
+            variant: 'destructive',
+          });
+        }
       };
     }
   }, [mode, handleTelegramAuth, toast]);
