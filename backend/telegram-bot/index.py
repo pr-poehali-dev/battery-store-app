@@ -2,8 +2,9 @@ import json
 import os
 import requests
 
-TELEGRAM_TOKEN = "8587363761:AAFkNxwiHaiE5YN5SMBjXhRMJjqhNmroFvc"
+TELEGRAM_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '8587363761:AAFkNxwiHaiE5YN5SMBjXhRMJjqhNmroFvc')
 TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
+MANAGER_CHAT_ID = os.environ.get('MANAGER_TELEGRAM_ID', None)  # ID менеджера для пересылки вопросов
 
 STORES = [
     {"name": "Павловича, 26", "phone": "+7 (4212) 45-41-41"},
@@ -89,6 +90,43 @@ def handle_faq(chat_id: int):
     send_message(chat_id, text)
 
 
+def check_compatibility(text: str) -> str:
+    """Проверка совместимости аккумулятора с авто"""
+    text_lower = text.lower()
+    
+    # База знаний о популярных авто
+    compatibility_db = {
+        'toyota camry': '🔋 Для Toyota Camry подходят:\n• 55-70 А·ч для двигателя 2.0-2.5л\n• 75-95 А·ч для двигателя 3.5л\n\n📏 Размер: 232x173x225 мм\n🔌 Клеммы: Азиатские (тонкие)\n\n💰 Цена от 6 500₽',
+        'honda': '🔋 Для Honda подходят:\n• 50-65 А·ч для большинства моделей\n• Клеммы: Азиатские (тонкие)\n\n📏 Стандартный размер: 232x173x225 мм\n💰 Цена от 5 900₽',
+        'nissan': '🔋 Для Nissan подходят:\n• 55-75 А·ч (зависит от модели)\n• Клеммы: Азиатские\n\n📞 Для точного подбора звоните: +7 (4212) 45-41-41',
+        'lada': '🔋 Для Lada/ВАЗ подходят:\n• 55-62 А·ч\n• Клеммы: Европейские (обратная полярность)\n\n📏 Размер: 242x175x190 мм\n💰 Цена от 4 500₽',
+        'hyundai': '🔋 Для Hyundai подходят:\n• 60-75 А·ч\n• Клеммы: Азиатские\n\n📞 Точный подбор: +7 (4212) 45-41-41',
+        'kia': '🔋 Для Kia подходят:\n• 60-75 А·ч\n• Клеммы: Азиатские\n\n📞 Звоните для подбора: +7 (4212) 45-41-41',
+    }
+    
+    # Ищем совпадения
+    for key, response in compatibility_db.items():
+        if key in text_lower:
+            return response
+    
+    return None
+
+
+def forward_to_manager(chat_id: int, username: str, text: str):
+    """Пересылка вопроса менеджеру"""
+    if not MANAGER_CHAT_ID:
+        return
+    
+    manager_text = (
+        f"📩 <b>Новый вопрос от клиента</b>\n\n"
+        f"👤 От: {username or 'Пользователь'}\n"
+        f"🆔 Chat ID: {chat_id}\n\n"
+        f"💬 Сообщение:\n{text}\n\n"
+        f"<i>Ответьте клиенту напрямую в его чат</i>"
+    )
+    send_message(MANAGER_CHAT_ID, manager_text)
+
+
 def handle_contacts(chat_id: int):
     """Контактная информация"""
     text = (
@@ -138,11 +176,27 @@ def handler(event: dict, context) -> dict:
         elif text == '❓ Частые вопросы':
             handle_faq(chat_id)
         else:
-            send_message(
-                chat_id,
-                "Спасибо за сообщение! Наш менеджер свяжется с вами в ближайшее время.\n\n"
-                "Для быстрого ответа позвоните по телефону:\n+7 (4212) 45-41-41"
-            )
+            # Проверяем, есть ли автоответ о совместимости
+            compatibility_response = check_compatibility(text)
+            
+            if compatibility_response:
+                send_message(chat_id, compatibility_response)
+            else:
+                # Пересылаем менеджеру
+                username = message.get('from', {}).get('username', None)
+                if username:
+                    username = f"@{username}"
+                else:
+                    first_name = message.get('from', {}).get('first_name', 'Пользователь')
+                    username = first_name
+                
+                forward_to_manager(chat_id, username, text)
+                
+                send_message(
+                    chat_id,
+                    "Спасибо за сообщение! Наш менеджер получил ваш вопрос и скоро ответит.\n\n"
+                    "Для быстрого ответа позвоните:\n📞 +7 (4212) 45-41-41"
+                )
         
         return {
             'statusCode': 200,
