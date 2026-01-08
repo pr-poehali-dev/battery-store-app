@@ -1,16 +1,19 @@
 {
   "tests": [
     {
-      "name": "Test telegram login endpoint",
+      "name": "Test telegram login validation",
       "method": "POST",
       "path": "/",
       "body": {
         "id": 123456789,
         "first_name": "Test",
         "auth_date": 1234567890,
-        "hash": "test_hash"
+        "hash": "invalid_hash"
       },
-      "expectedStatus": 200,
+      "expectedStatus": 403,
+      "expectedBody": {
+        "error": "Invalid Telegram authentication"
+      },
       "bodyMatcher": "partial"
     }
   ]
