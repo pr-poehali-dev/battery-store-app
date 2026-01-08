@@ -77,8 +77,8 @@ def register_or_login_user(telegram_data: dict) -> dict:
         else:
             # Новый пользователь - регистрируем
             cur.execute("""
-                INSERT INTO t_p87786830_battery_store_app.users (telegram_id, name, telegram_username, telegram_photo, role, cashback, created_at, last_login)
-                VALUES (%s, %s, %s, %s, 'client', 0, NOW(), NOW())
+                INSERT INTO t_p87786830_battery_store_app.users (telegram_id, name, telegram_username, telegram_photo, phone, role, cashback, created_at, last_login)
+                VALUES (%s, %s, %s, %s, '', 'client', 0, NOW(), NOW())
                 RETURNING id, name, phone, cashback, role
             """, (str(telegram_id), full_name, username, photo_url))
             
