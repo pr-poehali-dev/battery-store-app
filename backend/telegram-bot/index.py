@@ -2,12 +2,10 @@ import json
 import os
 import requests
 
-TELEGRAM_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '8587363761:AAFkNxwiHaiE5YN5SMBjXhRMJjqhNmroFvc')
+# Используем токен напрямую (переменная окружения содержит неправильное значение)
+TELEGRAM_TOKEN = '8587363761:AAFkNxwiHaiE5YN5SMBjXhRMJjqhNmroFvc'
 TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
 MANAGER_CHAT_ID = os.environ.get('MANAGER_TELEGRAM_ID', None)  # ID менеджера для пересылки вопросов
-
-print(f"Bot token (first 20 chars): {TELEGRAM_TOKEN[:20]}...")
-print(f"Telegram API URL: {TELEGRAM_API}/sendMessage")
 
 STORES = [
     {"name": "Павловича, 26", "phone": "+7 (4212) 45-41-41"},
