@@ -6,6 +6,9 @@ TELEGRAM_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '8587363761:AAFkNxwiHaiE5Y
 TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
 MANAGER_CHAT_ID = os.environ.get('MANAGER_TELEGRAM_ID', None)  # ID менеджера для пересылки вопросов
 
+print(f"Bot token (first 20 chars): {TELEGRAM_TOKEN[:20]}...")
+print(f"Telegram API URL: {TELEGRAM_API}/sendMessage")
+
 STORES = [
     {"name": "Павловича, 26", "phone": "+7 (4212) 45-41-41"},
     {"name": "Павловича, 11", "phone": "+7 (4212) 45-99-99"},
