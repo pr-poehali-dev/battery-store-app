@@ -135,7 +135,7 @@ def handle_contacts(chat_id: int):
     text = (
         "📞 <b>Связаться с нами:</b>\n\n"
         "🌐 Сайт: miraccum.ru\n"
-        "📱 Telegram: @mir_akkum_shop_bot\n\n"
+        "📱 Telegram: @nobodystillhere\n\n"
         "<b>Телефоны магазинов:</b>\n"
     )
     for store in STORES[:3]:
