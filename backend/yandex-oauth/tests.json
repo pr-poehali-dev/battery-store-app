@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Test missing code parameter",
+      "method": "POST",
+      "body": "{}",
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Authorization code is required"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

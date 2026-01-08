@@ -1,4 +1,5 @@
 {
+  "yandex-oauth": "https://functions.poehali.dev/d33d90f8-0536-4c38-8c90-dc549a6d657c",
   "telegram-login": "https://functions.poehali.dev/535b5887-9e3d-4a2f-ae82-4857f8223d49",
   "telegram-bot": "https://functions.poehali.dev/0f176208-7c2d-4049-9f7a-7f1204daa0c2",
   "add-cashback": "https://functions.poehali.dev/6a0b6e4d-715b-4012-bbdc-d401bcbb7858",
