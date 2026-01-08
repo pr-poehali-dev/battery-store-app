@@ -157,13 +157,16 @@ def handler(event: dict, context) -> dict:
     
     try:
         body = json.loads(event.get('body', '{}'))
+        print(f"Received update: {json.dumps(body)}")
         
         if 'message' not in body:
+            print("No message in update, skipping")
             return {'statusCode': 200, 'body': json.dumps({'ok': True})}
         
         message = body['message']
         chat_id = message['chat']['id']
         text = message.get('text', '')
+        print(f"Processing message from {chat_id}: {text}")
         
         if text == '/start':
             handle_start(chat_id)
