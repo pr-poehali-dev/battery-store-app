@@ -2,6 +2,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { useState } from 'react';
 
 interface ServiceCenterCardProps {
   isExpanded: boolean;
@@ -10,6 +17,19 @@ interface ServiceCenterCardProps {
 }
 
 const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenterCardProps) => {
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
+  const coords: [number, number] = [48.4790, 135.0820];
+
+  const openNavigator = (type: 'gis' | 'yandex' | 'google') => {
+    const [lat, lon] = coords;
+    const urls = {
+      gis: `https://2gis.ru/khabarovsk?m=${lon},${lat}`,
+      yandex: `https://yandex.ru/maps/?rtext=~${lat},${lon}&rtt=auto`,
+      google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`
+    };
+    window.open(urls[type], '_blank');
+    setIsNavMenuOpen(false);
+  };
   return (
     <Card 
       className={`transition-all hover:shadow-lg cursor-pointer ${
@@ -101,17 +121,34 @@ const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenter
                   <Icon name="Phone" size={16} className="mr-2" />
                   Позвонить
                 </Button>
-                <Button
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onBuildRoute([48.4790, 135.0820], 'https://2gis.ru/khabarovsk/firm/70000001018325173');
-                  }}
-                  className="w-full bg-amber-500 hover:bg-amber-600"
-                >
-                  <Icon name="Map" size={16} className="mr-2" />
-                  2ГИС
-                </Button>
+                <DropdownMenu open={isNavMenuOpen} onOpenChange={setIsNavMenuOpen}>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      className="w-full bg-amber-500 hover:bg-amber-600"
+                    >
+                      <Icon name="Navigation" size={16} className="mr-2" />
+                      Маршрут
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
+                    <DropdownMenuItem onClick={() => openNavigator('gis')}>
+                      <Icon name="Map" size={16} className="mr-2" />
+                      2ГИС
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => openNavigator('yandex')}>
+                      <Icon name="MapPin" size={16} className="mr-2" />
+                      Яндекс.Карты
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => openNavigator('google')}>
+                      <Icon name="Globe" size={16} className="mr-2" />
+                      Google Maps
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           )}
