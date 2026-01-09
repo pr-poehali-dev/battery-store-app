@@ -32,7 +32,7 @@ const stores: Store[] = [
     name: 'Магазин на Павловича, 26',
     address: 'ул. Павловича, 26',
     phone: '+7 (4212) 45-41-41',
-    coords: [48.4808, 135.0838],
+    coords: [48.4795, 135.0825],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
     dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018324238',
     reviews: [
@@ -45,7 +45,7 @@ const stores: Store[] = [
     name: 'Магазин на Павловича, 11',
     address: 'ул. Павловича, 11',
     phone: '+7 (4212) 45-99-99',
-    coords: [48.4790, 135.0820],
+    coords: [48.4782, 135.0815],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
     dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018325173',
     reviews: [
@@ -58,7 +58,7 @@ const stores: Store[] = [
     name: 'Магазин на Краснореченской, 149',
     address: 'ул. Краснореченская, 149',
     phone: '+7 (4212) 47-41-41',
-    coords: [48.5100, 135.1100],
+    coords: [48.4240, 135.1085],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
     dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039589773',
     reviews: [
@@ -70,7 +70,7 @@ const stores: Store[] = [
     name: 'Магазин на Воронежской, 66',
     address: 'ул. Воронежская, 66',
     phone: '+7 (4212) 28-41-41',
-    coords: [48.4550, 135.1050],
+    coords: [48.4565, 135.1045],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
     dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018326001',
     reviews: [
@@ -83,7 +83,7 @@ const stores: Store[] = [
     name: 'Магазин на Суворова, 73а/2',
     address: 'ул. Суворова, 73а/2',
     phone: '+7 (4212) 97-41-41',
-    coords: [48.4650, 135.0680],
+    coords: [48.5340, 135.1400],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
     dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001039581699',
     reviews: [
@@ -95,7 +95,7 @@ const stores: Store[] = [
     name: 'Магазин на пр. 60-летия Октября, 154',
     address: 'Проспект 60-летия Октября, 154',
     phone: '+7 (4212) 28-45-45',
-    coords: [48.4400, 135.1300],
+    coords: [48.4480, 135.1350],
     workHours: 'Пн-Пт: 9:00-19:00, Сб-Вс: 10:00-18:00',
     dgisUrl: 'https://2gis.ru/khabarovsk/firm/70000001018327003',
     reviews: [

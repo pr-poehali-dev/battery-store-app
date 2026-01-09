@@ -18,7 +18,7 @@ interface ServiceCenterCardProps {
 
 const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenterCardProps) => {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
-  const coords: [number, number] = [48.4790, 135.0820];
+  const coords: [number, number] = [48.4782, 135.0815];
 
   const openNavigator = (type: 'gis' | 'yandex' | 'google') => {
     const [lat, lon] = coords;
