@@ -71,11 +71,10 @@ const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRout
     ? (store.reviews.reduce((sum, review) => sum + review.rating, 0) / store.reviews.length).toFixed(1)
     : null;
 
-  const openNavigator = (type: 'gis' | 'yandex' | 'google') => {
+  const openNavigator = (type: 'gis' | 'google') => {
     const [lat, lon] = store.coords;
     const urls = {
       gis: `https://2gis.ru/routeSearch/rsType/car/to/${lon},${lat}`,
-      yandex: `https://yandex.ru/maps/?rtext=~${lat},${lon}&rtt=auto`,
       google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`
     };
     window.open(urls[type], '_blank');
@@ -211,10 +210,6 @@ const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRout
                     <DropdownMenuItem onClick={() => openNavigator('gis')}>
                       <Icon name="Map" size={16} className="mr-2" />
                       2ГИС
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => openNavigator('yandex')}>
-                      <Icon name="MapPin" size={16} className="mr-2" />
-                      Яндекс.Карты
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => openNavigator('google')}>
                       <Icon name="Globe" size={16} className="mr-2" />

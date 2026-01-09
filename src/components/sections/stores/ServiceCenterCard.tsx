@@ -20,11 +20,10 @@ const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenter
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const coords: [number, number] = [48.4782, 135.0815];
 
-  const openNavigator = (type: 'gis' | 'yandex' | 'google') => {
+  const openNavigator = (type: 'gis' | 'google') => {
     const [lat, lon] = coords;
     const urls = {
       gis: `https://2gis.ru/routeSearch/rsType/car/to/${lon},${lat}`,
-      yandex: `https://yandex.ru/maps/?rtext=~${lat},${lon}&rtt=auto`,
       google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`
     };
     window.open(urls[type], '_blank');
@@ -138,10 +137,6 @@ const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenter
                     <DropdownMenuItem onClick={() => openNavigator('gis')}>
                       <Icon name="Map" size={16} className="mr-2" />
                       2ГИС
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => openNavigator('yandex')}>
-                      <Icon name="MapPin" size={16} className="mr-2" />
-                      Яндекс.Карты
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => openNavigator('google')}>
                       <Icon name="Globe" size={16} className="mr-2" />
