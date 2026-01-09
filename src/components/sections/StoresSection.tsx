@@ -181,11 +181,7 @@ const StoresSection = () => {
   };
 
   const handleBuildRoute = (coords: [number, number], dgisUrl?: string) => {
-    if (dgisUrl) {
-      window.open(dgisUrl, '_blank');
-    } else {
-      window.open(`https://2gis.ru/khabarovsk?m=${coords[1]},${coords[0]}`, '_blank');
-    }
+    window.open(`https://2gis.ru/khabarovsk?m=${coords[1]},${coords[0]}`, '_blank');
   };
 
   return (
