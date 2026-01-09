@@ -58,6 +58,10 @@ const storeImages: Record<number, string[]> = {
 };
 
 const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRoute }: StoreCardProps) => {
+  const averageRating = store.reviews && store.reviews.length > 0
+    ? (store.reviews.reduce((sum, review) => sum + review.rating, 0) / store.reviews.length).toFixed(1)
+    : null;
+
   return (
     <Card 
       className={`transition-all hover:shadow-lg cursor-pointer ${
@@ -73,10 +77,16 @@ const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRout
                 <Icon name="Store" size={20} className="text-primary" />
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-semibold text-lg">{store.name}</h3>
                   {isNearest && (
                     <Badge className="bg-green-500">Ближайший</Badge>
+                  )}
+                  {averageRating && (
+                    <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200">
+                      <Icon name="Star" size={12} className="mr-1 text-amber-500 fill-amber-500" />
+                      {averageRating}
+                    </Badge>
                   )}
                 </div>
                 <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
