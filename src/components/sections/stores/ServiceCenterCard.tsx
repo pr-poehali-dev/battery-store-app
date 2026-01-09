@@ -23,7 +23,7 @@ const ServiceCenterCard = ({ isExpanded, onToggle, onBuildRoute }: ServiceCenter
   const openNavigator = (type: 'gis' | 'yandex' | 'google') => {
     const [lat, lon] = coords;
     const urls = {
-      gis: `https://2gis.ru/khabarovsk?m=${lon},${lat}`,
+      gis: `https://2gis.ru/routeSearch/rsType/car/to/${lon},${lat}`,
       yandex: `https://yandex.ru/maps/?rtext=~${lat},${lon}&rtt=auto`,
       google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`
     };
