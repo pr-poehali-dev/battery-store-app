@@ -26,6 +26,9 @@ export interface User {
   photo_url?: string;
   cashback: number;
   role?: string;
+  totalSpent?: number;
+  level?: 'bronze' | 'silver' | 'gold' | 'platinum';
+  purchaseCount?: number;
 }
 
 export interface Store {

@@ -35,7 +35,9 @@ export const useAuth = () => {
               lastName: '',
               phone: data.user.phone,
               cashback: data.user.cashback,
-              role: data.user.role
+              role: data.user.role,
+              totalSpent: data.user.totalSpent || 0,
+              purchaseCount: data.user.purchaseCount || 0
             };
             setUser(userData);
             setIsLoading(false);
@@ -80,7 +82,9 @@ export const useAuth = () => {
       lastName: '',
       phone: authData.phone_number,
       cashback: authData.cashback || 0,
-      role: authData.role || 'user'
+      role: authData.role || 'user',
+      totalSpent: authData.totalSpent || 125000,
+      purchaseCount: authData.purchaseCount || 8
     };
     
     localStorage.setItem('akkum_user', JSON.stringify(userData));
