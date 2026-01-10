@@ -128,6 +128,8 @@ const Index = () => {
             setSelectedCategory={cart.setSelectedCategory}
             selectedCar={cart.selectedCar}
             setSelectedCar={cart.setSelectedCar}
+            sortBy={cart.sortBy}
+            setSortBy={cart.setSortBy}
             categories={cart.categories}
             allCars={cart.allCars}
             resetFilters={cart.resetFilters}

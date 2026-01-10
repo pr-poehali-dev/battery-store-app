@@ -9,32 +9,53 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const [selectedCar, setSelectedCar] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedStore, setSelectedStore] = useState('');
+  const [sortBy, setSortBy] = useState('default');
 
   const allCars = Array.from(new Set(products.flatMap(p => p.compatible))).sort();
   const categories = Array.from(new Set(products.map(p => p.category))).sort();
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = 
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-    
-    const matchesCar = !selectedCar || 
-      selectedCar === 'all' || 
-      product.compatible.includes(selectedCar) ||
-      product.compatible.includes('Универсальное');
-    
-    const matchesCategory = !selectedCategory || product.category === selectedCategory;
-    
-    return matchesSearch && matchesPrice && matchesCar && matchesCategory;
-  });
+  const filteredProducts = products
+    .filter(product => {
+      const matchesSearch = 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.brand.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+      
+      const matchesCar = !selectedCar || 
+        selectedCar === 'all' || 
+        product.compatible.includes(selectedCar) ||
+        product.compatible.includes('Универсальное');
+      
+      const matchesCategory = !selectedCategory || product.category === selectedCategory;
+      
+      return matchesSearch && matchesPrice && matchesCar && matchesCategory;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'price-asc':
+          return a.price - b.price;
+        case 'price-desc':
+          return b.price - a.price;
+        case 'name-asc':
+          return a.name.localeCompare(b.name);
+        case 'name-desc':
+          return b.name.localeCompare(a.name);
+        case 'capacity':
+          const capacityA = parseInt(a.capacity);
+          const capacityB = parseInt(b.capacity);
+          return capacityB - capacityA;
+        default:
+          return 0;
+      }
+    });
 
   const resetFilters = () => {
     setSearchQuery('');
     setPriceRange([0, 50000]);
     setSelectedCar('');
     setSelectedCategory('');
+    setSortBy('default');
   };
 
   const getCategoryBadge = (category: string) => {
@@ -100,6 +121,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     selectedCar,
     selectedCategory,
     selectedStore,
+    sortBy,
     allCars,
     categories,
     filteredProducts,
@@ -111,6 +133,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     setSelectedCar,
     setSelectedCategory,
     setSelectedStore,
+    setSortBy,
     resetFilters,
     getCategoryBadge,
     addToCart,
