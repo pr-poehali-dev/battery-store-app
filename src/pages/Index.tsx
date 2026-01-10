@@ -41,49 +41,44 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 pb-20 relative overflow-hidden">
-      <ParallaxBackground />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(147,197,253,0.08),transparent_50%)] pointer-events-none" />
-      <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200/20 rounded-full blur-3xl animate-float pointer-events-none" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-blue-300/15 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '1.5s' }} />
-      
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-blue-100 shadow-sm relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5" />
-        <div className="container mx-auto px-4 py-4 relative">
+    <div className="min-h-screen bg-gray-50 pb-20 relative overflow-hidden">
+      <header className="sticky top-0 z-50 bg-[#4A7BA7] shadow-md relative">
+        <div className="container mx-auto px-4 py-6 relative">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                <Icon name="Battery" size={24} className="text-white" />
+            <button 
+              className="text-white p-2 hover:bg-white/10 rounded transition-colors"
+              onClick={() => setIsMenuOpen(true)}
+            >
+              <div className="space-y-1.5">
+                <div className="w-8 h-0.5 bg-white"></div>
+                <div className="w-8 h-0.5 bg-white"></div>
+                <div className="w-8 h-0.5 bg-white"></div>
               </div>
-              <div>
-                <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">Мир Аккумуляторов</h1>
-                <p className="text-xs text-blue-600/70">С 1998 года</p>
-              </div>
+            </button>
+            <div className="flex items-center gap-3 flex-1 justify-center">
+              <span className="text-4xl">🍃</span>
+              <h1 className="text-2xl md:text-3xl font-bold text-white italic">Мир Аккумуляторов</h1>
             </div>
             <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={() => setActiveSection('cart')}
-                className="relative"
+                className="relative text-white hover:bg-white/10"
               >
-                <Icon name="ShoppingCart" size={18} />
+                <Icon name="ShoppingCart" size={22} />
                 {cart.cartItemsCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-red-500">
                     {cart.cartItemsCount}
                   </Badge>
                 )}
               </Button>
-              <Badge variant="secondary" className="hidden md:flex items-center gap-1">
-                <Icon name="Wallet" size={14} />
-                {user.cashback} ₽
-              </Badge>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6 space-y-6 relative z-10">
+      <main className="container mx-auto px-4 py-6 space-y-6 relative z-10 bg-white">
         {showInstallPrompt && (
           <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-2 border-blue-500/20 animate-slide-up">
             <CardContent className="pt-4">
@@ -240,17 +235,58 @@ const Index = () => {
                   <span className="text-xs mt-1">Ещё</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+              <SheetContent side="left" className="w-[280px] sm:w-[320px] bg-[#4A7BA7] text-white border-r-0">
                 <SheetHeader className="mb-6">
-                  <SheetTitle className="flex items-center gap-2">
-                    <Icon name="Menu" size={24} className="text-primary" />
-                    Меню
+                  <SheetTitle className="flex items-center gap-3 text-white">
+                    <span className="text-3xl">🍃</span>
+                    <span className="text-xl italic">Мир Аккумуляторов</span>
                   </SheetTitle>
                 </SheetHeader>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Button
-                    variant={activeSection === 'promotions' ? 'default' : 'ghost'}
-                    className="w-full justify-start text-base h-12"
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'home' ? 'bg-white/20' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('home');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Home" size={20} className="mr-3" />
+                    Главная
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'catalog' ? 'bg-white/20' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('catalog');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="ShoppingBag" size={20} className="mr-3" />
+                    Каталог
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'stores' ? 'bg-white/20' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('stores');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="MapPin" size={20} className="mr-3" />
+                    Магазины
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'promotions' ? 'bg-white/20' : ''
+                    }`}
                     onClick={() => {
                       setActiveSection('promotions');
                       setIsMenuOpen(false);
@@ -260,8 +296,10 @@ const Index = () => {
                     Акции
                   </Button>
                   <Button
-                    variant={activeSection === 'warranty' ? 'default' : 'ghost'}
-                    className="w-full justify-start text-base h-12"
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'warranty' ? 'bg-white/20' : ''
+                    }`}
                     onClick={() => {
                       setActiveSection('warranty');
                       setIsMenuOpen(false);
@@ -271,8 +309,10 @@ const Index = () => {
                     Проверка гарантии
                   </Button>
                   <Button
-                    variant={activeSection === 'about' ? 'default' : 'ghost'}
-                    className="w-full justify-start text-base h-12"
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'about' ? 'bg-white/20' : ''
+                    }`}
                     onClick={() => {
                       setActiveSection('about');
                       setIsMenuOpen(false);
@@ -282,8 +322,10 @@ const Index = () => {
                     О нас
                   </Button>
                   <Button
-                    variant={activeSection === 'contacts' ? 'default' : 'ghost'}
-                    className="w-full justify-start text-base h-12"
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'contacts' ? 'bg-white/20' : ''
+                    }`}
                     onClick={() => {
                       setActiveSection('contacts');
                       setIsMenuOpen(false);
@@ -292,10 +334,12 @@ const Index = () => {
                     <Icon name="Phone" size={20} className="mr-3" />
                     Контакты
                   </Button>
-                  <div className="my-4 border-t border-border" />
+                  <div className="my-4 border-t border-white/20" />
                   <Button
-                    variant={activeSection === 'profile' ? 'default' : 'ghost'}
-                    className="w-full justify-start text-base h-12"
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
+                      activeSection === 'profile' ? 'bg-white/20' : ''
+                    }`}
                     onClick={() => {
                       setActiveSection('profile');
                       setIsMenuOpen(false);
@@ -303,6 +347,17 @@ const Index = () => {
                   >
                     <Icon name="User" size={20} className="mr-3" />
                     Профиль
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-base h-12 text-white hover:bg-white/10"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="LogOut" size={20} className="mr-3" />
+                    Выйти
                   </Button>
                 </div>
               </SheetContent>
