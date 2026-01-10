@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
 import FooterInfo from '@/components/ui/FooterInfo';
-import { useFavorites } from '@/hooks/useFavorites';
 
 interface Product {
   id: number;
@@ -53,8 +52,6 @@ const CatalogSection = ({
   getCategoryBadge,
   addToCart
 }: CatalogSectionProps) => {
-  const { toggleFavorite, isFavorite } = useFavorites();
-
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -189,17 +186,6 @@ const CatalogSection = ({
                     <p className="text-2xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
                     <p className="text-xs text-green-600">+{Math.floor(product.price * 0.03)} ₽ кэшбек</p>
                   </div>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => toggleFavorite(product.id, product.name, product.price, product.image)}
-                  >
-                    <Icon
-                      name="Heart"
-                      size={20}
-                      className={isFavorite(product.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}
-                    />
-                  </Button>
                 </div>
                 <Button 
                   className="w-full"
