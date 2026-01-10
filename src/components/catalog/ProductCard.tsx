@@ -25,9 +25,10 @@ interface ProductCardProps {
   product: Product;
   getCategoryBadge: (category: string) => { icon: string; color: string; label: string };
   addToCart: (product: Product) => void;
+  onReserve?: (product: Product) => void;
 }
 
-const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps) => {
+const ProductCard = ({ product, getCategoryBadge, addToCart, onReserve }: ProductCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
       <div className="relative aspect-square bg-gradient-to-br from-muted/30 to-muted/60 flex items-center justify-center">
@@ -114,13 +115,25 @@ const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps)
               +{Math.floor(product.price * 0.03)} ₽
             </Badge>
           </div>
-          <Button 
-            className="w-full h-11 text-base font-semibold group-hover:shadow-lg transition-all"
-            onClick={() => addToCart(product)}
-          >
-            <Icon name="ShoppingCart" size={20} className="mr-2" />
-            В корзину
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              className="flex-1 h-11 text-base font-semibold group-hover:shadow-lg transition-all"
+              onClick={() => addToCart(product)}
+            >
+              <Icon name="ShoppingCart" size={20} className="mr-2" />
+              В корзину
+            </Button>
+            {onReserve && (
+              <Button 
+                variant="outline"
+                className="h-11 px-4"
+                onClick={() => onReserve(product)}
+                title="Забронировать"
+              >
+                <Icon name="Package" size={20} />
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>

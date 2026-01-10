@@ -14,11 +14,15 @@ import AboutSection from '@/components/sections/AboutSection';
 import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import WarrantySection from '@/components/sections/WarrantySection';
+import QRScannerSection from '@/components/sections/QRScannerSection';
+import BlogSection from '@/components/sections/BlogSection';
+import ReservationSection from '@/components/sections/ReservationSection';
 import LoadingScreen from '@/components/LoadingScreen';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { usePWA } from '@/hooks/usePWA';
+import { useTheme } from '@/hooks/useTheme';
 import { brands, stores, serviceCenter } from '@/data/products';
 
 const Index = () => {
@@ -26,7 +30,7 @@ const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { user, isLoading, handleLogout, handleTelegramAuth, vibrate } = useAuth();
-  
+  const { theme, toggleTheme } = useTheme();
   const cart = useCart(vibrate);
   const { showInstallPrompt, setShowInstallPrompt, handleInstallApp } = usePWA();
 
@@ -41,7 +45,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-background pb-20 relative overflow-hidden">
       <header className="sticky top-0 z-50 bg-[#3D6B8C] shadow-lg relative">
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex items-center justify-between">
@@ -62,6 +66,15 @@ const Index = () => {
               <h1 className="text-2xl md:text-3xl font-bold text-white italic">Мир Аккумуляторов</h1>
             </div>
             <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleTheme}
+                className="text-white hover:bg-white/10"
+                title={theme === 'dark' ? 'Светлая тема' : 'Темная тема'}
+              >
+                <Icon name={theme === 'dark' ? 'Sun' : 'Moon'} size={22} />
+              </Button>
               <Button
                 variant="ghost"
                 size="sm"
@@ -154,6 +167,7 @@ const Index = () => {
             resetFilters={cart.resetFilters}
             getCategoryBadge={cart.getCategoryBadge}
             addToCart={cart.addToCart}
+            user={user}
           />
         )}
 
@@ -200,6 +214,18 @@ const Index = () => {
 
         {activeSection === 'warranty' && (
           <WarrantySection />
+        )}
+
+        {activeSection === 'qr-scanner' && (
+          <QRScannerSection setActiveSection={setActiveSection} />
+        )}
+
+        {activeSection === 'blog' && (
+          <BlogSection />
+        )}
+
+        {activeSection === 'reservations' && (
+          <ReservationSection user={user} />
         )}
 
       </main>
@@ -339,6 +365,45 @@ const Index = () => {
                   >
                     <Icon name="ShieldCheck" size={20} className="mr-3" />
                     Проверка гарантии
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'qr-scanner' ? 'bg-white/20 shadow-md' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('qr-scanner');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="QrCode" size={20} className="mr-3" />
+                    QR-сканер
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'blog' ? 'bg-white/20 shadow-md' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('blog');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Newspaper" size={20} className="mr-3" />
+                    Блог
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'reservations' ? 'bg-white/20 shadow-md' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('reservations');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Package" size={20} className="mr-3" />
+                    Бронирования
                   </Button>
                   <Button
                     variant="ghost"

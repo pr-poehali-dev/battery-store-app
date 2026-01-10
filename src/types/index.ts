@@ -47,3 +47,16 @@ export interface ServiceCenter {
   address: string;
   description: string;
 }
+
+export interface Reservation {
+  id: string;
+  product: Product;
+  quantity: number;
+  store: string;
+  pickupDate: string;
+  pickupTime: string;
+  customerName: string;
+  customerPhone: string;
+  status: 'pending' | 'confirmed' | 'ready' | 'completed' | 'cancelled';
+  createdAt: string;
+}
