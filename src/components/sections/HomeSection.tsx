@@ -101,29 +101,67 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-2 border-green-500/20 hover:shadow-xl transition-all duration-300 group">
-        <CardHeader className="pb-3">
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-green-500/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
-              <Icon name="Percent" size={20} className="text-green-600" />
+      <div className="grid md:grid-cols-2 gap-4">
+        <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-2 border-green-500/20 hover:shadow-xl transition-all duration-300 group">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-green-500/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                <Icon name="Percent" size={20} className="text-green-600" />
+              </div>
+              <CardTitle className="text-xl">Кэшбек 3%</CardTitle>
             </div>
-            <CardTitle className="text-xl">Кэшбек 3%</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex items-center justify-between p-3 bg-card rounded-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent animate-shimmer" />
-            <div className="relative z-10">
-              <p className="text-xs text-muted-foreground">Ваш кэшбек</p>
-              <p className="text-2xl font-bold text-green-600 animate-pulse">{userCashback} ₽</p>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent animate-shimmer" />
+              <div className="relative z-10">
+                <p className="text-xs text-muted-foreground">Ваш кэшбек</p>
+                <p className="text-2xl font-bold text-green-600 animate-pulse">{userCashback} ₽</p>
+              </div>
+              <Icon name="TrendingUp" size={28} className="text-green-600 relative z-10" />
             </div>
-            <Icon name="TrendingUp" size={28} className="text-green-600 relative z-10" />
-          </div>
-          <p className="text-xs text-muted-foreground">
-            3% с каждой покупки возвращается на ваш счёт!
-          </p>
-        </CardContent>
-      </Card>
+            <p className="text-xs text-muted-foreground">
+              3% с каждой покупки возвращается на ваш счёт!
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-amber-500/10 to-orange-600/5 border-2 border-amber-500/20 hover:shadow-xl transition-all duration-300 group">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-amber-500/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                <Icon name="Zap" size={20} className="text-amber-600" />
+              </div>
+              <CardTitle className="text-xl">Хиты продаж</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between p-2 bg-card rounded-lg hover:bg-accent transition-colors">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-amber-500">1</Badge>
+                  <span className="text-sm font-medium">Carku Pro 30</span>
+                </div>
+                <span className="text-xs text-muted-foreground">12 990₽</span>
+              </div>
+              <div className="flex items-center justify-between p-2 bg-card rounded-lg hover:bg-accent transition-colors">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-amber-500">2</Badge>
+                  <span className="text-sm font-medium">Varta Blue 60Ah</span>
+                </div>
+                <span className="text-xs text-muted-foreground">6 500₽</span>
+              </div>
+              <div className="flex items-center justify-between p-2 bg-card rounded-lg hover:bg-accent transition-colors">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-amber-500">3</Badge>
+                  <span className="text-sm font-medium">Bosch S4 75Ah</span>
+                </div>
+                <span className="text-xs text-muted-foreground">8 200₽</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       <Card className="relative overflow-hidden bg-gradient-to-br from-blue-500/10 via-primary/5 to-amber-500/10 border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
         <div className="absolute inset-0 opacity-5">
