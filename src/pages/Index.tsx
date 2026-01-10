@@ -42,17 +42,19 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20 relative overflow-hidden">
-      <header className="sticky top-0 z-50 bg-[#4A7BA7] shadow-md relative">
+      <header className="sticky top-0 z-50 bg-[#3D6B8C] shadow-lg relative">
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex items-center justify-between">
             <button 
-              className="text-white p-2 hover:bg-white/10 rounded transition-colors"
-              onClick={() => setIsMenuOpen(true)}
+              className={`text-white p-2 hover:bg-white/10 rounded transition-all duration-300 ${
+                isMenuOpen ? 'menu-burger-open' : ''
+              }`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <div className="space-y-1.5">
-                <div className="w-8 h-0.5 bg-white"></div>
-                <div className="w-8 h-0.5 bg-white"></div>
-                <div className="w-8 h-0.5 bg-white"></div>
+                <div className="w-8 h-0.5 bg-white menu-burger-line"></div>
+                <div className="w-8 h-0.5 bg-white menu-burger-line"></div>
+                <div className="w-8 h-0.5 bg-white menu-burger-line"></div>
               </div>
             </button>
             <div className="flex items-center gap-3 flex-1 justify-center">
@@ -235,7 +237,7 @@ const Index = () => {
                   <span className="text-xs mt-1">Ещё</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[280px] sm:w-[320px] bg-[#4A7BA7] text-white border-r-0">
+              <SheetContent side="left" className="w-[280px] sm:w-[320px] bg-[#3D6B8C] text-white border-r-0 animate-slide-in-left">
                 <SheetHeader className="mb-6">
                   <SheetTitle className="flex items-center gap-3 text-white">
                     <span className="text-3xl">🍃</span>
@@ -245,8 +247,8 @@ const Index = () => {
                 <div className="space-y-1">
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'home' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'home' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('home');
@@ -258,8 +260,8 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'catalog' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'catalog' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('catalog');
@@ -271,8 +273,8 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'stores' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'stores' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('stores');
@@ -284,8 +286,8 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'promotions' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'promotions' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('promotions');
@@ -297,8 +299,8 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'warranty' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'warranty' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('warranty');
@@ -310,8 +312,8 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'about' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'about' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('about');
@@ -323,8 +325,8 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'contacts' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'contacts' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('contacts');
@@ -337,8 +339,8 @@ const Index = () => {
                   <div className="my-4 border-t border-white/20" />
                   <Button
                     variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 ${
-                      activeSection === 'profile' ? 'bg-white/20' : ''
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'profile' ? 'bg-white/20 shadow-md' : ''
                     }`}
                     onClick={() => {
                       setActiveSection('profile');
@@ -350,7 +352,7 @@ const Index = () => {
                   </Button>
                   <Button
                     variant="ghost"
-                    className="w-full justify-start text-base h-12 text-white hover:bg-white/10"
+                    className="w-full justify-start text-base h-12 text-white hover:bg-white/10 hover:bg-red-500/20 transition-all duration-200"
                     onClick={() => {
                       handleLogout();
                       setIsMenuOpen(false);
