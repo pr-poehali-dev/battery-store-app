@@ -183,7 +183,7 @@ const Index = () => {
         )}
 
         {activeSection === 'favorites' && (
-          <Favorites setActiveSection={setActiveSection} />
+          <Favorites setActiveSection={setActiveSection} addToCart={cart.addToCart} />
         )}
 
       </main>

@@ -3,30 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useFavorites } from '@/hooks/useFavorites';
-import { useCart } from '@/hooks/useCart';
 
 interface FavoritesProps {
   setActiveSection: (section: string) => void;
+  addToCart: (id: number, name: string, price: number, image: string) => void;
 }
 
-export default function Favorites({ setActiveSection }: FavoritesProps) {
+export default function Favorites({ setActiveSection, addToCart }: FavoritesProps) {
   const { favorites, removeFavorite } = useFavorites();
-  const cart = useCart();
-
-  const handleAddToCart = (item: any) => {
-    cart.addToCart({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-      brand: '',
-      voltage: '',
-      capacity: '',
-      current: '',
-      category: '',
-      compatible: []
-    });
-  };
 
   if (favorites.length === 0) {
     return (
@@ -82,7 +66,7 @@ export default function Favorites({ setActiveSection }: FavoritesProps) {
                   <Button
                     size="sm"
                     className="w-full"
-                    onClick={() => handleAddToCart(item)}
+                    onClick={() => addToCart(item.id, item.name, item.price, item.image)}
                   >
                     <Icon name="ShoppingCart" size={16} className="mr-2" />
                     В корзину
