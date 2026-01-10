@@ -15,6 +15,9 @@ import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import WarrantySection from '@/components/sections/WarrantySection';
 import LoadingScreen from '@/components/LoadingScreen';
+import BatteryQuiz from '@/components/BatteryQuiz';
+import Favorites from '@/components/Favorites';
+import Newsletter from '@/components/Newsletter';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
@@ -181,6 +184,18 @@ const Index = () => {
           <WarrantySection />
         )}
 
+        {activeSection === 'quiz' && (
+          <BatteryQuiz />
+        )}
+
+        {activeSection === 'favorites' && (
+          <Favorites />
+        )}
+
+        {activeSection === 'newsletter' && (
+          <Newsletter />
+        )}
+
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
@@ -246,6 +261,40 @@ const Index = () => {
                   </SheetTitle>
                 </SheetHeader>
                 <div className="space-y-2">
+                  <Button
+                    variant={activeSection === 'favorites' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('favorites');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Heart" size={20} className="mr-3" />
+                    Избранное
+                  </Button>
+                  <Button
+                    variant={activeSection === 'quiz' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('quiz');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="HelpCircle" size={20} className="mr-3" />
+                    Тест-подбор
+                  </Button>
+                  <Button
+                    variant={activeSection === 'newsletter' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('newsletter');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Bell" size={20} className="mr-3" />
+                    Подписка на новинки
+                  </Button>
+                  <div className="my-4 border-t border-border" />
                   <Button
                     variant={activeSection === 'promotions' ? 'default' : 'ghost'}
                     className="w-full justify-start text-base h-12"

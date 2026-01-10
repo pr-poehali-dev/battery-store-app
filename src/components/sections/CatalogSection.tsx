@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
 import FooterInfo from '@/components/ui/FooterInfo';
+import { useFavorites } from '@/hooks/useFavorites';
 
 interface Product {
   id: number;
@@ -52,6 +53,8 @@ const CatalogSection = ({
   getCategoryBadge,
   addToCart
 }: CatalogSectionProps) => {
+  const { toggleFavorite, isFavorite } = useFavorites();
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -136,7 +139,19 @@ const CatalogSection = ({
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (
-          <Card key={product.id} className="hover:shadow-lg transition-shadow">
+          <Card key={product.id} className="hover:shadow-lg transition-shadow relative">
+            <Button
+              size="icon"
+              variant="ghost"
+              className="absolute top-2 right-2 z-10 h-8 w-8"
+              onClick={() => toggleFavorite(product.id, product.name, product.price, product.image)}
+            >
+              <Icon
+                name="Heart"
+                size={20}
+                className={isFavorite(product.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}
+              />
+            </Button>
             <CardHeader>
               <div className="flex items-start justify-between mb-2">
                 <div className="text-4xl">{product.image}</div>
