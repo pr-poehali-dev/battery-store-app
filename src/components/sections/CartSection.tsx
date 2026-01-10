@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import FooterInfo from '@/components/ui/FooterInfo';
+import { usePayment } from '@/hooks/usePayment';
 
 interface Product {
   id: number;
@@ -38,6 +40,7 @@ interface CartSectionProps {
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   setActiveSection: (section: string) => void;
+  userId?: string | number;
 }
 
 const CartSection = ({
@@ -50,8 +53,18 @@ const CartSection = ({
   stores,
   removeFromCart,
   updateQuantity,
-  setActiveSection
+  setActiveSection,
+  userId
 }: CartSectionProps) => {
+  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'online'>('cash');
+  const { createPayment, isProcessing, error } = usePayment();
+
+  const handleOnlinePayment = async () => {
+    if (!selectedStore) return;
+    
+    const returnUrl = window.location.origin + window.location.pathname;
+    await createPayment(cart, cartTotal, userId || 'guest', returnUrl);
+  };
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -182,31 +195,116 @@ const CartSection = ({
                   +{cartCashback.toLocaleString()} ₽
                 </Badge>
               </div>
-              <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon name="Wallet" size={20} className="text-blue-600" />
-                  <p className="font-semibold text-blue-600">Оплата при получении</p>
+              <div className="space-y-3">
+                <p className="font-semibold text-sm">Способ оплаты:</p>
+                <div className="grid gap-3">
+                  <Card 
+                    className={`cursor-pointer transition-all ${
+                      paymentMethod === 'online' 
+                        ? 'border-2 border-primary bg-primary/5' 
+                        : 'border hover:border-primary/50'
+                    }`}
+                    onClick={() => setPaymentMethod('online')}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                          paymentMethod === 'online' ? 'border-primary' : 'border-muted-foreground'
+                        }`}>
+                          {paymentMethod === 'online' && (
+                            <div className="w-3 h-3 rounded-full bg-primary" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Icon name="CreditCard" size={18} className="text-primary" />
+                            <p className="font-semibold">Онлайн-оплата картой</p>
+                            <Badge variant="secondary" className="text-xs bg-green-500/10 text-green-700">
+                              Безопасно
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            Оплата через ЮKassa — любой картой, безопасно
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card 
+                    className={`cursor-pointer transition-all ${
+                      paymentMethod === 'cash' 
+                        ? 'border-2 border-primary bg-primary/5' 
+                        : 'border hover:border-primary/50'
+                    }`}
+                    onClick={() => setPaymentMethod('cash')}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                          paymentMethod === 'cash' ? 'border-primary' : 'border-muted-foreground'
+                        }`}>
+                          {paymentMethod === 'cash' && (
+                            <div className="w-3 h-3 rounded-full bg-primary" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Icon name="Wallet" size={18} className="text-blue-600" />
+                            <p className="font-semibold">Оплата при получении</p>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            Наличными или картой в магазине при самовывозе
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Вы оплачиваете заказ наличными или картой при самовывозе в магазине
-                </p>
               </div>
+
+              {error && (
+                <div className="p-3 bg-red-500/10 rounded-lg border border-red-500/20">
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
               <div className="flex justify-between items-center text-2xl font-bold border-t pt-4">
                 <span>К оплате</span>
                 <span className="text-primary">{cartTotal.toLocaleString()} ₽</span>
               </div>
-              <Button
-                size="lg"
-                className="w-full text-lg"
-                disabled={!selectedStore}
-                onClick={() => {
-                  const message = `Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\nКэшбек: +${cartCashback} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`;
-                  window.open(`https://t.me/nobodystillhere?text=${encodeURIComponent(message)}`, '_blank');
-                }}
-              >
-                <Icon name="MessageCircle" size={20} className="mr-2" />
-                Оформить заказ
-              </Button>
+              {paymentMethod === 'online' ? (
+                <Button
+                  size="lg"
+                  className="w-full text-lg"
+                  disabled={!selectedStore || isProcessing}
+                  onClick={handleOnlinePayment}
+                >
+                  {isProcessing ? (
+                    <>
+                      <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                      Создание платежа...
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="CreditCard" size={20} className="mr-2" />
+                      Оплатить {cartTotal.toLocaleString()} ₽
+                    </>
+                  )}
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  className="w-full text-lg"
+                  disabled={!selectedStore}
+                  onClick={() => {
+                    const message = `Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\nКэшбек: +${cartCashback} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`;
+                    window.open(`https://t.me/nobodystillhere?text=${encodeURIComponent(message)}`, '_blank');
+                  }}
+                >
+                  <Icon name="MessageCircle" size={20} className="mr-2" />
+                  Оформить заказ
+                </Button>
+              )}
               {!selectedStore && (
                 <p className="text-sm text-amber-600 text-center">
                   ⚠️ Выберите магазин для самовывоза

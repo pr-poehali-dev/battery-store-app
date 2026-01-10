@@ -1,0 +1,40 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS request returns CORS headers",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedHeaders": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    {
+      "name": "Create payment requires amount",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "action": "create_payment",
+        "description": "Test order"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Invalid amount"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Check payment requires payment_id",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "action": "check_payment"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Payment ID required"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
