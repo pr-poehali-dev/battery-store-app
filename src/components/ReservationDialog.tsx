@@ -34,7 +34,7 @@ const ReservationDialog = ({ product, onClose, user }: ReservationDialogProps) =
     '17:00', '18:00'
   ];
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedStore || !pickupDate || !pickupTime || !customerPhone) {
       alert('Пожалуйста, заполните все поля');
       return;
@@ -52,6 +52,22 @@ const ReservationDialog = ({ product, onClose, user }: ReservationDialogProps) =
 
     setReservationId(reservation.id);
     setSuccess(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/6faa2230-15d9-4722-a0b7-be9325b055ff', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ reservation })
+      });
+
+      if (!response.ok) {
+        console.error('Failed to send Telegram notification');
+      }
+    } catch (error) {
+      console.error('Error sending Telegram notification:', error);
+    }
   };
 
   if (success) {

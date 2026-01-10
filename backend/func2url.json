@@ -1,4 +1,5 @@
 {
+  "telegram-notify": "https://functions.poehali.dev/6faa2230-15d9-4722-a0b7-be9325b055ff",
   "payment": "https://functions.poehali.dev/3c58bd38-5532-4460-abc7-cb6647b3d248",
   "warranty-check": "https://functions.poehali.dev/0126470b-16a6-45c5-b227-85b4b511fb1a",
   "yandex-oauth": "https://functions.poehali.dev/d33d90f8-0536-4c38-8c90-dc549a6d657c",
