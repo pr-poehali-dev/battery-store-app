@@ -218,13 +218,13 @@ const Index = () => {
               )}
             </Button>
             <Button
-              variant={activeSection === 'contacts' ? 'default' : 'ghost'}
+              variant={activeSection === 'stores' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setActiveSection('contacts')}
+              onClick={() => setActiveSection('stores')}
               className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="Phone" size={18} />
-              <span className="text-xs mt-1">Контакты</span>
+              <Icon name="MapPin" size={18} />
+              <span className="text-xs mt-1">Магазины</span>
             </Button>
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
