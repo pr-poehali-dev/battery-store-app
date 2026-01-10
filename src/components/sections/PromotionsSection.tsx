@@ -18,36 +18,66 @@ const PromotionsSection = () => {
           <Card className="overflow-hidden border-2 border-primary/30 shadow-xl bg-gradient-to-br from-primary/5 to-background">
             <div className="relative">
               <img 
-                src="https://cdn.poehali.dev/files/IMG_0796.jpeg" 
+                src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/da6f4b8c-9659-41ce-9885-e38394da2a85.jpg" 
                 alt="Акции Мир Аккумуляторов"
-                className="w-full h-auto"
+                className="w-full h-64 object-cover"
               />
             </div>
             <CardContent className="pt-6 space-y-4">
               <div className="space-y-3">
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
-                    <Icon name="Gift" size={20} className="text-red-600" />
+                <Card className="overflow-hidden border-2 border-red-500/30 shadow-lg">
+                  <div className="relative h-48">
+                    <img 
+                      src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/7ceded2a-6723-49b2-8a42-261fe0f7607b.jpg"
+                      alt="Установка аккумулятора"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                      БЕСПЛАТНО
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg mb-1">Установка аккумулятора в подарок*</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Купите аккумулятор — установим бесплатно!
-                    </p>
+                  <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-red-500/10 to-orange-500/10">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+                      <Icon name="Gift" size={20} className="text-red-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg mb-1">Установка аккумулятора в подарок*</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Купите аккумулятор — установим бесплатно!
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        г. Хабаровск, ул. Павловича 11, Сервисный центр
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Card>
 
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <Icon name="Recycle" size={20} className="text-green-600" />
+                <Card className="overflow-hidden border-2 border-green-500/30 shadow-lg">
+                  <div className="relative h-48">
+                    <img 
+                      src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/0a0ad5b7-f4d1-418d-be6b-37c0e14c2c09.jpg"
+                      alt="Обмен старого аккумулятора"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-2 right-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                      ВЫГОДА
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg mb-1">Живая тема!</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Купим ваш старый аккумулятор — продадим новый и установим бесплатно
-                    </p>
+                  <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <Icon name="Recycle" size={20} className="text-green-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg mb-1">Живая тема!</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Купим ваш старый аккумулятор — продадим новый и установим бесплатно
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Утилизация старых аккумуляторов с выгодой
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Card>
               </div>
 
               <div className="pt-4 border-t border-border">
