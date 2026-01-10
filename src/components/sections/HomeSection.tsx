@@ -164,15 +164,15 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 group border-2 border-primary/20 hover:border-primary/40 relative overflow-hidden" onClick={() => setActiveSection('contacts')}>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 group border-2 border-green-500/20 hover:border-green-500/40 relative overflow-hidden" onClick={() => setActiveSection('warranty')}>
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <CardContent className="pt-5 pb-5 text-center space-y-2 relative z-10">
-            <div className="p-3 bg-primary/10 rounded-full w-fit mx-auto group-hover:scale-110 transition-transform duration-300">
-              <Icon name="Phone" size={32} className="text-primary" />
+            <div className="p-3 bg-green-500/10 rounded-full w-fit mx-auto group-hover:scale-110 transition-transform duration-300">
+              <Icon name="ShieldCheck" size={32} className="text-green-600" />
             </div>
-            <h3 className="text-lg font-semibold">Контакты</h3>
-            <p className="text-xs text-muted-foreground">Связаться для консультации</p>
-            <Button variant="outline" className="w-full shadow-sm hover:shadow-md">Связаться</Button>
+            <h3 className="text-lg font-semibold">Проверка гарантии</h3>
+            <p className="text-xs text-muted-foreground">Узнать срок гарантии</p>
+            <Button variant="outline" className="w-full shadow-sm hover:shadow-md border-green-500/30 hover:bg-green-500/10">Проверить</Button>
           </CardContent>
         </Card>
       </div>

@@ -12,6 +12,7 @@ import ProfileSection from '@/components/sections/ProfileSection';
 import AboutSection from '@/components/sections/AboutSection';
 import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
+import WarrantySection from '@/components/sections/WarrantySection';
 import LoadingScreen from '@/components/LoadingScreen';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useAuth } from '@/hooks/useAuth';
@@ -174,6 +175,9 @@ const Index = () => {
           />
         )}
 
+        {activeSection === 'warranty' && (
+          <WarrantySection />
+        )}
 
       </main>
 
@@ -231,13 +235,13 @@ const Index = () => {
               <span className="text-xs mt-1">Магазины</span>
             </Button>
             <Button
-              variant={activeSection === 'about' ? 'default' : 'ghost'}
+              variant={activeSection === 'warranty' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setActiveSection('about')}
+              onClick={() => setActiveSection('warranty')}
               className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="Info" size={18} />
-              <span className="text-xs mt-1">О нас</span>
+              <Icon name="ShieldCheck" size={18} />
+              <span className="text-xs mt-1">Гарантия</span>
             </Button>
 
             <Button

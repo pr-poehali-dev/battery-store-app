@@ -1,0 +1,33 @@
+{
+  "tests": [
+    {
+      "name": "Check valid warranty",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "serial_number": "MUTLU-2025-009012"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "found": true,
+        "warranty": {
+          "is_valid": true
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Check non-existent warranty",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "serial_number": "UNKNOWN-9999-9999"
+      },
+      "expectedStatus": 404,
+      "expectedBody": {
+        "found": false
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
