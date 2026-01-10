@@ -134,33 +134,36 @@ const CatalogSection = ({
         </CardContent>
       </Card>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.map((product) => (
-          <Card key={product.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between mb-2">
-                <div className="text-4xl">{product.image}</div>
-                <Badge className={`${getCategoryBadge(product.category).color} border`}>
-                  <span className="mr-1">{getCategoryBadge(product.category).icon}</span>
-                  {getCategoryBadge(product.category).label}
-                </Badge>
-              </div>
-              <CardTitle className="text-lg">{product.name}</CardTitle>
-              <CardDescription>{product.brand}</CardDescription>
+          <Card key={product.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+            <div className="relative aspect-square bg-gradient-to-br from-muted/30 to-muted/60 flex items-center justify-center">
+              <div className="text-7xl group-hover:scale-110 transition-transform duration-300">{product.image}</div>
+              <Badge className={`absolute top-3 right-3 ${getCategoryBadge(product.category).color} border shadow-sm`}>
+                <span className="mr-1">{getCategoryBadge(product.category).icon}</span>
+                {getCategoryBadge(product.category).label}
+              </Badge>
+            </div>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg leading-tight">{product.name}</CardTitle>
+              <CardDescription className="text-base font-medium">{product.brand}</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-0">
               <div className="grid grid-cols-3 gap-2 text-sm">
-                <div className="text-center p-2 bg-muted rounded">
-                  <p className="text-muted-foreground text-xs">Напряжение</p>
-                  <p className="font-semibold">{product.voltage}</p>
+                <div className="text-center p-3 bg-gradient-to-br from-muted/50 to-muted rounded-lg border">
+                  <Icon name="Zap" size={16} className="mx-auto mb-1 text-primary" />
+                  <p className="font-bold text-base">{product.voltage}</p>
+                  <p className="text-muted-foreground text-[10px]">напряжение</p>
                 </div>
-                <div className="text-center p-2 bg-muted rounded">
-                  <p className="text-muted-foreground text-xs">Ёмкость</p>
-                  <p className="font-semibold">{product.capacity}</p>
+                <div className="text-center p-3 bg-gradient-to-br from-muted/50 to-muted rounded-lg border">
+                  <Icon name="Battery" size={16} className="mx-auto mb-1 text-primary" />
+                  <p className="font-bold text-base">{product.capacity}</p>
+                  <p className="text-muted-foreground text-[10px]">ёмкость</p>
                 </div>
-                <div className="text-center p-2 bg-muted rounded">
-                  <p className="text-muted-foreground text-xs">Ток</p>
-                  <p className="font-semibold">{product.current}</p>
+                <div className="text-center p-3 bg-gradient-to-br from-muted/50 to-muted rounded-lg border">
+                  <Icon name="Gauge" size={16} className="mx-auto mb-1 text-primary" />
+                  <p className="font-bold text-base">{product.current}</p>
+                  <p className="text-muted-foreground text-[10px]">пусковой ток</p>
                 </div>
               </div>
 
@@ -180,19 +183,20 @@ const CatalogSection = ({
                 </div>
               </div>
 
-              <div className="pt-4 border-t">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <p className="text-2xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
-                    <p className="text-xs text-green-600">+{Math.floor(product.price * 0.03)} ₽ кэшбек</p>
-                  </div>
+              <div className="pt-4 border-t space-y-3">
+                <div className="flex items-baseline gap-2">
+                  <p className="text-3xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
+                  <Badge variant="secondary" className="text-xs bg-green-500/10 text-green-700 border-green-500/20">
+                    <Icon name="Coins" size={12} className="mr-1" />
+                    +{Math.floor(product.price * 0.03)} ₽
+                  </Badge>
                 </div>
                 <Button 
-                  className="w-full"
+                  className="w-full h-11 text-base font-semibold group-hover:shadow-md transition-shadow"
                   onClick={() => addToCart(product)}
                 >
-                  <Icon name="ShoppingCart" size={16} className="mr-2" />
-                  В корзину
+                  <Icon name="ShoppingCart" size={18} className="mr-2" />
+                  Добавить в корзину
                 </Button>
               </div>
             </CardContent>
