@@ -226,17 +226,16 @@ const Index = () => {
               <Icon name="MapPin" size={18} />
               <span className="text-xs mt-1">Магазины</span>
             </Button>
+            <Button
+              variant={activeSection === 'profile' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('profile')}
+              className="flex flex-col h-auto py-2 px-2"
+            >
+              <Icon name="User" size={18} />
+              <span className="text-xs mt-1">Профиль</span>
+            </Button>
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="flex flex-col h-auto py-2 px-2"
-                >
-                  <Icon name="Menu" size={18} />
-                  <span className="text-xs mt-1">Ещё</span>
-                </Button>
-              </SheetTrigger>
               <SheetContent side="left" className="w-[280px] sm:w-[320px] bg-[#3D6B8C] text-white border-r-0 animate-slide-in-left">
                 <SheetHeader className="mb-6">
                   <SheetTitle className="flex items-center gap-3 text-white">
