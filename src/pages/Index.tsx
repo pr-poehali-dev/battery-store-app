@@ -185,57 +185,57 @@ const Index = () => {
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
         <div className="container mx-auto px-2">
-          <div className="flex justify-around items-center h-14">
+          <div className="flex justify-around items-center h-16">
             <Button
               variant={activeSection === 'home' ? 'default' : 'ghost'}
-              size="icon"
+              size="sm"
               onClick={() => setActiveSection('home')}
-              className="h-10 w-10"
-              title="Главная"
+              className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="Home" size={20} />
+              <Icon name="Home" size={18} />
+              <span className="text-xs mt-1">Главная</span>
             </Button>
             <Button
               variant={activeSection === 'catalog' ? 'default' : 'ghost'}
-              size="icon"
+              size="sm"
               onClick={() => setActiveSection('catalog')}
-              className="h-10 w-10"
-              title="Каталог"
+              className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="ShoppingBag" size={20} />
+              <Icon name="ShoppingBag" size={18} />
+              <span className="text-xs mt-1">Каталог</span>
             </Button>
             <Button
               variant={activeSection === 'cart' ? 'default' : 'ghost'}
-              size="icon"
+              size="sm"
               onClick={() => setActiveSection('cart')}
-              className="h-10 w-10 relative"
-              title="Корзина"
+              className="flex flex-col h-auto py-2 px-2 relative"
             >
-              <Icon name="ShoppingCart" size={20} />
+              <Icon name="ShoppingCart" size={18} />
+              <span className="text-xs mt-1">Корзина</span>
               {cart.cartItemsCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                <Badge className="absolute top-1 right-1 h-4 w-4 flex items-center justify-center p-0 text-xs">
                   {cart.cartItemsCount}
                 </Badge>
               )}
             </Button>
             <Button
               variant={activeSection === 'stores' ? 'default' : 'ghost'}
-              size="icon"
+              size="sm"
               onClick={() => setActiveSection('stores')}
-              className="h-10 w-10"
-              title="Магазины"
+              className="flex flex-col h-auto py-2 px-2"
             >
-              <Icon name="MapPin" size={20} />
+              <Icon name="MapPin" size={18} />
+              <span className="text-xs mt-1">Магазины</span>
             </Button>
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
-                  size="icon"
-                  className="h-10 w-10"
-                  title="Меню"
+                  size="sm"
+                  className="flex flex-col h-auto py-2 px-2"
                 >
-                  <Icon name="Menu" size={20} />
+                  <Icon name="Menu" size={18} />
+                  <span className="text-xs mt-1">Ещё</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px] sm:w-[320px]">
