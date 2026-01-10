@@ -3,6 +3,54 @@ import { Product, Store, ServiceCenter } from '@/types';
 export const products: Product[] = [
   {
     id: 1,
+    name: 'SPAA 90-З-R (105D31L)',
+    brand: 'SPAA',
+    price: 2300,
+    voltage: '12V',
+    capacity: '90Ah',
+    current: '750A',
+    category: 'Азиатские',
+    compatible: ['Toyota Land Cruiser Prado', 'Mitsubishi Pajero Sport', 'Nissan Pathfinder'],
+    image: '🔋'
+  },
+  {
+    id: 2,
+    name: 'VOLT Classic 6CT-60 N',
+    brand: 'Volt',
+    price: 4850,
+    voltage: '12V',
+    capacity: '60Ah',
+    current: '480A',
+    category: 'Российские',
+    compatible: ['Lada Vesta', 'Renault Logan', 'Hyundai Solaris', 'Kia Rio'],
+    image: '🔋'
+  },
+  {
+    id: 3,
+    name: 'CARKU PREMIUM MF 40B19L/R',
+    brand: 'Carku',
+    price: 5560,
+    voltage: '12V',
+    capacity: '40Ah',
+    current: '370A',
+    category: 'Азиатские',
+    compatible: ['Toyota Corolla', 'Honda Civic', 'Nissan Tiida', 'Mazda 3'],
+    image: '🔋'
+  },
+  {
+    id: 4,
+    name: 'DUOPA 50-З-R/L (60B24L/R)',
+    brand: 'Duo',
+    price: 5500,
+    voltage: '12V',
+    capacity: '50Ah',
+    current: '480A',
+    category: 'Азиатские',
+    compatible: ['Nissan Note', 'Mazda Demio', 'Honda Fit', 'Suzuki SX4'],
+    image: '🔋'
+  },
+  {
+    id: 5,
     name: 'ZVEFBA 80-З-R (85D23L)',
     brand: 'ZV',
     price: 9750,
@@ -14,7 +62,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 2,
+    id: 6,
     name: 'ZVК 100-З-R',
     brand: 'ZV',
     price: 13150,
@@ -26,7 +74,7 @@ export const products: Product[] = [
     image: '⚡'
   },
   {
-    id: 3,
+    id: 7,
     name: 'ZVKА 58-З-R (75B24L)',
     brand: 'ZV',
     price: 6450,
@@ -38,7 +86,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 4,
+    id: 8,
     name: 'ZVEFB 60-З-R',
     brand: 'ZV',
     price: 9050,
@@ -50,19 +98,7 @@ export const products: Product[] = [
     image: '🔌'
   },
   {
-    id: 5,
-    name: 'DUOPА 50-З-R-k (60B24L)',
-    brand: 'Duo',
-    price: 5500,
-    voltage: '12V',
-    capacity: '50Ah',
-    current: '480A',
-    category: 'Азиатские',
-    compatible: ['Nissan Note', 'Mazda Demio', 'Honda Fit', 'Suzuki SX4'],
-    image: '🔋'
-  },
-  {
-    id: 6,
+    id: 9,
     name: 'ARCTIC ASIA 6CT-65.0 VL',
     brand: 'Arctic',
     price: 11300,
@@ -74,7 +110,7 @@ export const products: Product[] = [
     image: '❄️'
   },
   {
-    id: 7,
+    id: 10,
     name: 'Rocket SMF 65Ah (75D23L)',
     brand: 'Rocket',
     price: 8650,
@@ -86,7 +122,7 @@ export const products: Product[] = [
     image: '🚀'
   },
   {
-    id: 8,
+    id: 11,
     name: 'Varta Blue Dynamic D59 60Ah',
     brand: 'Varta',
     price: 8990,
@@ -98,7 +134,7 @@ export const products: Product[] = [
     image: '🔵'
   },
   {
-    id: 9,
+    id: 12,
     name: 'Mutlu Calcium Silver 75Ah',
     brand: 'Mutlu',
     price: 9850,
@@ -110,7 +146,7 @@ export const products: Product[] = [
     image: '⚡'
   },
   {
-    id: 10,
+    id: 13,
     name: 'Titan Arctic 62Ah',
     brand: 'Titan',
     price: 7450,
@@ -122,7 +158,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 11,
+    id: 14,
     name: 'Titan Euro Silver 76Ah',
     brand: 'Titan',
     price: 8950,
@@ -134,7 +170,7 @@ export const products: Product[] = [
     image: '⚡'
   },
   {
-    id: 12,
+    id: 15,
     name: 'Solite 85Ah (105D31L)',
     brand: 'Solite',
     price: 10900,
@@ -146,7 +182,7 @@ export const products: Product[] = [
     image: '⚡'
   },
   {
-    id: 13,
+    id: 16,
     name: 'FB 7000 55B24L 50Ah',
     brand: 'FB',
     price: 6200,
@@ -158,7 +194,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 14,
+    id: 17,
     name: 'Tubor Aquatech 90Ah',
     brand: 'Tubor',
     price: 9990,
@@ -170,7 +206,7 @@ export const products: Product[] = [
     image: '💧'
   },
   {
-    id: 15,
+    id: 18,
     name: 'Volt Standard 55Ah',
     brand: 'Volt',
     price: 5990,
@@ -182,7 +218,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 16,
+    id: 19,
     name: 'Varta Silver Dynamic AGM 70Ah',
     brand: 'Varta',
     price: 18900,
@@ -194,7 +230,7 @@ export const products: Product[] = [
     image: '⚡'
   },
   {
-    id: 17,
+    id: 20,
     name: 'Mutlu EFB 80Ah',
     brand: 'Mutlu',
     price: 12900,
@@ -206,7 +242,7 @@ export const products: Product[] = [
     image: '🔌'
   },
   {
-    id: 18,
+    id: 21,
     name: 'Аком 60Ah',
     brand: 'Аком',
     price: 6850,
@@ -218,7 +254,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 19,
+    id: 22,
     name: 'Tyumen Battery 64Ah',
     brand: 'Tyumen',
     price: 7200,
@@ -230,7 +266,7 @@ export const products: Product[] = [
     image: '🔋'
   },
   {
-    id: 20,
+    id: 23,
     name: 'Bosch S4 005 60Ah',
     brand: 'Bosch',
     price: 9500,
@@ -242,7 +278,91 @@ export const products: Product[] = [
     image: '🔵'
   },
   {
-    id: 21,
+    id: 24,
+    name: 'Gladiator 60Ah',
+    brand: 'Gladiator',
+    price: 7350,
+    voltage: '12V',
+    capacity: '60Ah',
+    current: '550A',
+    category: 'Азиатские',
+    compatible: ['Toyota Corolla', 'Honda Civic', 'Mazda 3', 'Nissan Sentra'],
+    image: '⚔️'
+  },
+  {
+    id: 25,
+    name: 'Furukawa FB7000 95D31L 80Ah',
+    brand: 'Furukawa',
+    price: 12500,
+    voltage: '12V',
+    capacity: '80Ah',
+    current: '720A',
+    category: 'Азиатские премиум',
+    compatible: ['Toyota Land Cruiser', 'Lexus RX', 'Nissan Patrol', 'Infiniti QX'],
+    image: '⚡'
+  },
+  {
+    id: 26,
+    name: 'Seiwa 55B24L 45Ah',
+    brand: 'Seiwa',
+    price: 5800,
+    voltage: '12V',
+    capacity: '45Ah',
+    current: '425A',
+    category: 'Азиатские',
+    compatible: ['Nissan Note', 'Mazda Demio', 'Honda Fit', 'Toyota Vitz'],
+    image: '🔋'
+  },
+  {
+    id: 27,
+    name: 'Spark 75Ah',
+    brand: 'Spark',
+    price: 8200,
+    voltage: '12V',
+    capacity: '75Ah',
+    current: '680A',
+    category: 'Европейские',
+    compatible: ['Kia Sportage', 'Hyundai Tucson', 'Ford Kuga', 'Renault Koleos'],
+    image: '✨'
+  },
+  {
+    id: 28,
+    name: 'Topla Energy 100Ah',
+    brand: 'Topla',
+    price: 14900,
+    voltage: '12V',
+    capacity: '100Ah',
+    current: '920A',
+    category: 'Европейские',
+    compatible: ['BMW X5', 'Audi Q7', 'Mercedes GLE', 'Volkswagen Touareg'],
+    image: '⚡'
+  },
+  {
+    id: 29,
+    name: 'Tungstone 55Ah',
+    brand: 'Tungstone',
+    price: 6500,
+    voltage: '12V',
+    capacity: '55Ah',
+    current: '480A',
+    category: 'Российские',
+    compatible: ['Lada Vesta', 'Chevrolet Niva', 'Renault Logan', 'Datsun on-DO'],
+    image: '🔋'
+  },
+  {
+    id: 30,
+    name: 'R Drive Silver 70Ah',
+    brand: 'R Drive',
+    price: 8750,
+    voltage: '12V',
+    capacity: '70Ah',
+    current: '650A',
+    category: 'Европейские',
+    compatible: ['Volkswagen Tiguan', 'Skoda Kodiaq', 'Seat Ateca', 'Audi Q3'],
+    image: '🚗'
+  },
+  {
+    id: 31,
     name: 'Carku X4 Пусковое устройство',
     brand: 'Carku',
     price: 8990,
@@ -254,7 +374,19 @@ export const products: Product[] = [
     image: '🔧'
   },
   {
-    id: 22,
+    id: 32,
+    name: 'Carku Pro 30 Пусковое устройство',
+    brand: 'Carku',
+    price: 12990,
+    voltage: '12V',
+    capacity: '18000mAh',
+    current: '1000A',
+    category: 'Пусковые устройства',
+    compatible: ['Универсальное'],
+    image: '🔧'
+  },
+  {
+    id: 33,
     name: 'Vtoman Jump 600',
     brand: 'Vtoman',
     price: 12990,
@@ -266,9 +398,9 @@ export const products: Product[] = [
     image: '🔧'
   },
   {
-    id: 23,
+    id: 34,
     name: 'R drive One Зарядное',
-    brand: 'R drive',
+    brand: 'R Drive',
     price: 5490,
     voltage: '12V/24V',
     capacity: '—',
@@ -276,13 +408,38 @@ export const products: Product[] = [
     category: 'Зарядные устройства',
     compatible: ['Универсальное'],
     image: '🔌'
+  },
+  {
+    id: 35,
+    name: 'Varta Blue Dynamic E11 74Ah',
+    brand: 'Varta',
+    price: 10200,
+    voltage: '12V',
+    capacity: '74Ah',
+    current: '680A',
+    category: 'Европейские',
+    compatible: ['BMW 5-Series', 'Mercedes E-Class', 'Audi A6', 'Volvo S90'],
+    image: '🔵'
+  },
+  {
+    id: 36,
+    name: 'Bosch S4 008 74Ah',
+    brand: 'Bosch',
+    price: 11500,
+    voltage: '12V',
+    capacity: '74Ah',
+    current: '680A',
+    category: 'Европейские',
+    compatible: ['Volkswagen Passat', 'Skoda Superb', 'Ford Mondeo', 'Opel Insignia'],
+    image: '🔵'
   }
 ];
 
 export const brands = [
-  'ZV', 'Duo', 'Arctic', 'Rocket', 'Varta', 'Mutlu', 
-  'Titan', 'Solite', 'FB', 'Tubor', 'Volt', 'Аком', 
-  'Tyumen', 'Bosch', 'Carku', 'Vtoman', 'R drive'
+  'SPAA', 'Volt', 'Carku', 'Duo', 'ZV', 'Arctic', 'Rocket', 'Varta', 
+  'Mutlu', 'Titan', 'Solite', 'FB', 'Tubor', 'Аком', 'Tyumen', 'Bosch',
+  'Gladiator', 'Furukawa', 'Seiwa', 'Spark', 'Topla', 'Tungstone', 
+  'R Drive', 'Vtoman'
 ];
 
 export const stores: Store[] = [
