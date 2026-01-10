@@ -17,6 +17,11 @@ interface Product {
   category: string;
   compatible: string[];
   image: string;
+  manufacturer?: string;
+  bodyTypeJIS?: string;
+  bodyTypeEN?: string;
+  technology?: string;
+  polarity?: string;
 }
 
 interface CatalogSectionProps {
@@ -25,13 +30,35 @@ interface CatalogSectionProps {
   setSearchQuery: (value: string) => void;
   priceRange: number[];
   setPriceRange: (value: number[]) => void;
+  capacityRange: number[];
+  setCapacityRange: (value: number[]) => void;
+  currentRange: number[];
+  setCurrentRange: (value: number[]) => void;
   selectedCategory: string;
   setSelectedCategory: (value: string) => void;
+  selectedBrand: string;
+  setSelectedBrand: (value: string) => void;
+  selectedManufacturer: string;
+  setSelectedManufacturer: (value: string) => void;
+  selectedBodyTypeJIS: string;
+  setSelectedBodyTypeJIS: (value: string) => void;
+  selectedBodyTypeEN: string;
+  setSelectedBodyTypeEN: (value: string) => void;
+  selectedTechnology: string;
+  setSelectedTechnology: (value: string) => void;
+  selectedPolarity: string;
+  setSelectedPolarity: (value: string) => void;
   selectedCar: string;
   setSelectedCar: (value: string) => void;
   sortBy: string;
   setSortBy: (value: string) => void;
   categories: string[];
+  brands: string[];
+  manufacturers: string[];
+  bodyTypesJIS: string[];
+  bodyTypesEN: string[];
+  technologies: string[];
+  polarities: string[];
   allCars: string[];
   resetFilters: () => void;
   getCategoryBadge: (category: string) => { icon: string; color: string; label: string };
@@ -44,18 +71,48 @@ const CatalogSection = ({
   setSearchQuery,
   priceRange,
   setPriceRange,
+  capacityRange,
+  setCapacityRange,
+  currentRange,
+  setCurrentRange,
   selectedCategory,
   setSelectedCategory,
+  selectedBrand,
+  setSelectedBrand,
+  selectedManufacturer,
+  setSelectedManufacturer,
+  selectedBodyTypeJIS,
+  setSelectedBodyTypeJIS,
+  selectedBodyTypeEN,
+  setSelectedBodyTypeEN,
+  selectedTechnology,
+  setSelectedTechnology,
+  selectedPolarity,
+  setSelectedPolarity,
   selectedCar,
   setSelectedCar,
   sortBy,
   setSortBy,
   categories,
+  brands,
+  manufacturers,
+  bodyTypesJIS,
+  bodyTypesEN,
+  technologies,
+  polarities,
   allCars,
   resetFilters,
   getCategoryBadge,
   addToCart
 }: CatalogSectionProps) => {
+  const hasActiveFilters = searchQuery || 
+    priceRange[0] > 0 || priceRange[1] < 50000 || 
+    capacityRange[0] > 0 || capacityRange[1] < 200 ||
+    currentRange[0] > 0 || currentRange[1] < 1700 ||
+    selectedCar || selectedCategory || selectedBrand || 
+    selectedManufacturer || selectedBodyTypeJIS || selectedBodyTypeEN || 
+    selectedTechnology || selectedPolarity;
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -103,39 +160,153 @@ const CatalogSection = ({
             </div>
           </div>
 
-          <div className="space-y-3">
-            <label className="text-sm font-medium">
-              Диапазон цен: {priceRange[0].toLocaleString()} ₽ — {priceRange[1].toLocaleString()} ₽
-            </label>
-            <Slider
-              min={0}
-              max={50000}
-              step={500}
-              value={priceRange}
-              onValueChange={setPriceRange}
-              className="w-full"
-            />
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <label className="text-sm font-medium">
+                Цена: {priceRange[0].toLocaleString()} ₽ — {priceRange[1].toLocaleString()} ₽
+              </label>
+              <Slider
+                min={0}
+                max={50000}
+                step={500}
+                value={priceRange}
+                onValueChange={setPriceRange}
+                className="w-full"
+              />
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-sm font-medium">
+                Емкость: {capacityRange[0]} Ah — {capacityRange[1]} Ah
+              </label>
+              <Slider
+                min={0}
+                max={200}
+                step={5}
+                value={capacityRange}
+                onValueChange={setCapacityRange}
+                className="w-full"
+              />
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-sm font-medium">
+                Пусковой ток: {currentRange[0]} A — {currentRange[1]} A
+              </label>
+              <Slider
+                min={0}
+                max={1700}
+                step={50}
+                value={currentRange}
+                onValueChange={setCurrentRange}
+                className="w-full"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Бренд</label>
+              <select
+                value={selectedBrand}
+                onChange={(e) => setSelectedBrand(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Все бренды</option>
+                {brands.map((brand) => (
+                  <option key={brand} value={brand}>{brand}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Производитель</label>
+              <select
+                value={selectedManufacturer}
+                onChange={(e) => setSelectedManufacturer(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Все страны</option>
+                {manufacturers.map((manufacturer) => (
+                  <option key={manufacturer} value={manufacturer}>{manufacturer}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Тип корпуса JIS</label>
+              <select
+                value={selectedBodyTypeJIS}
+                onChange={(e) => setSelectedBodyTypeJIS(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Все типы JIS</option>
+                {bodyTypesJIS.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Тип корпуса EN</label>
+              <select
+                value={selectedBodyTypeEN}
+                onChange={(e) => setSelectedBodyTypeEN(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Все типы EN</option>
+                {bodyTypesEN.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Технология изготовления</label>
+              <select
+                value={selectedTechnology}
+                onChange={(e) => setSelectedTechnology(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Все технологии</option>
+                {technologies.map((tech) => (
+                  <option key={tech} value={tech}>{tech}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Полярность</label>
+              <select
+                value={selectedPolarity}
+                onChange={(e) => setSelectedPolarity(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Любая полярность</option>
+                {polarities.map((polarity) => (
+                  <option key={polarity} value={polarity}>{polarity}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Совместимость с автомобилем</label>
+              <select
+                value={selectedCar}
+                onChange={(e) => setSelectedCar(e.target.value)}
+                className="w-full p-2 border border-input rounded-md bg-background"
+              >
+                <option value="">Все автомобили</option>
+                <option value="all">Универсальные</option>
+                {allCars.filter(car => car !== 'Универсальное').map((car, index) => (
+                  <option key={index} value={car}>{car}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Совместимость с автомобилем</label>
-            <select
-              value={selectedCar}
-              onChange={(e) => setSelectedCar(e.target.value)}
-              className="w-full p-2 border border-input rounded-md bg-background"
-            >
-              <option value="">Все автомобили</option>
-              <option value="all">Универсальные</option>
-              {allCars.filter(car => car !== 'Универсальное').map((car, index) => (
-                <option key={index} value={car}>{car}</option>
-              ))}
-            </select>
-          </div>
-
-          {(searchQuery || priceRange[0] > 0 || priceRange[1] < 50000 || selectedCar || selectedCategory) && (
+          {hasActiveFilters && (
             <Button variant="outline" onClick={resetFilters} className="w-full">
               <Icon name="X" size={18} className="mr-2" />
-              Сбросить фильтры
+              Сбросить все фильтры
             </Button>
           )}
         </CardContent>
@@ -174,6 +345,36 @@ const CatalogSection = ({
                 </div>
               </div>
 
+              {(product.manufacturer || product.bodyTypeJIS || product.bodyTypeEN || product.technology || product.polarity) && (
+                <div className="flex flex-wrap gap-1">
+                  {product.manufacturer && (
+                    <Badge variant="outline" className="text-xs">
+                      🌍 {product.manufacturer}
+                    </Badge>
+                  )}
+                  {product.bodyTypeJIS && (
+                    <Badge variant="outline" className="text-xs">
+                      JIS: {product.bodyTypeJIS}
+                    </Badge>
+                  )}
+                  {product.bodyTypeEN && (
+                    <Badge variant="outline" className="text-xs">
+                      EN: {product.bodyTypeEN}
+                    </Badge>
+                  )}
+                  {product.technology && (
+                    <Badge variant="outline" className="text-xs">
+                      {product.technology}
+                    </Badge>
+                  )}
+                  {product.polarity && (
+                    <Badge variant="outline" className="text-xs">
+                      {product.polarity}
+                    </Badge>
+                  )}
+                </div>
+              )}
+
               <div className="space-y-2">
                 <p className="text-xs font-medium text-muted-foreground">Совместимость:</p>
                 <div className="flex flex-wrap gap-1">
@@ -199,11 +400,11 @@ const CatalogSection = ({
                   </Badge>
                 </div>
                 <Button 
-                  className="w-full h-11 text-base font-semibold group-hover:shadow-md transition-shadow"
+                  className="w-full h-11 text-base font-semibold group-hover:shadow-lg"
                   onClick={() => addToCart(product)}
                 >
-                  <Icon name="ShoppingCart" size={18} className="mr-2" />
-                  Добавить в корзину
+                  <Icon name="ShoppingCart" size={20} className="mr-2" />
+                  В корзину
                 </Button>
               </div>
             </CardContent>
@@ -212,15 +413,19 @@ const CatalogSection = ({
       </div>
 
       {filteredProducts.length === 0 && (
-        <Card>
-          <CardContent className="pt-6 text-center py-12">
-            <Icon name="SearchX" size={64} className="mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-xl font-semibold mb-2">Ничего не найдено</h3>
-            <p className="text-muted-foreground mb-6">
-              Попробуйте изменить фильтры или сбросить их
-            </p>
-            <Button onClick={resetFilters}>Сбросить фильтры</Button>
-          </CardContent>
+        <Card className="p-12">
+          <div className="text-center space-y-4">
+            <Icon name="SearchX" size={64} className="mx-auto text-muted-foreground" />
+            <div>
+              <p className="text-xl font-semibold">Товары не найдены</p>
+              <p className="text-muted-foreground mt-2">Попробуйте изменить параметры фильтрации</p>
+            </div>
+            {hasActiveFilters && (
+              <Button variant="outline" onClick={resetFilters}>
+                Сбросить фильтры
+              </Button>
+            )}
+          </div>
         </Card>
       )}
 

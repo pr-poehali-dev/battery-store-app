@@ -6,13 +6,27 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 50000]);
+  const [capacityRange, setCapacityRange] = useState([0, 200]);
+  const [currentRange, setCurrentRange] = useState([0, 1700]);
   const [selectedCar, setSelectedCar] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedManufacturer, setSelectedManufacturer] = useState('');
+  const [selectedBodyTypeJIS, setSelectedBodyTypeJIS] = useState('');
+  const [selectedBodyTypeEN, setSelectedBodyTypeEN] = useState('');
+  const [selectedTechnology, setSelectedTechnology] = useState('');
+  const [selectedPolarity, setSelectedPolarity] = useState('');
   const [selectedStore, setSelectedStore] = useState('');
   const [sortBy, setSortBy] = useState('default');
 
   const allCars = Array.from(new Set(products.flatMap(p => p.compatible))).sort();
   const categories = Array.from(new Set(products.map(p => p.category))).sort();
+  const brands = Array.from(new Set(products.map(p => p.brand))).sort();
+  const manufacturers = Array.from(new Set(products.map(p => p.manufacturer).filter(Boolean))).sort() as string[];
+  const bodyTypesJIS = Array.from(new Set(products.map(p => p.bodyTypeJIS).filter(Boolean))).sort() as string[];
+  const bodyTypesEN = Array.from(new Set(products.map(p => p.bodyTypeEN).filter(Boolean))).sort() as string[];
+  const technologies = Array.from(new Set(products.map(p => p.technology).filter(Boolean))).sort() as string[];
+  const polarities = Array.from(new Set(products.map(p => p.polarity).filter(Boolean))).sort() as string[];
 
   const filteredProducts = products
     .filter(product => {
@@ -22,14 +36,28 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
       
       const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
       
+      const productCapacity = parseInt(product.capacity) || 0;
+      const matchesCapacity = productCapacity >= capacityRange[0] && productCapacity <= capacityRange[1];
+      
+      const productCurrent = parseInt(product.current) || 0;
+      const matchesCurrent = productCurrent >= currentRange[0] && productCurrent <= currentRange[1];
+      
       const matchesCar = !selectedCar || 
         selectedCar === 'all' || 
         product.compatible.includes(selectedCar) ||
         product.compatible.includes('Универсальное');
       
       const matchesCategory = !selectedCategory || product.category === selectedCategory;
+      const matchesBrand = !selectedBrand || product.brand === selectedBrand;
+      const matchesManufacturer = !selectedManufacturer || product.manufacturer === selectedManufacturer;
+      const matchesBodyTypeJIS = !selectedBodyTypeJIS || product.bodyTypeJIS === selectedBodyTypeJIS;
+      const matchesBodyTypeEN = !selectedBodyTypeEN || product.bodyTypeEN === selectedBodyTypeEN;
+      const matchesTechnology = !selectedTechnology || product.technology === selectedTechnology;
+      const matchesPolarity = !selectedPolarity || product.polarity === selectedPolarity;
       
-      return matchesSearch && matchesPrice && matchesCar && matchesCategory;
+      return matchesSearch && matchesPrice && matchesCapacity && matchesCurrent && matchesCar && 
+             matchesCategory && matchesBrand && matchesManufacturer && matchesBodyTypeJIS && 
+             matchesBodyTypeEN && matchesTechnology && matchesPolarity;
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -53,8 +81,16 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const resetFilters = () => {
     setSearchQuery('');
     setPriceRange([0, 50000]);
+    setCapacityRange([0, 200]);
+    setCurrentRange([0, 1700]);
     setSelectedCar('');
     setSelectedCategory('');
+    setSelectedBrand('');
+    setSelectedManufacturer('');
+    setSelectedBodyTypeJIS('');
+    setSelectedBodyTypeEN('');
+    setSelectedTechnology('');
+    setSelectedPolarity('');
     setSortBy('default');
   };
 
@@ -118,20 +154,42 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     cart,
     searchQuery,
     priceRange,
+    capacityRange,
+    currentRange,
     selectedCar,
     selectedCategory,
+    selectedBrand,
+    selectedManufacturer,
+    selectedBodyTypeJIS,
+    selectedBodyTypeEN,
+    selectedTechnology,
+    selectedPolarity,
     selectedStore,
     sortBy,
     allCars,
     categories,
+    brands,
+    manufacturers,
+    bodyTypesJIS,
+    bodyTypesEN,
+    technologies,
+    polarities,
     filteredProducts,
     cartTotal,
     cartCashback,
     cartItemsCount,
     setSearchQuery,
     setPriceRange,
+    setCapacityRange,
+    setCurrentRange,
     setSelectedCar,
     setSelectedCategory,
+    setSelectedBrand,
+    setSelectedManufacturer,
+    setSelectedBodyTypeJIS,
+    setSelectedBodyTypeEN,
+    setSelectedTechnology,
+    setSelectedPolarity,
     setSelectedStore,
     setSortBy,
     resetFilters,

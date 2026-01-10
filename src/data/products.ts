@@ -11,7 +11,11 @@ export const products: Product[] = [
     current: '750A',
     category: 'Азиатские',
     compatible: ['Toyota Land Cruiser Prado', 'Mitsubishi Pajero Sport', 'Nissan Pathfinder'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'КНР',
+    bodyTypeJIS: 'D31',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 2,
@@ -23,7 +27,11 @@ export const products: Product[] = [
     current: '480A',
     category: 'Российские',
     compatible: ['Lada Vesta', 'Renault Logan', 'Hyundai Solaris', 'Kia Rio'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L2',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 3,
@@ -35,7 +43,11 @@ export const products: Product[] = [
     current: '370A',
     category: 'Азиатские',
     compatible: ['Toyota Corolla', 'Honda Civic', 'Nissan Tiida', 'Mazda 3'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Республика Корея',
+    bodyTypeJIS: 'B19',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 4,
@@ -47,7 +59,11 @@ export const products: Product[] = [
     current: '480A',
     category: 'Азиатские',
     compatible: ['Nissan Note', 'Mazda Demio', 'Honda Fit', 'Suzuki SX4'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'КНР',
+    bodyTypeJIS: 'B24',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 5,
@@ -59,7 +75,11 @@ export const products: Product[] = [
     current: '680A',
     category: 'Азиатские',
     compatible: ['Toyota Camry', 'Honda Accord', 'Mazda 6', 'Nissan Teana'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'КНР',
+    bodyTypeJIS: 'D23',
+    technology: 'EFB',
+    polarity: 'Обратная'
   },
   {
     id: 6,
@@ -71,7 +91,10 @@ export const products: Product[] = [
     current: '850A',
     category: 'Грузовые',
     compatible: ['Toyota Land Cruiser', 'Nissan Patrol', 'Mitsubishi Pajero', 'УАЗ Патриот'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'КНР',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 7,
@@ -83,7 +106,11 @@ export const products: Product[] = [
     current: '520A',
     category: 'Азиатские',
     compatible: ['Toyota Corolla', 'Honda Civic', 'Mazda 3', 'Suzuki Swift'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'КНР',
+    bodyTypeJIS: 'B24',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 8,
@@ -95,7 +122,11 @@ export const products: Product[] = [
     current: '560A',
     category: 'EFB',
     compatible: ['Volkswagen Polo', 'Skoda Rapid', 'Toyota Corolla', 'Hyundai Solaris'],
-    image: '🔌'
+    image: '🔌',
+    manufacturer: 'КНР',
+    bodyTypeEN: 'L2',
+    technology: 'EFB',
+    polarity: 'Прямая'
   },
   {
     id: 9,
@@ -107,7 +138,11 @@ export const products: Product[] = [
     current: '640A',
     category: 'Азиатские премиум',
     compatible: ['Toyota RAV4', 'Nissan X-Trail', 'Mazda CX-5', 'Subaru Forester'],
-    image: '❄️'
+    image: '❄️',
+    manufacturer: 'Россия',
+    bodyTypeJIS: 'D23',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 10,
@@ -119,7 +154,11 @@ export const products: Product[] = [
     current: '580A',
     category: 'Азиатские',
     compatible: ['Toyota Camry', 'Honda CR-V', 'Nissan Murano', 'Mazda 6'],
-    image: '🚀'
+    image: '🚀',
+    manufacturer: 'Республика Корея',
+    bodyTypeJIS: 'D23',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 11,
@@ -131,7 +170,11 @@ export const products: Product[] = [
     current: '540A',
     category: 'Европейские',
     compatible: ['Volkswagen Polo', 'Ford Focus', 'Renault Logan', 'Chevrolet Cruze'],
-    image: '🔵'
+    image: '🔵',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L2',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 12,
@@ -143,7 +186,11 @@ export const products: Product[] = [
     current: '720A',
     category: 'Европейские',
     compatible: ['Volkswagen Tiguan', 'Kia Sportage', 'Hyundai Tucson', 'Skoda Octavia'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'Турция',
+    bodyTypeEN: 'L3',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 13,
@@ -155,7 +202,11 @@ export const products: Product[] = [
     current: '620A',
     category: 'Российские',
     compatible: ['Lada Vesta', 'Lada Granta', 'Renault Duster', 'Hyundai Solaris'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L2',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 14,
@@ -167,7 +218,11 @@ export const products: Product[] = [
     current: '760A',
     category: 'Европейские',
     compatible: ['Volkswagen Passat', 'BMW 3-Series', 'Audi A4', 'Mercedes C-Class'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L3',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 15,
@@ -179,7 +234,11 @@ export const products: Product[] = [
     current: '750A',
     category: 'Азиатские',
     compatible: ['Toyota Land Cruiser Prado', 'Mitsubishi Pajero Sport', 'Nissan Pathfinder'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'Республика Корея',
+    bodyTypeJIS: 'D31',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 16,
@@ -191,7 +250,11 @@ export const products: Product[] = [
     current: '470A',
     category: 'Азиатские',
     compatible: ['Toyota Corolla', 'Honda Civic', 'Nissan Tiida', 'Mazda 3'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Япония',
+    bodyTypeJIS: 'B24',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 17,
@@ -203,7 +266,11 @@ export const products: Product[] = [
     current: '850A',
     category: 'Европейские',
     compatible: ['BMW X5', 'Audi Q7', 'Mercedes GLE', 'Volkswagen Touareg'],
-    image: '💧'
+    image: '💧',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L4',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 18,
@@ -215,7 +282,11 @@ export const products: Product[] = [
     current: '460A',
     category: 'Российские',
     compatible: ['Lada Kalina', 'Lada Priora', 'Chevrolet Niva', 'Daewoo Nexia'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L1',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 19,
@@ -227,7 +298,11 @@ export const products: Product[] = [
     current: '760A',
     category: 'AGM',
     compatible: ['BMW X3', 'Audi Q5', 'Mercedes GLC', 'Porsche Macan'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L3',
+    technology: 'AGM',
+    polarity: 'Обратная'
   },
   {
     id: 20,
@@ -239,7 +314,11 @@ export const products: Product[] = [
     current: '800A',
     category: 'EFB',
     compatible: ['Volkswagen Passat', 'Skoda Superb', 'BMW 3-Series', 'Audi A4'],
-    image: '🔌'
+    image: '🔌',
+    manufacturer: 'Турция',
+    bodyTypeEN: 'L3',
+    technology: 'EFB',
+    polarity: 'Обратная'
   },
   {
     id: 21,
@@ -251,7 +330,11 @@ export const products: Product[] = [
     current: '520A',
     category: 'Российские',
     compatible: ['Lada Vesta', 'Renault Logan', 'Hyundai Solaris', 'Kia Rio'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L2',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 22,
@@ -263,7 +346,11 @@ export const products: Product[] = [
     current: '590A',
     category: 'Российские',
     compatible: ['УАЗ Патриот', 'Chevrolet Niva', 'Lada 4x4', 'Газель'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L2',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 23,
@@ -275,7 +362,11 @@ export const products: Product[] = [
     current: '540A',
     category: 'Европейские',
     compatible: ['Volkswagen Golf', 'Ford Focus', 'Opel Astra', 'Peugeot 308'],
-    image: '🔵'
+    image: '🔵',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L2',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 24,
@@ -287,7 +378,11 @@ export const products: Product[] = [
     current: '550A',
     category: 'Азиатские',
     compatible: ['Toyota Corolla', 'Honda Civic', 'Mazda 3', 'Nissan Sentra'],
-    image: '⚔️'
+    image: '⚔️',
+    manufacturer: 'КНР',
+    bodyTypeJIS: 'D23',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 25,
@@ -299,7 +394,11 @@ export const products: Product[] = [
     current: '720A',
     category: 'Азиатские премиум',
     compatible: ['Toyota Land Cruiser', 'Lexus RX', 'Nissan Patrol', 'Infiniti QX'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'Япония',
+    bodyTypeJIS: 'D31',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 26,
@@ -311,7 +410,11 @@ export const products: Product[] = [
     current: '425A',
     category: 'Азиатские',
     compatible: ['Nissan Note', 'Mazda Demio', 'Honda Fit', 'Toyota Vitz'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Япония',
+    bodyTypeJIS: 'B24',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 27,
@@ -323,7 +426,11 @@ export const products: Product[] = [
     current: '680A',
     category: 'Европейские',
     compatible: ['Kia Sportage', 'Hyundai Tucson', 'Ford Kuga', 'Renault Koleos'],
-    image: '✨'
+    image: '✨',
+    manufacturer: 'Республика Корея',
+    bodyTypeEN: 'L3',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 28,
@@ -335,7 +442,11 @@ export const products: Product[] = [
     current: '920A',
     category: 'Европейские',
     compatible: ['BMW X5', 'Audi Q7', 'Mercedes GLE', 'Volkswagen Touareg'],
-    image: '⚡'
+    image: '⚡',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L5',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 29,
@@ -347,7 +458,11 @@ export const products: Product[] = [
     current: '480A',
     category: 'Российские',
     compatible: ['Lada Vesta', 'Chevrolet Niva', 'Renault Logan', 'Datsun on-DO'],
-    image: '🔋'
+    image: '🔋',
+    manufacturer: 'Россия',
+    bodyTypeEN: 'L1',
+    technology: 'Кальциевая',
+    polarity: 'Прямая'
   },
   {
     id: 30,
@@ -359,7 +474,11 @@ export const products: Product[] = [
     current: '650A',
     category: 'Европейские',
     compatible: ['Volkswagen Tiguan', 'Skoda Kodiaq', 'Seat Ateca', 'Audi Q3'],
-    image: '🚗'
+    image: '🚗',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L3',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 31,
@@ -371,7 +490,8 @@ export const products: Product[] = [
     current: '600A',
     category: 'Пусковые устройства',
     compatible: ['Универсальное'],
-    image: '🔧'
+    image: '🔧',
+    manufacturer: 'КНР'
   },
   {
     id: 32,
@@ -383,7 +503,8 @@ export const products: Product[] = [
     current: '1000A',
     category: 'Пусковые устройства',
     compatible: ['Универсальное'],
-    image: '🔧'
+    image: '🔧',
+    manufacturer: 'КНР'
   },
   {
     id: 33,
@@ -395,7 +516,8 @@ export const products: Product[] = [
     current: '800A',
     category: 'Пусковые устройства',
     compatible: ['Универсальное'],
-    image: '🔧'
+    image: '🔧',
+    manufacturer: 'КНР'
   },
   {
     id: 34,
@@ -407,7 +529,8 @@ export const products: Product[] = [
     current: '10A',
     category: 'Зарядные устройства',
     compatible: ['Универсальное'],
-    image: '🔌'
+    image: '🔌',
+    manufacturer: 'КНР'
   },
   {
     id: 35,
@@ -419,7 +542,11 @@ export const products: Product[] = [
     current: '680A',
     category: 'Европейские',
     compatible: ['BMW 5-Series', 'Mercedes E-Class', 'Audi A6', 'Volvo S90'],
-    image: '🔵'
+    image: '🔵',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L3',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   },
   {
     id: 36,
@@ -431,7 +558,11 @@ export const products: Product[] = [
     current: '680A',
     category: 'Европейские',
     compatible: ['Volkswagen Passat', 'Skoda Superb', 'Ford Mondeo', 'Opel Insignia'],
-    image: '🔵'
+    image: '🔵',
+    manufacturer: 'ЕС',
+    bodyTypeEN: 'L3',
+    technology: 'Кальциевая',
+    polarity: 'Обратная'
   }
 ];
 
@@ -440,6 +571,40 @@ export const brands = [
   'Mutlu', 'Titan', 'Solite', 'FB', 'Tubor', 'Аком', 'Tyumen', 'Bosch',
   'Gladiator', 'Furukawa', 'Seiwa', 'Spark', 'Topla', 'Tungstone', 
   'R Drive', 'Vtoman'
+];
+
+export const manufacturers = [
+  'Япония',
+  'КНР',
+  'Россия',
+  'ЕС',
+  'Турция',
+  'Республика Корея'
+];
+
+export const bodyTypesJIS = [
+  'B19', 'B20', 'B24',
+  'D23', 'D26', 'D31', 'D33',
+  'E41',
+  'F51',
+  'G51',
+  'H52'
+];
+
+export const bodyTypesEN = [
+  'L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6',
+  'LB1', 'LB2', 'LB3', 'LB4'
+];
+
+export const technologies = [
+  'EFB',
+  'Кальциевая',
+  'AGM'
+];
+
+export const polarities = [
+  'Прямая',
+  'Обратная'
 ];
 
 export const stores: Store[] = [

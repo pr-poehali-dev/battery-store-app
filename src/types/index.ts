@@ -9,6 +9,11 @@ export interface Product {
   category: string;
   compatible: string[];
   image: string;
+  manufacturer?: string;
+  bodyTypeJIS?: string;
+  bodyTypeEN?: string;
+  technology?: string;
+  polarity?: string;
 }
 
 export interface CartItem {
