@@ -118,20 +118,6 @@ const CatalogSection = ({
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Категория товара</label>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full p-2 border border-input rounded-md bg-background"
-            >
-              <option value="">Все категории</option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>{category}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
             <label className="text-sm font-medium">Совместимость с автомобилем</label>
             <select
               value={selectedCar}
