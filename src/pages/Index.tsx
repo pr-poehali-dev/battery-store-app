@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import AuthScreen from '@/components/sections/AuthScreen';
 import HomeSection from '@/components/sections/HomeSection';
 import CatalogSection from '@/components/sections/CatalogSection';
@@ -22,6 +23,7 @@ import { brands, stores, serviceCenter } from '@/data/products';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { user, isLoading, handleLogout, handleTelegramAuth, vibrate } = useAuth();
   
@@ -182,7 +184,7 @@ const Index = () => {
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
-        <div className="container mx-auto px-1">
+        <div className="container mx-auto px-2">
           <div className="flex justify-around items-center h-14">
             <Button
               variant={activeSection === 'home' ? 'default' : 'ghost'}
@@ -201,15 +203,6 @@ const Index = () => {
               title="Каталог"
             >
               <Icon name="ShoppingBag" size={20} />
-            </Button>
-            <Button
-              variant={activeSection === 'promotions' ? 'default' : 'ghost'}
-              size="icon"
-              onClick={() => setActiveSection('promotions')}
-              className="h-10 w-10"
-              title="Акции"
-            >
-              <Icon name="Sparkles" size={20} />
             </Button>
             <Button
               variant={activeSection === 'cart' ? 'default' : 'ghost'}
@@ -234,24 +227,84 @@ const Index = () => {
             >
               <Icon name="MapPin" size={20} />
             </Button>
-            <Button
-              variant={activeSection === 'warranty' ? 'default' : 'ghost'}
-              size="icon"
-              onClick={() => setActiveSection('warranty')}
-              className="h-10 w-10"
-              title="Гарантия"
-            >
-              <Icon name="ShieldCheck" size={20} />
-            </Button>
-            <Button
-              variant={activeSection === 'profile' ? 'default' : 'ghost'}
-              size="icon"
-              onClick={() => setActiveSection('profile')}
-              className="h-10 w-10"
-              title="Профиль"
-            >
-              <Icon name="User" size={20} />
-            </Button>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-10 w-10"
+                  title="Меню"
+                >
+                  <Icon name="Menu" size={20} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+                <SheetHeader className="mb-6">
+                  <SheetTitle className="flex items-center gap-2">
+                    <Icon name="Menu" size={24} className="text-primary" />
+                    Меню
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="space-y-2">
+                  <Button
+                    variant={activeSection === 'promotions' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('promotions');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Sparkles" size={20} className="mr-3" />
+                    Акции
+                  </Button>
+                  <Button
+                    variant={activeSection === 'warranty' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('warranty');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="ShieldCheck" size={20} className="mr-3" />
+                    Проверка гарантии
+                  </Button>
+                  <Button
+                    variant={activeSection === 'about' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('about');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Info" size={20} className="mr-3" />
+                    О нас
+                  </Button>
+                  <Button
+                    variant={activeSection === 'contacts' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('contacts');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Phone" size={20} className="mr-3" />
+                    Контакты
+                  </Button>
+                  <div className="my-4 border-t border-border" />
+                  <Button
+                    variant={activeSection === 'profile' ? 'default' : 'ghost'}
+                    className="w-full justify-start text-base h-12"
+                    onClick={() => {
+                      setActiveSection('profile');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="User" size={20} className="mr-3" />
+                    Профиль
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </nav>
