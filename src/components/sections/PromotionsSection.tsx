@@ -36,18 +36,39 @@ const PromotionsSection = () => {
                       БЕСПЛАТНО
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-red-500/10 to-orange-500/10">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
-                      <Icon name="Gift" size={20} className="text-red-600" />
+                  <div className="p-4 bg-gradient-to-r from-red-500/10 to-orange-500/10 space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+                        <Icon name="Gift" size={20} className="text-red-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-2">Установка аккумулятора в подарок</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Установка аккумулятора в подкапотном пространстве а/м без снятия защитного кожуха, замены клемм и подключения сканера производится бесплатно, в порядке живой очереди.
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg mb-1">Установка аккумулятора в подарок*</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Купите аккумулятор — установим бесплатно!
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        г. Хабаровск, ул. Павловича 11, Сервисный центр
-                      </p>
+                    
+                    <div className="pl-13 space-y-2 text-sm">
+                      <div className="flex items-start gap-2">
+                        <Icon name="MapPin" size={16} className="text-red-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-medium">г. Хабаровск, ул. Павловича 11</p>
+                          <p className="text-muted-foreground">Сервисный центр «Мир Аккумуляторов»</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start gap-2">
+                        <Icon name="Phone" size={16} className="text-red-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-medium">Справки по телефонам:</p>
+                          <div className="flex flex-wrap gap-2 text-muted-foreground">
+                            <a href="tel:+74212284242" className="hover:text-primary transition-colors">+7 (4212) 28-42-42</a>
+                            <span>•</span>
+                            <a href="tel:+74212465090" className="hover:text-primary transition-colors">+7 (4212) 46-50-90</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Card>
