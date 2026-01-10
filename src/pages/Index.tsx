@@ -182,76 +182,75 @@ const Index = () => {
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
-        <div className="container mx-auto px-2">
-          <div className="flex justify-around items-center h-16">
+        <div className="container mx-auto px-1">
+          <div className="flex justify-around items-center h-14">
             <Button
               variant={activeSection === 'home' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('home')}
-              className="flex flex-col h-auto py-2 px-2"
+              className="h-10 w-10"
+              title="Главная"
             >
-              <Icon name="Home" size={18} />
-              <span className="text-xs mt-1">Главная</span>
+              <Icon name="Home" size={20} />
             </Button>
             <Button
               variant={activeSection === 'catalog' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('catalog')}
-              className="flex flex-col h-auto py-2 px-2"
+              className="h-10 w-10"
+              title="Каталог"
             >
-              <Icon name="ShoppingBag" size={18} />
-              <span className="text-xs mt-1">Каталог</span>
+              <Icon name="ShoppingBag" size={20} />
             </Button>
             <Button
               variant={activeSection === 'promotions' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('promotions')}
-              className="flex flex-col h-auto py-2 px-2"
+              className="h-10 w-10"
+              title="Акции"
             >
-              <Icon name="Sparkles" size={18} />
-              <span className="text-xs mt-1">Акции🤑</span>
+              <Icon name="Sparkles" size={20} />
             </Button>
             <Button
               variant={activeSection === 'cart' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('cart')}
-              className="flex flex-col h-auto py-2 px-2 relative"
+              className="h-10 w-10 relative"
+              title="Корзина"
             >
-              <Icon name="ShoppingCart" size={18} />
-              <span className="text-xs mt-1">Корзина</span>
+              <Icon name="ShoppingCart" size={20} />
               {cart.cartItemsCount > 0 && (
-                <Badge className="absolute top-1 right-1 h-4 w-4 flex items-center justify-center p-0 text-xs">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">
                   {cart.cartItemsCount}
                 </Badge>
               )}
             </Button>
             <Button
               variant={activeSection === 'stores' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('stores')}
-              className="flex flex-col h-auto py-2 px-2"
+              className="h-10 w-10"
+              title="Магазины"
             >
-              <Icon name="MapPin" size={18} />
-              <span className="text-xs mt-1">Магазины</span>
+              <Icon name="MapPin" size={20} />
             </Button>
             <Button
               variant={activeSection === 'warranty' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('warranty')}
-              className="flex flex-col h-auto py-2 px-2"
+              className="h-10 w-10"
+              title="Гарантия"
             >
-              <Icon name="ShieldCheck" size={18} />
-              <span className="text-xs mt-1">Гарантия</span>
+              <Icon name="ShieldCheck" size={20} />
             </Button>
-
             <Button
               variant={activeSection === 'profile' ? 'default' : 'ghost'}
-              size="sm"
+              size="icon"
               onClick={() => setActiveSection('profile')}
-              className="flex flex-col h-auto py-2 px-2"
+              className="h-10 w-10"
+              title="Профиль"
             >
-              <Icon name="User" size={18} />
-              <span className="text-xs mt-1">Профиль</span>
+              <Icon name="User" size={20} />
             </Button>
           </div>
         </div>
