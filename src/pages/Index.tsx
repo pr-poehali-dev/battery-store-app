@@ -227,6 +227,15 @@ const Index = () => {
               <span className="text-xs mt-1">Магазины</span>
             </Button>
             <Button
+              variant={activeSection === 'contacts' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveSection('contacts')}
+              className="flex flex-col h-auto py-2 px-2"
+            >
+              <Icon name="Phone" size={18} />
+              <span className="text-xs mt-1">Контакты</span>
+            </Button>
+            <Button
               variant={activeSection === 'profile' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setActiveSection('profile')}
