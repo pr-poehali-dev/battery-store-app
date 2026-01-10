@@ -135,6 +135,21 @@ const CatalogSection = ({
 
   const hasActiveFilters = activeFilters.length > 0;
 
+  const funnyMessages = [
+    "🔍 Ага! Ищем идеальный аккумулятор...",
+    "⚡ Фильтры работают на полную мощность!",
+    "🎯 Прицеливаемся к идеальному выбору!",
+    "🚀 Запускаем поиск по вашим параметрам!",
+    "🔋 Заряжаем результаты...",
+    "🎪 Магия фильтров в действии!",
+    "🎨 Рисуем идеальный аккумулятор...",
+    "🔮 Предсказываем ваш выбор...",
+    "🎭 Фильтры выходят на сцену!",
+    "🏆 Ищем победителя среди аккумуляторов!"
+  ];
+
+  const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -191,9 +206,24 @@ const CatalogSection = ({
         </CardHeader>
         <CardContent className={`space-y-6 ${isFiltersOpen ? 'block' : 'hidden md:block'}`}>
           {hasActiveFilters && (
-            <div className="space-y-3 p-4 bg-muted/50 rounded-lg border animate-slide-down">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium">Активные фильтры:</p>
+            <div className="space-y-3 p-4 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-lg border-2 border-primary/20 animate-slide-down relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-marquee" style={{ width: '200%' }}></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="animate-bounce-subtle">
+                    <span className="text-2xl">✨</span>
+                  </div>
+                  <p className="text-sm font-bold text-primary animate-wiggle">{randomMessage}</p>
+                  <div className="animate-bounce-subtle" style={{ animationDelay: '0.3s' }}>
+                    <span className="text-2xl">✨</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between relative z-10">
+                <p className="text-sm font-medium flex items-center gap-2">
+                  <span className="animate-pulse">🎯</span>
+                  Активные фильтры:
+                </p>
                 <Button 
                   variant="ghost" 
                   size="sm"
@@ -204,7 +234,7 @@ const CatalogSection = ({
                   Очистить всё
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 relative z-10">
                 {activeFilters.map((filter, index) => (
                   <Badge 
                     key={index}
