@@ -5,7 +5,7 @@ import hmac
 import psycopg2
 from datetime import datetime
 
-TELEGRAM_BOT_TOKEN = "8587363761:AAFkNxwiHaiE5YN5SMBjXhRMJjqhNmroFvc"
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
 
 
 def verify_telegram_auth(auth_data: dict) -> bool:
