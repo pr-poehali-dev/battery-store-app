@@ -162,17 +162,13 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-            <Icon name="Battery" size={40} className="text-primary" />
+          <div className="mx-auto flex items-center gap-3 justify-center">
+            <span className="text-5xl">🍃</span>
+            <h1 className="text-3xl font-bold text-primary italic">Мир Аккумуляторов</h1>
           </div>
-          <div>
-            <CardTitle className="text-3xl font-bold text-primary">
-              Мир Аккумуляторов
-            </CardTitle>
-            <CardDescription className="text-lg mt-2">
-              С 1998 года на рынке
-            </CardDescription>
-          </div>
+          <CardDescription className="text-lg">
+            С 1998 года на рынке
+          </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-6 pb-8">
