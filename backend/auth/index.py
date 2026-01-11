@@ -33,8 +33,10 @@ def send_sms(phone: str, code: str) -> bool:
     """Отправка SMS через SMS.ru"""
     try:
         url = f"https://sms.ru/sms/send?api_id={SMS_API_KEY}&to={phone}&msg=Ваш код: {code}&json=1"
+        print(f"Sending SMS to {phone}, API key exists: {bool(SMS_API_KEY)}")
         response = requests.get(url, timeout=10)
         result = response.json()
+        print(f"SMS.ru response: {result}")
         return result.get('status') == 'OK'
     except Exception as e:
         print(f"SMS send error: {e}")
