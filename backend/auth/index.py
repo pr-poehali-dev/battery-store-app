@@ -99,8 +99,8 @@ def handler(event: dict, context) -> dict:
             )
             conn.commit()
             
-            # Отправка SMS (закомментировано для тестов)
-            # sms_sent = send_sms(phone, code)
+            # Отправка SMS
+            sms_sent = send_sms(phone, code)
             
             cur.close()
             conn.close()
@@ -110,8 +110,7 @@ def handler(event: dict, context) -> dict:
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps({
                     'success': True,
-                    'message': 'Код отправлен',
-                    'dev_code': code  # Для тестирования - убрать в продакшене!
+                    'message': 'Код отправлен'
                 }),
                 'isBase64Encoded': False
             }

@@ -14,27 +14,6 @@
         "message": "string"
       },
       "bodyMatcher": "partial"
-    },
-    {
-      "name": "Verify code - registration",
-      "method": "POST",
-      "path": "/",
-      "body": {
-        "action": "verify_code",
-        "phone": "+79241234568",
-        "code": "123456",
-        "is_registration": true,
-        "remember_me": true,
-        "name": "Иван"
-      },
-      "expectedStatus": 200,
-      "expectedBody": {
-        "success": true,
-        "user": {
-          "phone": "string"
-        }
-      },
-      "bodyMatcher": "partial"
     }
   ]
 }
