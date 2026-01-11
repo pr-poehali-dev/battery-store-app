@@ -156,6 +156,7 @@ def handle_contacts(chat_id: int):
 
 def handler(event: dict, context) -> dict:
     """Обработчик webhook-запросов от Telegram"""
+
     
     if event.get('httpMethod') == 'OPTIONS':
         return {
