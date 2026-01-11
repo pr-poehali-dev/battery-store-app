@@ -2,8 +2,7 @@ import json
 import os
 import requests
 
-# Используем токен напрямую (переменная окружения содержит неправильное значение)
-TELEGRAM_TOKEN = '8587363761:AAFkNxwiHaiE5YN5SMBjXhRMJjqhNmroFvc'
+TELEGRAM_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
 TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
 MANAGER_CHAT_ID = os.environ.get('MANAGER_TELEGRAM_ID', None)  # ID менеджера для пересылки вопросов
 
@@ -32,8 +31,19 @@ def send_message(chat_id: int, text: str, reply_markup=None):
     return response
 
 
-def handle_start(chat_id: int):
+def handle_start(chat_id: int, start_param: str = None):
     """Обработка команды /start"""
+    # Если параметр = login, отправляем ссылку для входа
+    if start_param == 'login':
+        text = (
+            "🔐 <b>Вход в приложение</b>\n\n"
+            "Для входа на сайт откройте эту ссылку:\n"
+            f"https://preview--battery-store-app.poehali.dev/?tg_auth={chat_id}\n\n"
+            "После перехода вы автоматически войдете в систему!"
+        )
+        send_message(chat_id, text)
+        return
+    
     keyboard = {
         "keyboard": [
             [{"text": "🔋 Подобрать аккумулятор"}],
@@ -171,8 +181,10 @@ def handler(event: dict, context) -> dict:
         text = message.get('text', '')
         print(f"Processing message from {chat_id}: {text}")
         
-        if text == '/start':
-            handle_start(chat_id)
+        if text.startswith('/start'):
+            # Извлекаем параметр из /start
+            start_param = text.split()[1] if len(text.split()) > 1 else None
+            handle_start(chat_id, start_param)
         elif text == '🔋 Подобрать аккумулятор':
             handle_selection(chat_id)
         elif text == '📍 Наши магазины':

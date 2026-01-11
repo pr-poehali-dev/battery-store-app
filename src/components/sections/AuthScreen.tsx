@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-import TelegramLoginButton from '@/components/TelegramLoginButton';
 
 interface AuthScreenProps {
   handleTelegramAuth: (user: any) => void;
@@ -9,7 +9,7 @@ interface AuthScreenProps {
 
 const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
   const { toast } = useToast();
-  const botUsername = import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'MirAkkumBot';
+  const botUsername = 'Miraccumhbkbot';
 
   const handleYandexLogin = () => {
     const clientId = import.meta.env.VITE_YANDEX_CLIENT_ID || '';
@@ -26,12 +26,14 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
     window.location.href = yandexAuthUrl;
   };
 
-  const handleTelegramLogin = (user: any) => {
+  const handleTelegramLogin = () => {
+    const telegramUrl = `https://t.me/${botUsername}?start=login`;
+    window.open(telegramUrl, '_blank');
+    
     toast({
-      title: 'Вход выполнен',
-      description: `Добро пожаловать, ${user.first_name}!`,
+      title: 'Переход в Telegram',
+      description: 'Откройте бота и следуйте инструкциям для входа',
     });
-    handleTelegramAuth(user);
   };
 
   return (
@@ -76,13 +78,13 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
                 </div>
               </div>
               
-              <div className="flex justify-center">
-                <TelegramLoginButton
-                  botUsername={botUsername}
-                  onAuth={handleTelegramLogin}
-                  buttonSize="large"
-                />
-              </div>
+              <Button
+                className="w-full h-12 text-base bg-[#0088cc] hover:bg-[#0077b3] text-white"
+                onClick={handleTelegramLogin}
+              >
+                <Icon name="Send" size={20} className="mr-2" />
+                Войти через Telegram
+              </Button>
             </div>
           </div>
         </CardContent>

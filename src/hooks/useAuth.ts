@@ -13,6 +13,49 @@ export const useAuth = () => {
 
   useEffect(() => {
     const checkSession = async () => {
+      // Проверяем Telegram-авторизацию из URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const tgAuth = urlParams.get('tg_auth');
+      
+      if (tgAuth) {
+        try {
+          const response = await fetch('https://functions.poehali.dev/535b5887-9e3d-4a2f-ae82-4857f8223d49', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id: tgAuth,
+              first_name: 'Пользователь',
+              auth_date: Math.floor(Date.now() / 1000),
+              hash: 'auto_login'
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success && data.user) {
+            const userData: User = {
+              id: data.user.id,
+              firstName: data.user.name,
+              lastName: '',
+              phone: data.user.phone || '',
+              cashback: data.user.cashback || 0,
+              role: data.user.role || 'client',
+              totalSpent: 0,
+              purchaseCount: 0
+            };
+            localStorage.setItem('akkum_user', JSON.stringify(userData));
+            setUser(userData);
+            setIsLoading(false);
+            
+            // Удаляем параметр из URL
+            window.history.replaceState({}, '', window.location.pathname);
+            return;
+          }
+        } catch (e) {
+          console.error('Telegram auth error:', e);
+        }
+      }
+      
       const sessionToken = localStorage.getItem('session_token');
       
       if (sessionToken) {
