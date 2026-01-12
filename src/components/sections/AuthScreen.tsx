@@ -18,6 +18,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
   const [code, setCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [testCode, setTestCode] = useState<string | null>(null);
 
   const handleSendCode = async () => {
     if (!phone.trim()) {
@@ -50,10 +51,19 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
 
       if (response.ok) {
         setCodeSent(true);
-        toast({
-          title: 'Код отправлен',
-          description: 'Проверьте SMS на вашем телефоне',
-        });
+        
+        if (data.test_mode && data.test_code) {
+          setTestCode(data.test_code);
+          toast({
+            title: 'Тестовый код',
+            description: `Ваш код: ${data.test_code}`,
+          });
+        } else {
+          toast({
+            title: 'Код отправлен',
+            description: 'Проверьте SMS на вашем телефоне',
+          });
+        }
       } else {
         toast({
           title: 'Ошибка',
@@ -179,17 +189,30 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
               </div>
 
               {codeSent && (
-                <div className="space-y-2">
-                  <Label htmlFor="code">Код из SMS</Label>
-                  <Input
-                    id="code"
-                    type="text"
-                    placeholder="123456"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    maxLength={6}
-                  />
-                </div>
+                <>
+                  {testCode && (
+                    <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Icon name="Info" size={16} className="text-yellow-600 dark:text-yellow-500" />
+                        <span className="text-sm font-semibold text-yellow-800 dark:text-yellow-400">Тестовый режим</span>
+                      </div>
+                      <p className="text-2xl font-mono font-bold text-yellow-900 dark:text-yellow-300 tracking-wider">
+                        {testCode}
+                      </p>
+                    </div>
+                  )}
+                  <div className="space-y-2">
+                    <Label htmlFor="code">Код из SMS</Label>
+                    <Input
+                      id="code"
+                      type="text"
+                      placeholder="123456"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      maxLength={6}
+                    />
+                  </div>
+                </>
               )}
 
               {!codeSent ? (
@@ -225,6 +248,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
                     onClick={() => {
                       setCodeSent(false);
                       setCode('');
+                      setTestCode(null);
                     }}
                   >
                     Отправить код повторно

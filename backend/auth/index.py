@@ -93,12 +93,9 @@ def handler(event: dict, context) -> dict:
             # Деактивация всех старых кодов для этого номера
             cur.execute("UPDATE sms_codes SET verified = TRUE WHERE phone = %s AND verified = FALSE", (phone,))
             
-            # Генерация нового кода
-            if TEST_MODE:
-                code = TEST_CODE
-                print(f"TEST MODE: Using test code {TEST_CODE} for {phone}")
-            else:
-                code = generate_code()
+            # Генерация нового кода (всегда случайный)
+            code = generate_code()
+            print(f"Generated code {code} for {phone}, TEST_MODE={TEST_MODE}")
             
             expires_at = datetime.now() + timedelta(minutes=5)
             
@@ -111,7 +108,7 @@ def handler(event: dict, context) -> dict:
             # Отправка SMS (только в production)
             if TEST_MODE:
                 sms_sent = True
-                print(f"TEST MODE: Skipping SMS send, code is {TEST_CODE}")
+                print(f"TEST MODE: Skipping SMS send, will return code in response")
             else:
                 sms_sent = send_sms(phone, code)
             
@@ -123,9 +120,9 @@ def handler(event: dict, context) -> dict:
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps({
                     'success': True,
-                    'message': 'Код отправлен' if not TEST_MODE else f'Тестовый код: {TEST_CODE}',
+                    'message': 'Код отправлен' if not TEST_MODE else f'Тестовый код: {code}',
                     'test_mode': TEST_MODE,
-                    'test_code': TEST_CODE if TEST_MODE else None
+                    'test_code': code if TEST_MODE else None
                 }),
                 'isBase64Encoded': False
             }
