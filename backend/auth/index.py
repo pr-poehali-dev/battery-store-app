@@ -11,6 +11,8 @@ import requests
 
 DB_URL = os.environ.get('DATABASE_URL')
 SMS_API_KEY = os.environ.get('SMS_API_KEY')
+TEST_MODE = os.environ.get('TEST_MODE', 'true').lower() == 'true'
+TEST_CODE = '000000'
 
 def generate_code() -> str:
     """Генерация 6-значного кода"""
@@ -92,7 +94,12 @@ def handler(event: dict, context) -> dict:
             cur.execute("UPDATE sms_codes SET verified = TRUE WHERE phone = %s AND verified = FALSE", (phone,))
             
             # Генерация нового кода
-            code = generate_code()
+            if TEST_MODE:
+                code = TEST_CODE
+                print(f"TEST MODE: Using test code {TEST_CODE} for {phone}")
+            else:
+                code = generate_code()
+            
             expires_at = datetime.now() + timedelta(minutes=5)
             
             cur.execute(
@@ -101,8 +108,12 @@ def handler(event: dict, context) -> dict:
             )
             conn.commit()
             
-            # Отправка SMS
-            sms_sent = send_sms(phone, code)
+            # Отправка SMS (только в production)
+            if TEST_MODE:
+                sms_sent = True
+                print(f"TEST MODE: Skipping SMS send, code is {TEST_CODE}")
+            else:
+                sms_sent = send_sms(phone, code)
             
             cur.close()
             conn.close()
@@ -112,7 +123,9 @@ def handler(event: dict, context) -> dict:
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps({
                     'success': True,
-                    'message': 'Код отправлен'
+                    'message': 'Код отправлен' if not TEST_MODE else f'Тестовый код: {TEST_CODE}',
+                    'test_mode': TEST_MODE,
+                    'test_code': TEST_CODE if TEST_MODE else None
                 }),
                 'isBase64Encoded': False
             }
