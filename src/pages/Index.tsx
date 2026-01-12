@@ -29,7 +29,7 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { user, isLoading, handleLogout, handleTelegramAuth, vibrate } = useAuth();
+  const { user, isLoading, handleLogout, handlePhoneAuth, vibrate } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const cart = useCart(vibrate);
   const { showInstallPrompt, setShowInstallPrompt, handleInstallApp } = usePWA();
@@ -41,7 +41,7 @@ const Index = () => {
   }
 
   if (!user) {
-    return <AuthScreen handleTelegramAuth={handleTelegramAuth} />;
+    return <AuthScreen handlePhoneAuth={handlePhoneAuth} />;
   }
 
   return (

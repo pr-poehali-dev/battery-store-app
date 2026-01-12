@@ -1,39 +1,130 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
 interface AuthScreenProps {
-  handleTelegramAuth: (user: any) => void;
+  handlePhoneAuth: (user: any) => void;
 }
 
-const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
+const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
   const { toast } = useToast();
-  const botUsername = 'Miraccumhbkbot';
+  const [isRegistration, setIsRegistration] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [name, setName] = useState('');
+  const [code, setCode] = useState('');
+  const [codeSent, setCodeSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleYandexLogin = () => {
-    const clientId = import.meta.env.VITE_YANDEX_CLIENT_ID || '';
-    if (!clientId) {
+  const handleSendCode = async () => {
+    if (!phone.trim()) {
       toast({
         title: 'Ошибка',
-        description: 'Яндекс OAuth не настроен',
+        description: 'Введите номер телефона',
         variant: 'destructive',
       });
       return;
     }
-    const redirectUri = encodeURIComponent(window.location.origin + '/auth/yandex');
-    const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
-    window.location.href = yandexAuthUrl;
+
+    if (isRegistration && !name.trim()) {
+      toast({
+        title: 'Ошибка',
+        description: 'Введите ваше имя',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch('https://functions.poehali.dev/d4e5fqh6g4q6djsrvtfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'send_code', phone }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setCodeSent(true);
+        toast({
+          title: 'Код отправлен',
+          description: 'Проверьте SMS на вашем телефоне',
+        });
+      } else {
+        toast({
+          title: 'Ошибка',
+          description: data.error || 'Не удалось отправить код',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Проблема с сетью',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleTelegramLogin = () => {
-    const telegramUrl = `https://t.me/${botUsername}?start=login`;
-    window.open(telegramUrl, '_blank');
-    
-    toast({
-      title: 'Переход в Telegram',
-      description: 'Откройте бота и следуйте инструкциям для входа',
-    });
+  const handleVerifyCode = async () => {
+    if (!code.trim()) {
+      toast({
+        title: 'Ошибка',
+        description: 'Введите код из SMS',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch('https://functions.poehali.dev/d4e5fqh6g4q6djsrvtfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'verify_code',
+          phone,
+          code,
+          is_registration: isRegistration,
+          name: isRegistration ? name : undefined,
+          remember_me: true,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.user) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        if (data.session_token) {
+          localStorage.setItem('session_token', data.session_token);
+        }
+        handlePhoneAuth(data.user);
+        toast({
+          title: 'Успешно',
+          description: `Добро пожаловать, ${data.user.name}!`,
+        });
+      } else {
+        toast({
+          title: 'Ошибка',
+          description: data.error || 'Неверный код',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Проблема с сетью',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,22 +143,94 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
         <CardContent className="space-y-6 pb-8">
           <div className="space-y-4">
             <div className="text-center space-y-2">
-              <h3 className="text-lg font-semibold">Добро пожаловать!</h3>
+              <h3 className="text-lg font-semibold">
+                {isRegistration ? 'Регистрация' : 'Вход'}
+              </h3>
               <p className="text-sm text-muted-foreground">
-                Выберите способ входа
+                {isRegistration ? 'Создайте аккаунт для заказов' : 'Войдите по номеру телефона'}
               </p>
             </div>
 
-            <div className="space-y-3">
-              <Button 
-                className="w-full h-12 text-base bg-[#FFCC00] hover:bg-[#FFD633] text-black"
-                onClick={handleYandexLogin}
-              >
-                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm3.9 17.5h-2.5l-2.7-6.7h-.1v6.7H8.1V6.5h4.1c2.7 0 4.2 1.2 4.2 3.3 0 1.6-.9 2.7-2.3 3.1l2.8 4.6z"/>
-                </svg>
-                Войти через Яндекс
-              </Button>
+            <div className="space-y-4">
+              {isRegistration && (
+                <div className="space-y-2">
+                  <Label htmlFor="name">Ваше имя</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Иван"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={codeSent}
+                  />
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="phone">Номер телефона</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="+7 900 123-45-67"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  disabled={codeSent}
+                />
+              </div>
+
+              {codeSent && (
+                <div className="space-y-2">
+                  <Label htmlFor="code">Код из SMS</Label>
+                  <Input
+                    id="code"
+                    type="text"
+                    placeholder="123456"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    maxLength={6}
+                  />
+                </div>
+              )}
+
+              {!codeSent ? (
+                <Button
+                  className="w-full h-12 text-base"
+                  onClick={handleSendCode}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                  ) : (
+                    <Icon name="Send" size={20} className="mr-2" />
+                  )}
+                  Получить код
+                </Button>
+              ) : (
+                <div className="space-y-2">
+                  <Button
+                    className="w-full h-12 text-base"
+                    onClick={handleVerifyCode}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                    ) : (
+                      <Icon name="LogIn" size={20} className="mr-2" />
+                    )}
+                    Войти
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full"
+                    onClick={() => {
+                      setCodeSent(false);
+                      setCode('');
+                    }}
+                  >
+                    Отправить код повторно
+                  </Button>
+                </div>
+              )}
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -77,13 +240,17 @@ const AuthScreen = ({ handleTelegramAuth }: AuthScreenProps) => {
                   <span className="bg-card px-2 text-muted-foreground">или</span>
                 </div>
               </div>
-              
+
               <Button
-                className="w-full h-12 text-base bg-[#0088cc] hover:bg-[#0077b3] text-white"
-                onClick={handleTelegramLogin}
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  setIsRegistration(!isRegistration);
+                  setCodeSent(false);
+                  setCode('');
+                }}
               >
-                <Icon name="Send" size={20} className="mr-2" />
-                Войти через Telegram
+                {isRegistration ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
               </Button>
             </div>
           </div>

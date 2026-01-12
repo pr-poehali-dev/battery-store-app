@@ -116,18 +116,18 @@ export const useAuth = () => {
 
 
 
-  const handleTelegramAuth = async (authData: any) => {
+  const handlePhoneAuth = async (authData: any) => {
     vibrate(50);
     
     const userData: User = {
       id: authData.id,
-      firstName: authData.first_name,
+      firstName: authData.name,
       lastName: '',
-      phone: authData.phone_number,
+      phone: authData.phone,
       cashback: authData.cashback || 0,
-      role: authData.role || 'user',
-      totalSpent: authData.totalSpent || 125000,
-      purchaseCount: authData.purchaseCount || 8
+      role: authData.role || 'client',
+      totalSpent: 0,
+      purchaseCount: 0
     };
     
     localStorage.setItem('akkum_user', JSON.stringify(userData));
@@ -144,7 +144,7 @@ export const useAuth = () => {
   return {
     user,
     isLoading,
-    handleTelegramAuth,
+    handlePhoneAuth,
     handleLogout,
     vibrate
   };
