@@ -154,6 +154,56 @@ def handle_contacts(chat_id: int):
     send_message(chat_id, text)
 
 
+def handle_callback_query(callback_query: dict):
+    """Обработка нажатий на inline-кнопки"""
+    query_id = callback_query['id']
+    chat_id = callback_query['message']['chat']['id']
+    message_id = callback_query['message']['message_id']
+    callback_data = callback_query['data']
+    
+    print(f"Callback received: {callback_data}")
+    
+    # Разбираем callback_data: confirm_RES-123, cancel_RES-123, ready_RES-123
+    parts = callback_data.split('_', 1)
+    if len(parts) != 2:
+        return
+    
+    action, reservation_id = parts
+    
+    # Формируем текст ответа
+    if action == 'confirm':
+        response_text = f"✅ Бронирование {reservation_id} подтверждено!"
+        new_status = 'confirmed'
+    elif action == 'ready':
+        response_text = f"✅ Товар готов к выдаче! Бронирование {reservation_id}"
+        new_status = 'ready'
+    elif action == 'cancel':
+        response_text = f"❌ Бронирование {reservation_id} отменено"
+        new_status = 'cancelled'
+    else:
+        return
+    
+    # Отправляем уведомление о действии
+    requests.post(
+        f"{TELEGRAM_API}/answerCallbackQuery",
+        json={'callback_query_id': query_id, 'text': response_text}
+    )
+    
+    # Обновляем сообщение (убираем кнопки, добавляем статус)
+    original_text = callback_query['message']['text']
+    updated_text = f"{original_text}\n\n<b>Статус:</b> {response_text}"
+    
+    requests.post(
+        f"{TELEGRAM_API}/editMessageText",
+        json={
+            'chat_id': chat_id,
+            'message_id': message_id,
+            'text': updated_text,
+            'parse_mode': 'HTML'
+        }
+    )
+
+
 def handler(event: dict, context) -> dict:
     """Обработчик webhook-запросов от Telegram"""
 
@@ -172,6 +222,11 @@ def handler(event: dict, context) -> dict:
     try:
         body = json.loads(event.get('body', '{}'))
         print(f"Received update: {json.dumps(body)}")
+        
+        # Обработка callback от inline-кнопок
+        if 'callback_query' in body:
+            handle_callback_query(body['callback_query'])
+            return {'statusCode': 200, 'body': json.dumps({'ok': True})}
         
         if 'message' not in body:
             print("No message in update, skipping")

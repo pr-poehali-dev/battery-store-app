@@ -83,11 +83,28 @@ def handler(event: Dict[str, Any], context) -> Dict[str, Any]:
         
         telegram_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
         
-        data = urllib.parse.urlencode({
+        # Inline клавиатура с кнопками
+        keyboard = {
+            'inline_keyboard': [
+                [
+                    {'text': '✅ Подтвердить', 'callback_data': f"confirm_{reservation.get('id')}"},
+                    {'text': '✅ Готов к выдаче', 'callback_data': f"ready_{reservation.get('id')}"}
+                ],
+                [
+                    {'text': '❌ Отменить', 'callback_data': f"cancel_{reservation.get('id')}"},
+                    {'text': '📞 Позвонить', 'url': f"tel:{reservation.get('customerPhone')}"}
+                ]
+            ]
+        }
+        
+        payload = {
             'chat_id': manager_chat_id,
             'text': message,
-            'parse_mode': 'HTML'
-        }).encode('utf-8')
+            'parse_mode': 'HTML',
+            'reply_markup': json.dumps(keyboard)
+        }
+        
+        data = urllib.parse.urlencode(payload).encode('utf-8')
         
         req = urllib.request.Request(telegram_url, data=data, method='POST')
         
