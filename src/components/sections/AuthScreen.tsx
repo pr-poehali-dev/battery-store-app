@@ -40,7 +40,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://functions.poehali.dev/d4e5fqh6g4q6djsrvtfo', {
+      const response = await fetch('https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'send_code', phone }),
@@ -84,7 +84,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://functions.poehali.dev/d4e5fqh6g4q6djsrvtfo', {
+      const response = await fetch('https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
