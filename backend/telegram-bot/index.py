@@ -209,6 +209,8 @@ def handler(event: dict, context) -> dict:
     print(f"=== Handler called ===")
     print(f"Event: {json.dumps(event)}")
     print(f"Bot token configured: {bool(TELEGRAM_TOKEN)}")
+    print(f"Bot token (masked): {TELEGRAM_TOKEN[:20]}...{TELEGRAM_TOKEN[-10:] if len(TELEGRAM_TOKEN) > 30 else ''}")
+    print(f"API URL: {TELEGRAM_API}")
     
     if event.get('httpMethod') == 'OPTIONS':
         return {
