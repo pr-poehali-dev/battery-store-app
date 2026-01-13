@@ -13,49 +13,49 @@ const categories: Category[] = [
   {
     id: 'auto',
     title: 'АККУМУЛЯТОРЫ ДЛЯ АВТОМОБИЛЕЙ',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/8a5a889f-4663-431f-a326-8ceb1e204c12.jpg',
+    image: 'https://miraccum.ru/wp-content/uploads/2025/06/Group-1339-1.jpg',
     category: 'Азиатские'
   },
   {
     id: 'moto',
     title: 'АККУМУЛЯТОРЫ ДЛЯ МОТОТЕХНИКИ',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/ef0e57a7-629a-41a0-b800-6ad8682a9765.jpg'
+    image: 'https://miraccum.ru/wp-content/uploads/2023/06/MirAcum-moto.png'
   },
   {
     id: 'warehouse',
     title: 'АККУМУЛЯТОРЫ ДЛЯ СКЛАДСКОЙ И УБОРОЧНОЙ ТЕХНИКИ',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/3395e99b-9afc-4402-aadc-75dd03a38863.jpg'
+    image: 'https://miraccum.ru/wp-content/uploads/2023/02/MirAcum-1.png'
   },
   {
     id: 'carku',
     title: 'CARKU',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/0f3aa941-b89a-4a8b-b5b0-8725d4117c80.jpg',
+    image: 'https://miraccum.ru/wp-content/uploads/2021/07/Group-1335-1.jpg',
     category: 'Пусковые устройства'
   },
   {
     id: 'vtoman',
     title: 'VTOMAN',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/5af8815d-312b-4c98-b395-261b2567b88d.jpg'
+    image: 'https://miraccum.ru/wp-content/uploads/2023/05/MirAcum.png'
   },
   {
     id: 'sale',
     title: 'АКЦИЯ АКБ',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/f7cd35ed-79eb-497a-84d0-ff3821d50efc.jpg'
+    image: 'https://miraccum.ru/wp-content/uploads/2021/07/Group-1797.jpg'
   },
   {
     id: 'generators',
     title: 'БЕНЗОГЕНЕРАТОРЫ',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/27d11bf1-b052-4260-93a2-f048bb1a9c24.jpg'
+    image: 'https://miraccum.ru/wp-content/uploads/2021/07/Group-1792.jpg'
   },
   {
     id: 'chainsaws',
     title: 'БЕНЗОПИЛЫ',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/8685734c-05cc-4eb9-8c92-0bdb974c9578.jpg'
+    image: 'https://miraccum.ru/wp-content/uploads/2021/07/Group-1796.jpg'
   },
   {
     id: 'chargers',
     title: 'ЗАРЯДНЫЕ УСТРОЙСТВА',
-    image: 'https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/291ce176-5bb2-405c-a102-8af82240c18a.jpg',
+    image: 'https://miraccum.ru/wp-content/uploads/2021/07/Group-1335.jpg',
     category: 'Зарядные устройства'
   }
 ];
