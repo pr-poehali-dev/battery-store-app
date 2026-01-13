@@ -1,7 +1,7 @@
 import { User } from '@/types';
 
 export interface LoyaltyLevel {
-  id: 'bronze' | 'silver' | 'gold' | 'platinum';
+  id: 'base' | 'silver';
   name: string;
   icon: string;
   color: string;
@@ -15,13 +15,13 @@ export interface LoyaltyLevel {
 
 export const loyaltyLevels: LoyaltyLevel[] = [
   {
-    id: 'bronze',
-    name: 'Бронза',
-    icon: '🥉',
-    color: 'bg-amber-700/10',
-    bgGradient: 'from-amber-700/20 to-amber-600/10',
-    textColor: 'text-amber-700',
-    borderColor: 'border-amber-700/30',
+    id: 'base',
+    name: 'Базовый',
+    icon: '🔋',
+    color: 'bg-blue-500/10',
+    bgGradient: 'from-blue-500/20 to-blue-400/10',
+    textColor: 'text-blue-600',
+    borderColor: 'border-blue-500/30',
     minSpent: 0,
     cashbackPercent: 3,
     benefits: [
@@ -38,53 +38,13 @@ export const loyaltyLevels: LoyaltyLevel[] = [
     bgGradient: 'from-slate-400/20 to-slate-300/10',
     textColor: 'text-slate-600',
     borderColor: 'border-slate-400/30',
-    minSpent: 50000,
+    minSpent: 30000,
     cashbackPercent: 5,
     benefits: [
       'Кэшбек 5% от покупок',
       'Расширенная гарантия +6 мес',
       'Приоритетная консультация',
       'Скидка на услуги сервиса 10%'
-    ]
-  },
-  {
-    id: 'gold',
-    name: 'Золото',
-    icon: '🥇',
-    color: 'bg-yellow-500/10',
-    bgGradient: 'from-yellow-500/20 to-yellow-400/10',
-    textColor: 'text-yellow-600',
-    borderColor: 'border-yellow-500/30',
-    minSpent: 150000,
-    cashbackPercent: 7,
-    benefits: [
-      'Кэшбек 7% от покупок',
-      'Расширенная гарантия +12 мес',
-      'Персональный менеджер',
-      'Скидка на услуги сервиса 20%',
-      'Бесплатная установка аккумулятора',
-      'Доступ к эксклюзивным товарам'
-    ]
-  },
-  {
-    id: 'platinum',
-    name: 'Платина',
-    icon: '💎',
-    color: 'bg-purple-500/10',
-    bgGradient: 'from-purple-500/20 to-purple-400/10',
-    textColor: 'text-purple-600',
-    borderColor: 'border-purple-500/30',
-    minSpent: 300000,
-    cashbackPercent: 10,
-    benefits: [
-      'Кэшбек 10% от покупок',
-      'Пожизненная гарантия',
-      'VIP-поддержка 24/7',
-      'Скидка на услуги сервиса 30%',
-      'Бесплатная доставка и установка',
-      'Доступ к VIP-акциям',
-      'Подарки на день рождения',
-      'Эвакуатор при разряде батареи'
     ]
   }
 ];
