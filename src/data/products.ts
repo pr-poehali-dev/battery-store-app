@@ -513,8 +513,11 @@ export const stores: Store[] = [
   { name: 'Пр. 60-летия Октября, 154', address: 'Проспект 60-летия Октября, 154', phone: '+7 (4212) 28-45-45' }
 ];
 
-export const serviceCenter: ServiceCenter = {
-  name: 'Сервисный центр',
-  address: 'ул. Павловича, 11/2',
-  description: 'Обслуживание аккумуляторных батарей'
-};
+export const serviceCenters: ServiceCenter[] = [
+  {
+    name: 'Сервисный центр',
+    address: 'ул. Павловича, 11/2',
+    phone: '+7 (4212) 45-99-99',
+    description: 'Обслуживание аккумуляторных батарей'
+  }
+];
