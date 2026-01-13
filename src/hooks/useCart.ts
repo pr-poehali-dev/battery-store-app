@@ -133,8 +133,10 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
       'AGM': { icon: '⚡', color: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20', label: 'AGM' },
       'EFB': { icon: '🔌', color: 'bg-orange-500/10 text-orange-600 border-orange-500/20', label: 'EFB' },
       'Грузовые': { icon: '🚛', color: 'bg-gray-500/10 text-gray-600 border-gray-500/20', label: 'Грузовые' },
-      'Пусковые устройства': { icon: '🔧', color: 'bg-cyan-500/10 text-cyan-600 border-cyan-500/20', label: 'Пусковое' },
-      'Зарядные устройства': { icon: '🔋', color: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20', label: 'Зарядное' }
+      'Пусковые устройства': { icon: '🚀', color: 'bg-cyan-500/10 text-cyan-600 border-cyan-500/20', label: 'Пусковое' },
+      'Зарядные устройства': { icon: '🔋', color: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20', label: 'Зарядное' },
+      'Диагностическое оборудование': { icon: '🔬', color: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20', label: 'Диагностика' },
+      'Портативные электростанции': { icon: '⚡', color: 'bg-amber-500/10 text-amber-600 border-amber-500/20', label: 'Электростанция' }
     };
     return badges[category] || { icon: '🔋', color: 'bg-gray-500/10 text-gray-600 border-gray-500/20', label: category };
   };
