@@ -50,7 +50,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex items-center justify-between">
             <button 
-              className={`text-white p-2 hover:bg-white/10 rounded transition-all duration-300 ${
+              className={`text-white p-2 hover:bg-white/10 rounded transition-all duration-300 relative group ${
                 isMenuOpen ? 'menu-burger-open' : ''
               }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -59,6 +59,11 @@ const Index = () => {
                 <div className="w-8 h-0.5 bg-white menu-burger-line"></div>
                 <div className="w-8 h-0.5 bg-white menu-burger-line"></div>
                 <div className="w-8 h-0.5 bg-white menu-burger-line"></div>
+              </div>
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <span className="text-xs bg-white/20 backdrop-blur-sm px-2 py-1 rounded shadow-lg">
+                  Больше разделов
+                </span>
               </div>
             </button>
             <div className="flex items-center gap-3 flex-1 justify-center">
