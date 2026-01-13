@@ -38,11 +38,17 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
           <div className="space-y-2">
             <Button 
               size="lg" 
-              className="w-full bg-blue-600 hover:bg-blue-700"
-              onClick={() => window.open('https://t.me/mir_akkum_shop_bot', '_blank')}
+              variant="outline"
+              className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
+              onClick={() => window.open('https://t.me/awwskrr', '_blank')}
             >
-              <Icon name="Bot" size={20} className="mr-2" />
-              Написать в Telegram-бот
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <Icon name="MessageCircle" size={20} />
+                  @awwskrr (менеджер) Александр
+                </div>
+                <span className="text-xs text-muted-foreground">(примерное время ответа 30 минут)</span>
+              </div>
             </Button>
             <Button 
               size="lg" 
@@ -53,24 +59,18 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               <div className="flex flex-col items-center gap-1">
                 <div className="flex items-center gap-2">
                   <Icon name="MessageCircle" size={20} />
-                  @nobodystillhere (менеджер)
+                  @nobodystillhere (менеджер) Дмитрий
                 </div>
                 <span className="text-xs text-muted-foreground">(примерное время ответа 30 минут)</span>
               </div>
             </Button>
             <Button 
               size="lg" 
-              variant="outline"
-              className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
-              onClick={() => window.open('https://t.me/awwskrr', '_blank')}
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              onClick={() => window.open('https://t.me/mir_akkum_shop_bot', '_blank')}
             >
-              <div className="flex flex-col items-center gap-1">
-                <div className="flex items-center gap-2">
-                  <Icon name="MessageCircle" size={20} />
-                  @awwskrr (менеджер)
-                </div>
-                <span className="text-xs text-muted-foreground">(примерное время ответа 30 минут)</span>
-              </div>
+              <Icon name="Bot" size={20} className="mr-2" />
+              Telegram-бот
             </Button>
           </div>
           <div className="pt-2 border-t border-border/50 space-y-2">
