@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -6,7 +5,6 @@ import FooterInfo from '@/components/ui/FooterInfo';
 import CatalogHeader from '@/components/catalog/CatalogHeader';
 import CatalogFilters from '@/components/catalog/CatalogFilters';
 import ProductCard from '@/components/catalog/ProductCard';
-import ReservationDialog from '@/components/ReservationDialog';
 
 interface Product {
   id: number;
@@ -65,7 +63,6 @@ interface CatalogSectionProps {
   resetFilters: () => void;
   getCategoryBadge: (category: string) => { icon: string; color: string; label: string };
   addToCart: (product: Product) => void;
-  user: any;
 }
 
 const CatalogSection = ({
@@ -106,10 +103,8 @@ const CatalogSection = ({
   allCars,
   resetFilters,
   getCategoryBadge,
-  addToCart,
-  user
+  addToCart
 }: CatalogSectionProps) => {
-  const [reserveProduct, setReserveProduct] = useState<Product | null>(null);
   const hasActiveFilters = searchQuery || 
     (priceRange[0] > 0 || priceRange[1] < 50000) ||
     (capacityRange[0] > 0 || capacityRange[1] < 200) ||
@@ -162,14 +157,6 @@ const CatalogSection = ({
         resetFilters={resetFilters}
       />
 
-      {reserveProduct && (
-        <ReservationDialog
-          product={reserveProduct}
-          onClose={() => setReserveProduct(null)}
-          user={user}
-        />
-      )}
-
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.map((product) => (
           <ProductCard
@@ -177,7 +164,6 @@ const CatalogSection = ({
             product={product}
             getCategoryBadge={getCategoryBadge}
             addToCart={addToCart}
-            onReserve={setReserveProduct}
           />
         ))}
       </div>

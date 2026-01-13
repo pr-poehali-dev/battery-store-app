@@ -174,7 +174,6 @@ const Index = () => {
             resetFilters={cart.resetFilters}
             getCategoryBadge={cart.getCategoryBadge}
             addToCart={cart.addToCart}
-            user={user}
           />
         )}
 
