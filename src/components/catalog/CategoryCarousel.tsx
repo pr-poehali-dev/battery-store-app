@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
@@ -36,6 +35,11 @@ const categories: Category[] = [
     image: 'https://cdn.poehali.dev/files/IMG_0941.jpeg'
   },
   {
+    id: 'sale',
+    title: 'АКЦИЯ АКБ',
+    image: 'https://cdn.poehali.dev/files/IMG_0941.jpeg'
+  },
+  {
     id: 'generators',
     title: 'БЕНЗОГЕНЕРАТОРЫ',
     image: 'https://cdn.poehali.dev/files/IMG_0942.jpeg'
@@ -44,80 +48,72 @@ const categories: Category[] = [
     id: 'chainsaws',
     title: 'БЕНЗОПИЛЫ',
     image: 'https://cdn.poehali.dev/files/IMG_0942.jpeg'
+  },
+  {
+    id: 'chargers',
+    title: 'ЗАРЯДНЫЕ УСТРОЙСТВА',
+    image: 'https://cdn.poehali.dev/files/IMG_0942.jpeg'
   }
 ];
 
 const CategoryCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 2 >= categories.length ? 0 : prev + 2));
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 300;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? Math.max(0, categories.length - 2) : prev - 2));
-  };
-
-  const visibleCategories = categories.slice(currentIndex, currentIndex + 2);
-  
-  if (visibleCategories.length === 1) {
-    visibleCategories.push(categories[0]);
-  }
 
   return (
-    <div className="space-y-4 mb-6">
-      <div className="relative">
+    <div className="mb-6">
+      <h2 className="text-2xl font-bold mb-4">Каталог</h2>
+      <div className="relative group">
         <Button
-          onClick={prevSlide}
-          className="absolute left-0 md:left-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black shadow-xl"
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
           size="icon"
         >
-          <Icon name="ChevronLeft" size={24} />
+          <Icon name="ChevronLeft" size={20} />
         </Button>
 
-        <div className="grid md:grid-cols-2 gap-4 px-14 md:px-20">
-          {visibleCategories.map((category, idx) => (
-            <Card
-              key={`${category.id}-${idx}`}
-              className="overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-gray-50 to-gray-100 border-2"
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory pb-2"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {categories.map((category) => (
+            <div
+              key={category.id}
+              className="flex-none w-[140px] md:w-[180px] cursor-pointer group/item snap-start"
             >
-              <div className="p-4 md:p-6 space-y-3 md:space-y-4">
-                <h3 className="text-base md:text-xl font-bold text-gray-900 min-h-[3rem] md:min-h-[3.5rem] leading-tight">
-                  {category.title}
-                </h3>
-                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-white">
+              <div className="text-center space-y-2">
+                <div className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group-hover/item:scale-105 border">
                   <img
                     src={category.image}
                     alt={category.title}
-                    className="w-full h-full object-contain p-2 md:p-4"
+                    className="w-full h-full object-contain p-3"
                   />
                 </div>
+                <p className="text-xs md:text-sm font-semibold text-gray-700 line-clamp-2 leading-tight">
+                  {category.title}
+                </p>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
 
         <Button
-          onClick={nextSlide}
-          className="absolute right-0 md:right-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black shadow-xl"
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
           size="icon"
         >
-          <Icon name="ChevronRight" size={24} />
+          <Icon name="ChevronRight" size={20} />
         </Button>
-      </div>
-
-      <div className="flex justify-center gap-2">
-        {Array.from({ length: Math.ceil(categories.length / 2) }).map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentIndex(idx * 2)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              Math.floor(currentIndex / 2) === idx
-                ? 'bg-primary w-8'
-                : 'bg-gray-300'
-            }`}
-          />
-        ))}
       </div>
     </div>
   );
