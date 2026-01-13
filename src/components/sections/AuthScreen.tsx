@@ -207,16 +207,22 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
 
               <div className="space-y-2">
                 <Label htmlFor="phone">Номер телефона</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="900 123 4567"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  disabled={codeSent}
-                />
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
+                    7
+                  </span>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="900 123 4567"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    disabled={codeSent}
+                    className="pl-8"
+                  />
+                </div>
                 <p className="text-xs text-muted-foreground">
-                  Введите 10 цифр без +7, скобок и пробелов
+                  Введите 10 цифр без скобок и пробелов
                 </p>
               </div>
 
