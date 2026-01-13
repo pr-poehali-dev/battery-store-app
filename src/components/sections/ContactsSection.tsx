@@ -50,8 +50,27 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
               onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
             >
-              <Icon name="MessageCircle" size={20} className="mr-2" />
-              @nobodystillhere (менеджер)
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <Icon name="MessageCircle" size={20} />
+                  @nobodystillhere (менеджер)
+                </div>
+                <span className="text-xs text-muted-foreground">(примерное время ответа 30 минут)</span>
+              </div>
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
+              onClick={() => window.open('https://t.me/awwskrr', '_blank')}
+            >
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <Icon name="MessageCircle" size={20} />
+                  @awwskrr (менеджер)
+                </div>
+                <span className="text-xs text-muted-foreground">(примерное время ответа 30 минут)</span>
+              </div>
             </Button>
           </div>
           <div className="pt-2 border-t border-border/50 space-y-2">
