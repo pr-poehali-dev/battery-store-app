@@ -5,13 +5,13 @@ import Icon from '@/components/ui/icon';
 import FooterInfo from '@/components/ui/FooterInfo';
 
 interface HomeSectionProps {
-  userCashback: number;
+  userPurchaseCount: number;
   brands: string[];
   vibrate: (pattern: number | number[]) => void;
   setActiveSection: (section: string) => void;
 }
 
-const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSectionProps) => {
+const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: HomeSectionProps) => {
   return (
     <div className="space-y-4 animate-fade-in">
       <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
@@ -108,20 +108,26 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
               <div className="p-2 bg-green-500/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
                 <Icon name="Percent" size={20} className="text-green-600" />
               </div>
-              <CardTitle className="text-xl">Кэшбек 3%</CardTitle>
+              <CardTitle className="text-xl">Скидка 5%</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between p-3 bg-card rounded-lg relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent animate-shimmer" />
               <div className="relative z-10">
-                <p className="text-xs text-muted-foreground">Ваш кэшбек</p>
-                <p className="text-2xl font-bold text-green-600 animate-pulse">{userCashback} ₽</p>
+                <p className="text-xs text-muted-foreground">
+                  {userPurchaseCount > 0 ? 'Вы - постоянный клиент!' : 'После первой покупки'}
+                </p>
+                <p className="text-2xl font-bold text-green-600">
+                  {userPurchaseCount > 0 ? '5% скидка' : '0%'}
+                </p>
               </div>
-              <Icon name="TrendingUp" size={28} className="text-green-600 relative z-10" />
+              <Icon name="Gift" size={28} className="text-green-600 relative z-10" />
             </div>
             <p className="text-xs text-muted-foreground">
-              3% с каждой покупки возвращается на ваш счёт!
+              {userPurchaseCount > 0 
+                ? 'Скидка 5% действует на все ваши покупки!' 
+                : 'Получите скидку 5% после первой покупки!'}
             </p>
           </CardContent>
         </Card>

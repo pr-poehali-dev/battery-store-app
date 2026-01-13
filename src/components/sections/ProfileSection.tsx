@@ -57,16 +57,18 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
                 </div>
               </div>
             </div>
-            <Badge className={`${getUserLevel(user).color} ${getUserLevel(user).textColor} border ${getUserLevel(user).borderColor} text-lg px-4 py-2 shadow-lg animate-pulse-slow`}>
-              {getUserLevel(user).cashbackPercent}% кэшбек
-            </Badge>
+            {getUserLevel(user).discountPercent > 0 && (
+              <Badge className={`${getUserLevel(user).color} ${getUserLevel(user).textColor} border ${getUserLevel(user).borderColor} text-lg px-4 py-2 shadow-lg animate-pulse-slow`}>
+                {getUserLevel(user).discountPercent}% скидка
+              </Badge>
+            )}
           </div>
         </CardHeader>
         <CardContent className="space-y-6 relative z-10">
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="font-medium">Потрачено всего:</span>
-              <span className="font-bold">{(user.totalSpent || 0).toLocaleString()} ₽</span>
+              <span className="font-medium">Совершено покупок:</span>
+              <span className="font-bold">{(user.purchaseCount || 0)}</span>
             </div>
             {getNextLevel(user) && (
               <>
@@ -76,7 +78,7 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
                     До уровня <span className="font-semibold">{getNextLevel(user)?.name}</span>:
                   </span>
                   <span className="font-bold text-primary">
-                    {getAmountToNextLevel(user).toLocaleString()} ₽
+                    {getAmountToNextLevel(user)} {getAmountToNextLevel(user) === 1 ? 'покупка' : 'покупок'}
                   </span>
                 </div>
               </>
@@ -85,7 +87,7 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
               <div className="text-center py-2">
                 <Badge variant="secondary" className="text-sm">
                   <Icon name="Crown" size={14} className="mr-1" />
-                  Максимальный уровень достигнут!
+                  Вы - постоянный клиент!
                 </Badge>
               </div>
             )}
@@ -110,24 +112,21 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
 
       <Card className="border-2 border-primary/20">
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Icon name="Wallet" size={24} className="text-primary" />
-              <CardTitle>Мой кэшбек</CardTitle>
-            </div>
-            <div className="text-3xl font-bold text-primary">
-              {user.cashback} ₽
-            </div>
+          <div className="flex items-center gap-2">
+            <Icon name="QrCode" size={24} className="text-primary" />
+            <CardTitle>Карта постоянного клиента</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="bg-white p-6 rounded-lg border-2 border-primary/30 text-center space-y-3">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Icon name="QrCode" size={20} className="text-primary" />
-              <h3 className="font-semibold text-lg">Ваш личный штрих-код</h3>
+              <Icon name="Percent" size={20} className="text-green-600" />
+              <h3 className="font-semibold text-lg">
+                {(user.purchaseCount || 0) > 0 ? 'Скидка 5% активна!' : 'Совершите первую покупку'}
+              </h3>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Предъявите этот код при покупке для начисления кэшбека
+              Предъявите этот код при покупке для получения скидки
             </p>
             <div className="flex justify-center">
               <Barcode 

@@ -32,7 +32,7 @@ interface Store {
 interface CartSectionProps {
   cart: CartItem[];
   cartTotal: number;
-  cartCashback: number;
+  cartDiscount: number;
   cartItemsCount: number;
   selectedStore: string;
   setSelectedStore: (value: string) => void;
@@ -41,12 +41,13 @@ interface CartSectionProps {
   updateQuantity: (productId: number, quantity: number) => void;
   setActiveSection: (section: string) => void;
   userId?: string | number;
+  userPurchaseCount: number;
 }
 
 const CartSection = ({
   cart,
   cartTotal,
-  cartCashback,
+  cartDiscount,
   cartItemsCount,
   selectedStore,
   setSelectedStore,
@@ -54,7 +55,8 @@ const CartSection = ({
   removeFromCart,
   updateQuantity,
   setActiveSection,
-  userId
+  userId,
+  userPurchaseCount
 }: CartSectionProps) => {
   const [paymentMethod, setPaymentMethod] = useState<'cash' | 'online'>('cash');
   const { createPayment, isProcessing, error } = usePayment();
@@ -189,11 +191,19 @@ const CartSection = ({
                 <span>Товары ({cartItemsCount})</span>
                 <span className="font-semibold">{cartTotal.toLocaleString()} ₽</span>
               </div>
-              <div className="flex justify-between items-center text-lg border-t pt-4">
-                <span className="font-semibold">Начислим кэшбек (3%)</span>
-                <Badge variant="secondary" className="text-lg py-1 px-3">
-                  +{cartCashback.toLocaleString()} ₽
-                </Badge>
+              {userPurchaseCount > 0 && (
+                <div className="flex justify-between items-center text-lg border-t pt-4">
+                  <span className="font-semibold text-green-600">Скидка постоянного клиента (5%)</span>
+                  <Badge className="bg-green-500 text-lg py-1 px-3">
+                    -{cartDiscount.toLocaleString()} ₽
+                  </Badge>
+                </div>
+              )}
+              <div className="flex justify-between items-center text-2xl font-bold border-t pt-4">
+                <span>К оплате:</span>
+                <span className="text-primary">
+                  {(cartTotal - (userPurchaseCount > 0 ? cartDiscount : 0)).toLocaleString()} ₽
+                </span>
               </div>
               <div className="space-y-3">
                 <p className="font-semibold text-sm">Способ оплаты:</p>

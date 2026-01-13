@@ -8,8 +8,8 @@ export interface LoyaltyLevel {
   bgGradient: string;
   textColor: string;
   borderColor: string;
-  minSpent: number;
-  cashbackPercent: number;
+  minPurchases: number;
+  discountPercent: number;
   benefits: string[];
 }
 
@@ -22,36 +22,35 @@ export const loyaltyLevels: LoyaltyLevel[] = [
     bgGradient: 'from-blue-500/20 to-blue-400/10',
     textColor: 'text-blue-600',
     borderColor: 'border-blue-500/30',
-    minSpent: 0,
-    cashbackPercent: 3,
+    minPurchases: 0,
+    discountPercent: 0,
     benefits: [
-      'Кэшбек 3% от покупок',
       'Базовая гарантия',
       'Доступ к акциям'
     ]
   },
   {
     id: 'silver',
-    name: 'Серебро',
-    icon: '🥈',
-    color: 'bg-slate-400/10',
-    bgGradient: 'from-slate-400/20 to-slate-300/10',
-    textColor: 'text-slate-600',
-    borderColor: 'border-slate-400/30',
-    minSpent: 30000,
-    cashbackPercent: 5,
+    name: 'Постоянный клиент',
+    icon: '⭐',
+    color: 'bg-green-500/10',
+    bgGradient: 'from-green-500/20 to-green-400/10',
+    textColor: 'text-green-600',
+    borderColor: 'border-green-500/30',
+    minPurchases: 1,
+    discountPercent: 5,
     benefits: [
-      'Кэшбек 5% от покупок',
+      'Скидка 5% на все покупки',
       'Приоритетная консультация'
     ]
   }
 ];
 
 export const getUserLevel = (user: User): LoyaltyLevel => {
-  const totalSpent = user.totalSpent || 0;
+  const purchaseCount = user.purchaseCount || 0;
   
   for (let i = loyaltyLevels.length - 1; i >= 0; i--) {
-    if (totalSpent >= loyaltyLevels[i].minSpent) {
+    if (purchaseCount >= loyaltyLevels[i].minPurchases) {
       return loyaltyLevels[i];
     }
   }
@@ -71,7 +70,7 @@ export const getNextLevel = (user: User): LoyaltyLevel | null => {
 };
 
 export const getProgressToNextLevel = (user: User): number => {
-  const totalSpent = user.totalSpent || 0;
+  const purchaseCount = user.purchaseCount || 0;
   const currentLevel = getUserLevel(user);
   const nextLevel = getNextLevel(user);
   
@@ -79,20 +78,20 @@ export const getProgressToNextLevel = (user: User): number => {
     return 100;
   }
   
-  const currentMin = currentLevel.minSpent;
-  const nextMin = nextLevel.minSpent;
-  const progress = ((totalSpent - currentMin) / (nextMin - currentMin)) * 100;
+  const currentMin = currentLevel.minPurchases;
+  const nextMin = nextLevel.minPurchases;
+  const progress = ((purchaseCount - currentMin) / (nextMin - currentMin)) * 100;
   
   return Math.min(Math.max(progress, 0), 100);
 };
 
 export const getAmountToNextLevel = (user: User): number => {
-  const totalSpent = user.totalSpent || 0;
+  const purchaseCount = user.purchaseCount || 0;
   const nextLevel = getNextLevel(user);
   
   if (!nextLevel) {
     return 0;
   }
   
-  return Math.max(nextLevel.minSpent - totalSpent, 0);
+  return Math.max(nextLevel.minPurchases - purchaseCount, 0);
 };

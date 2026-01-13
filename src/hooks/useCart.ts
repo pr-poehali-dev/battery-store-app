@@ -147,7 +147,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   };
 
   const cartTotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-  const cartCashback = Math.floor(cartTotal * 0.03);
+  const cartDiscount = Math.floor(cartTotal * 0.05);
   const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
@@ -176,7 +176,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     polarities,
     filteredProducts,
     cartTotal,
-    cartCashback,
+    cartDiscount,
     cartItemsCount,
     setSearchQuery,
     setPriceRange,

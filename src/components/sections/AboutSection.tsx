@@ -6,7 +6,7 @@ import FooterInfo from '@/components/ui/FooterInfo';
 
 const AboutSection = () => {
   const [purchaseAmount, setPurchaseAmount] = useState('');
-  const cashbackAmount = purchaseAmount ? (parseFloat(purchaseAmount) * 0.03).toFixed(2) : '0';
+  const discountAmount = purchaseAmount ? (parseFloat(purchaseAmount) * 0.05).toFixed(2) : '0';
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -229,22 +229,22 @@ const AboutSection = () => {
             <CardContent className="pt-6">
               <div className="text-center space-y-4">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20">
-                  <Icon name="Wallet" size={32} className="text-green-600" />
+                  <Icon name="Percent" size={32} className="text-green-600" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-green-700">Покупай и зарабатывай!</h3>
+                  <h3 className="text-xl font-bold text-green-700">Для постоянных клиентов!</h3>
                   <div className="inline-block px-4 py-2 bg-green-500/20 rounded-full">
-                    <span className="text-2xl font-bold text-green-700">3% кэшбэк</span>
+                    <span className="text-2xl font-bold text-green-700">5% скидка</span>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                  С каждой покупки возвращаем 3% на ваш бонусный счет. Используйте кэшбэк для оплаты следующих покупок!
+                  После первой покупки вы получаете постоянную скидку 5% на все товары!
                 </p>
 
                 <div className="pt-4 space-y-3 max-w-sm mx-auto">
                   <div className="text-left space-y-2">
                     <label className="text-sm font-medium text-green-700">
-                      Калькулятор кэшбэка
+                      Калькулятор скидки
                     </label>
                     <div className="relative">
                       <Input
@@ -263,9 +263,9 @@ const AboutSection = () => {
                   {purchaseAmount && parseFloat(purchaseAmount) > 0 && (
                     <div className="p-4 bg-green-500/20 rounded-lg space-y-2 animate-fade-in">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">Ваш кэшбэк:</span>
+                        <span className="text-sm text-muted-foreground">Ваша скидка:</span>
                         <span className="text-2xl font-bold text-green-700">
-                          {cashbackAmount} ₽
+                          {discountAmount} ₽
                         </span>
                       </div>
                       <p className="text-xs text-muted-foreground text-center">

@@ -32,7 +32,7 @@ const Index = () => {
   const cart = useCart(vibrate);
   const { showInstallPrompt, setShowInstallPrompt, handleInstallApp } = usePWA();
 
-  const userCashback = user ? user.cashback : 0;
+  const userPurchaseCount = user ? (user.purchaseCount || 0) : 0;
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -127,7 +127,7 @@ const Index = () => {
 
         {activeSection === 'home' && (
           <HomeSection
-            userCashback={userCashback}
+            userPurchaseCount={userPurchaseCount}
             brands={brands}
             vibrate={vibrate}
             setActiveSection={setActiveSection}
@@ -182,7 +182,7 @@ const Index = () => {
           <CartSection
             cart={cart.cart}
             cartTotal={cart.cartTotal}
-            cartCashback={cart.cartCashback}
+            cartDiscount={cart.cartDiscount}
             cartItemsCount={cart.cartItemsCount}
             selectedStore={cart.selectedStore}
             setSelectedStore={cart.setSelectedStore}
@@ -190,6 +190,7 @@ const Index = () => {
             removeFromCart={cart.removeFromCart}
             updateQuantity={cart.updateQuantity}
             setActiveSection={setActiveSection}
+            userPurchaseCount={userPurchaseCount}
           />
         )}
 
