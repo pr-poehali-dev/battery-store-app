@@ -192,11 +192,14 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
                 <Input
                   id="phone"
                   type="tel"
-                  placeholder="+7 900 123-45-67"
+                  placeholder="9001234567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   disabled={codeSent}
                 />
+                <p className="text-xs text-muted-foreground">
+                  Введите 10 цифр без +7, скобок и пробелов
+                </p>
               </div>
 
               {codeSent && (
