@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { Product, CartItem } from '@/types';
-import { products } from '@/data/products';
+import { 
+  products, 
+  brands as staticBrands, 
+  manufacturers as staticManufacturers,
+  bodyTypesJIS as staticBodyTypesJIS,
+  bodyTypesEN as staticBodyTypesEN,
+  technologies as staticTechnologies,
+  polarities as staticPolarities
+} from '@/data/products';
 
 export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -22,8 +30,8 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
 
   const allCars = Array.from(new Set(products.flatMap(p => p.compatible))).sort();
   const categories = Array.from(new Set(products.map(p => p.category))).sort();
-  const brands = Array.from(new Set(products.map(p => p.brand))).sort();
-  const manufacturers = Array.from(new Set(products.map(p => p.manufacturer).filter(Boolean))).sort() as string[];
+  const brands = staticBrands;
+  const manufacturers = staticManufacturers;
   
   const getCountryFromManufacturer = (manufacturer: string): string => {
     if (manufacturer.includes('КНР') || manufacturer.includes('Китай')) return 'Китай';
@@ -41,11 +49,11 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     return manufacturer;
   };
   
-  const countries = Array.from(new Set(products.map(p => p.manufacturer).filter(Boolean).map(m => getCountryFromManufacturer(m!)))).sort() as string[];
-  const bodyTypesJIS = Array.from(new Set(products.map(p => p.bodyTypeJIS).filter(Boolean))).sort() as string[];
-  const bodyTypesEN = Array.from(new Set(products.map(p => p.bodyTypeEN).filter(Boolean))).sort() as string[];
-  const technologies = Array.from(new Set(products.map(p => p.technology).filter(Boolean))).sort() as string[];
-  const polarities = Array.from(new Set(products.map(p => p.polarity).filter(Boolean))).sort() as string[];
+  const countries = manufacturers.map(m => getCountryFromManufacturer(m));
+  const bodyTypesJIS = staticBodyTypesJIS;
+  const bodyTypesEN = staticBodyTypesEN;
+  const technologies = staticTechnologies;
+  const polarities = staticPolarities;
 
   const filteredProducts = products
     .filter(product => {
