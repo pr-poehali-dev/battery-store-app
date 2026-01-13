@@ -174,7 +174,11 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto flex items-center gap-3 justify-center">
-            <span className="text-5xl">🍃</span>
+            <img 
+              src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/0272dcb8-8573-46c8-a006-8095522520dd.jpg" 
+              alt="Мир Аккумуляторов"
+              className="w-16 h-16 object-contain"
+            />
             <h1 className="text-3xl font-bold text-primary italic">Мир Аккумуляторов</h1>
           </div>
           <CardDescription className="text-lg">
