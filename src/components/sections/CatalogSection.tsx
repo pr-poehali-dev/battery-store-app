@@ -120,9 +120,15 @@ const CatalogSection = ({
     selectedBodyTypeEN || selectedTechnology || selectedPolarity || 
     selectedCar || selectedCategory;
 
+  const handleCategoryClick = (category?: string) => {
+    if (category) {
+      setSelectedCategory(category);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
-      <CategoryCarousel />
+      <CategoryCarousel onCategoryClick={handleCategoryClick} />
       
       <CatalogHeader 
         productsCount={filteredProducts.length}
