@@ -21,6 +21,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [testCode, setTestCode] = useState<string | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const formatPhoneNumber = (value: string) => {
     const cleaned = value.replace(/\D/g, '');
@@ -134,7 +135,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
           code,
           is_registration: isRegistration,
           name: isRegistration ? name : undefined,
-          remember_me: true,
+          remember_me: rememberMe,
         }),
       });
 
@@ -252,24 +253,43 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
                 </>
               )}
 
-              <div className="flex items-start space-x-2 p-4 bg-muted/50 rounded-lg">
-                <Checkbox
-                  id="terms"
-                  checked={agreedToTerms}
-                  onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
-                  disabled={codeSent}
-                />
-                <div className="grid gap-1.5 leading-none">
-                  <label
-                    htmlFor="terms"
-                    className="text-sm font-medium leading-relaxed cursor-pointer"
-                  >
-                    Я соглашаюсь на обработку моих персональных данных
-                  </label>
-                  <p className="text-xs text-muted-foreground">
-                    Мы используем ваши данные для обработки заказов и улучшения сервиса
-                  </p>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-2 p-4 bg-muted/50 rounded-lg">
+                  <Checkbox
+                    id="terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                    disabled={codeSent}
+                  />
+                  <div className="grid gap-1.5 leading-none">
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-relaxed cursor-pointer"
+                    >
+                      Я соглашаюсь на обработку моих персональных данных
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      Мы используем ваши данные для обработки заказов и улучшения сервиса
+                    </p>
+                  </div>
                 </div>
+
+                {codeSent && (
+                  <div className="flex items-center space-x-2 p-3 bg-primary/5 rounded-lg border border-primary/20">
+                    <Checkbox
+                      id="remember"
+                      checked={rememberMe}
+                      onCheckedChange={(checked) => setRememberMe(checked === true)}
+                    />
+                    <label
+                      htmlFor="remember"
+                      className="text-sm font-medium cursor-pointer flex items-center gap-2"
+                    >
+                      <Icon name="Shield" size={16} className="text-primary" />
+                      Запомнить меня на этом устройстве
+                    </label>
+                  </div>
+                )}
               </div>
 
               {!codeSent ? (
