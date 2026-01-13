@@ -27,6 +27,34 @@ interface ProductCardProps {
   addToCart: (product: Product) => void;
 }
 
+const getCountryFlag = (manufacturer: string): string => {
+  const countryFlags: { [key: string]: string } = {
+    'КНР': '🇨🇳',
+    'Китай': '🇨🇳',
+    'Южная Корея': '🇰🇷',
+    'Корея': '🇰🇷',
+    'Япония': '🇯🇵',
+    'Россия': '🇷🇺',
+    'РФ': '🇷🇺',
+    'Германия': '🇩🇪',
+    'США': '🇺🇸',
+    'Турция': '🇹🇷',
+    'Польша': '🇵🇱',
+    'Чехия': '🇨🇿',
+    'Италия': '🇮🇹',
+    'Франция': '🇫🇷',
+    'Испания': '🇪🇸'
+  };
+
+  for (const [country, flag] of Object.entries(countryFlags)) {
+    if (manufacturer.includes(country)) {
+      return flag;
+    }
+  }
+  
+  return '🌍';
+};
+
 const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
@@ -64,7 +92,7 @@ const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps)
           <div className="flex flex-wrap gap-1">
             {product.manufacturer && (
               <Badge variant="outline" className="text-xs">
-                🌍 {product.manufacturer}
+                {getCountryFlag(product.manufacturer)} {product.manufacturer}
               </Badge>
             )}
             {product.bodyTypeJIS && (
