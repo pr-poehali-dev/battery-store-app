@@ -149,13 +149,7 @@ const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps)
                 </Badge>
               </div>
             )}
-            <div className="flex items-baseline gap-2">
-              <p className="text-3xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
-              <Badge variant="secondary" className="text-xs bg-green-500/10 text-green-700 border-green-500/20">
-                <Icon name="Coins" size={12} className="mr-1" />
-                +{Math.floor(product.price * 0.03)} ₽
-              </Badge>
-            </div>
+            <p className="text-3xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
           </div>
           <Button 
             className="w-full h-11 text-base font-semibold group-hover:shadow-lg transition-all"
