@@ -128,7 +128,10 @@ const CatalogSection = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <CategoryCarousel onCategoryClick={handleCategoryClick} />
+      <CategoryCarousel 
+        onCategoryClick={handleCategoryClick}
+        products={filteredProducts}
+      />
       
       <CatalogHeader 
         productsCount={filteredProducts.length}

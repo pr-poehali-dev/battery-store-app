@@ -62,9 +62,14 @@ const categories: Category[] = [
 
 interface CategoryCarouselProps {
   onCategoryClick: (category?: string) => void;
+  products: Array<{ category: string }>;
 }
 
-const CategoryCarousel = ({ onCategoryClick }: CategoryCarouselProps) => {
+const CategoryCarousel = ({ onCategoryClick, products }: CategoryCarouselProps) => {
+  const getCategoryCount = (categoryName?: string) => {
+    if (!categoryName) return 0;
+    return products.filter(p => p.category === categoryName).length;
+  };
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -107,9 +112,16 @@ const CategoryCarousel = ({ onCategoryClick }: CategoryCarouselProps) => {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover/item:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                <p className="absolute bottom-0 left-0 right-0 p-2 text-xs md:text-sm font-bold text-white text-center leading-tight">
-                  {cat.title}
-                </p>
+                <div className="absolute bottom-0 left-0 right-0 p-2">
+                  <p className="text-xs md:text-sm font-bold text-white text-center leading-tight">
+                    {cat.title}
+                  </p>
+                  {cat.category && (
+                    <p className="text-[10px] md:text-xs text-white/80 text-center mt-1">
+                      {getCategoryCount(cat.category)} товаров
+                    </p>
+                  )}
+                </div>
               </div>
             </button>
           ))}
