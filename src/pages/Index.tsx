@@ -65,11 +65,11 @@ const Index = () => {
               </div>
             </button>
             <div className="flex items-center gap-3 flex-1 justify-center">
-              <div className="bg-white px-2 py-1 rounded shadow-md">
+              <div className="w-11 h-11 bg-white rounded-lg flex items-center justify-center shadow-md p-1.5">
                 <img 
-                  src="https://miraccum.ru/wp-content/uploads/2021/06/Rectangle.png" 
+                  src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/6af7acd3-1e79-4a6a-a668-4e6ee1bab8db.jpg" 
                   alt="Мир Аккумуляторов"
-                  className="h-10 w-auto object-contain"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h1 className="text-2xl md:text-3xl font-bold text-white italic">Мир Аккумуляторов</h1>
