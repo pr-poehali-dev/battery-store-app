@@ -7,7 +7,8 @@ import {
   bodyTypesJIS as staticBodyTypesJIS,
   bodyTypesEN as staticBodyTypesEN,
   technologies as staticTechnologies,
-  polarities as staticPolarities
+  polarities as staticPolarities,
+  compatibleCars as staticCompatibleCars
 } from '@/data/products';
 
 export const useCart = (vibrate: (pattern: number | number[]) => void) => {
@@ -28,7 +29,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const [selectedStore, setSelectedStore] = useState('');
   const [sortBy, setSortBy] = useState('default');
 
-  const allCars = Array.from(new Set(products.flatMap(p => p.compatible))).sort();
+  const allCars = staticCompatibleCars;
   const categories = Array.from(new Set(products.map(p => p.category))).sort();
   const brands = staticBrands;
   const manufacturers = staticManufacturers;

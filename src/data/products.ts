@@ -74,6 +74,33 @@ export const polarities = [
   'Обратная'
 ];
 
+export const compatibleCars = [
+  'Toyota',
+  'Honda',
+  'Nissan',
+  'Mazda',
+  'Mitsubishi',
+  'Subaru',
+  'Suzuki',
+  'Lexus',
+  'Hyundai',
+  'Kia',
+  'Chevrolet',
+  'Ford',
+  'Volkswagen',
+  'Mercedes-Benz',
+  'BMW',
+  'Audi',
+  'Skoda',
+  'Renault',
+  'Peugeot',
+  'Citroen',
+  'Lada',
+  'УАЗ',
+  'ГАЗ',
+  'Универсальное'
+];
+
 export const stores: Store[] = [
   { name: 'Павловича, 26', address: 'ул. Павловича, 26', phone: '+7 (4212) 45-41-41' },
   { name: 'Павловича, 11', address: 'ул. Павловича, 11', phone: '+7 (4212) 45-99-99' },
