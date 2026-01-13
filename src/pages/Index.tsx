@@ -65,14 +65,12 @@ const Index = () => {
               </div>
             </button>
             <div className="flex items-center gap-3 flex-1 justify-center">
-              <div className="w-11 h-11 bg-white rounded-lg flex items-center justify-center shadow-md p-1.5">
-                <img 
-                  src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/6af7acd3-1e79-4a6a-a668-4e6ee1bab8db.jpg" 
-                  alt="Мир Аккумуляторов"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white italic">Мир Аккумуляторов</h1>
+              <img 
+                src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/f2e23d7d-8f7b-403e-8e57-42fa9a612df5.jpg" 
+                alt="Мир Аккумуляторов"
+                className="w-12 h-12 object-contain"
+              />
+              <h1 className="text-2xl md:text-3xl font-bold text-white italic">МИР АККУМУЛЯТОРОВ</h1>
             </div>
             <div className="flex items-center gap-2">
               <Button
