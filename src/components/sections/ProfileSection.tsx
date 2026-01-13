@@ -143,54 +143,6 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
             </p>
           </div>
 
-
-          <div className="p-5 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/30 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 bg-green-500/20 rounded-lg animate-pulse-slow">
-                <Icon name="Sparkles" size={20} className="text-green-600" />
-              </div>
-              <p className="font-bold text-green-600 text-lg">Как работает кэшбек?</p>
-            </div>
-            <ul className="text-sm space-y-2 ml-2">
-              <li className="flex items-start gap-2 hover:translate-x-1 transition-transform duration-200">
-                <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>С каждой покупки возвращается <strong className="text-green-700">{getUserLevel(user).cashbackPercent}%</strong> на ваш счёт</span>
-              </li>
-              <li className="flex items-start gap-2 hover:translate-x-1 transition-transform duration-200">
-                <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Оплачивайте кэшбеком до <strong className="text-green-700">100%</strong> стоимости покупки</span>
-              </li>
-              <li className="flex items-start gap-2 hover:translate-x-1 transition-transform duration-200">
-                <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Кэшбек <strong className="text-green-700">не сгорает</strong> — копите сколько угодно</span>
-              </li>
-              <li className="flex items-start gap-2 hover:translate-x-1 transition-transform duration-200">
-                <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Достигните <strong className="text-slate-600">Серебра</strong> для <strong className="text-green-700">5% кэшбека</strong></span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h4 className="font-bold text-lg flex items-center gap-2">
-              <Icon name="Calculator" size={20} className="text-primary" />
-              Примеры начисления на вашем уровне:
-            </h4>
-            <div className="grid gap-3">
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl hover:shadow-md hover:scale-[1.02] transition-all duration-300 group">
-                <span className="font-medium">Покупка на 5 000 ₽</span>
-                <Badge className="bg-green-500/20 text-green-700 border-green-500/30 group-hover:scale-110 transition-transform duration-300">+{Math.floor(5000 * getUserLevel(user).cashbackPercent / 100)} ₽</Badge>
-              </div>
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl hover:shadow-md hover:scale-[1.02] transition-all duration-300 group">
-                <span className="font-medium">Покупка на 10 000 ₽</span>
-                <Badge className="bg-green-500/20 text-green-700 border-green-500/30 group-hover:scale-110 transition-transform duration-300">+{Math.floor(10000 * getUserLevel(user).cashbackPercent / 100)} ₽</Badge>
-              </div>
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl hover:shadow-md hover:scale-[1.02] transition-all duration-300 group">
-                <span className="font-medium">Покупка на 20 000 ₽</span>
-                <Badge className="bg-green-500/20 text-green-700 border-green-500/30 group-hover:scale-110 transition-transform duration-300">+{Math.floor(20000 * getUserLevel(user).cashbackPercent / 100)} ₽</Badge>
-              </div>
-            </div>
-          </div>
         </CardContent>
       </Card>
 
