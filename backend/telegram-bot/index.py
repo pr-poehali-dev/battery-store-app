@@ -206,7 +206,9 @@ def handle_callback_query(callback_query: dict):
 
 def handler(event: dict, context) -> dict:
     """Обработчик webhook-запросов от Telegram"""
-
+    print(f"=== Handler called ===")
+    print(f"Event: {json.dumps(event)}")
+    print(f"Bot token configured: {bool(TELEGRAM_TOKEN)}")
     
     if event.get('httpMethod') == 'OPTIONS':
         return {
