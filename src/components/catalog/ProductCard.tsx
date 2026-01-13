@@ -8,6 +8,7 @@ interface Product {
   name: string;
   brand: string;
   price: number;
+  oldPrice?: number;
   voltage: string;
   capacity: string;
   current: string;
@@ -58,8 +59,12 @@ const getCountryFlag = (manufacturer: string): string => {
 const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
-      <div className="relative aspect-square bg-gradient-to-br from-muted/30 to-muted/60 flex items-center justify-center">
-        <div className="text-7xl group-hover:scale-110 transition-transform duration-300">{product.image}</div>
+      <div className="relative aspect-square bg-white flex items-center justify-center p-4">
+        <img 
+          src={product.image} 
+          alt={product.name}
+          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+        />
         <Badge className={`absolute top-3 right-3 ${getCategoryBadge(product.category).color} border shadow-sm`}>
           <span className="mr-1">{getCategoryBadge(product.category).icon}</span>
           {getCategoryBadge(product.category).label}
@@ -135,12 +140,22 @@ const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps)
         </div>
 
         <div className="pt-4 border-t space-y-3">
-          <div className="flex items-baseline gap-2">
-            <p className="text-3xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
-            <Badge variant="secondary" className="text-xs bg-green-500/10 text-green-700 border-green-500/20">
-              <Icon name="Coins" size={12} className="mr-1" />
-              +{Math.floor(product.price * 0.03)} ₽
-            </Badge>
+          <div className="space-y-1">
+            {product.oldPrice && (
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-muted-foreground line-through">{product.oldPrice.toLocaleString()} ₽</p>
+                <Badge variant="destructive" className="text-xs">
+                  -{Math.round((1 - product.price / product.oldPrice) * 100)}%
+                </Badge>
+              </div>
+            )}
+            <div className="flex items-baseline gap-2">
+              <p className="text-3xl font-bold text-primary">{product.price.toLocaleString()} ₽</p>
+              <Badge variant="secondary" className="text-xs bg-green-500/10 text-green-700 border-green-500/20">
+                <Icon name="Coins" size={12} className="mr-1" />
+                +{Math.floor(product.price * 0.03)} ₽
+              </Badge>
+            </div>
           </div>
           <Button 
             className="w-full h-11 text-base font-semibold group-hover:shadow-lg transition-all"

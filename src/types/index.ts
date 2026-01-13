@@ -3,6 +3,7 @@ export interface Product {
   name: string;
   brand: string;
   price: number;
+  oldPrice?: number;
   voltage: string;
   capacity: string;
   current: string;
@@ -14,6 +15,10 @@ export interface Product {
   bodyTypeEN?: string;
   technology?: string;
   polarity?: string;
+  description?: string;
+  weight?: string;
+  dimensions?: string;
+  warranty?: string;
 }
 
 export interface CartItem {
