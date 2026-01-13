@@ -12,23 +12,25 @@ const AboutSection = () => {
     <div className="space-y-6 animate-fade-in">
       <Card className="border-primary/20">
         <CardHeader className="text-center">
-          <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <div className="mx-auto w-20 h-20 rounded-full bg-white flex items-center justify-center mb-4 shadow-lg">
             <img 
               src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/013239c7-9c0d-4724-bad4-95fc4a5754c3.jpg" 
               alt="Мир Аккумуляторов"
-              className="w-14 h-14 object-contain"
+              className="w-12 h-12 object-contain"
             />
           </div>
           <CardTitle className="text-2xl">О компании</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-3 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <img 
-                src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/013239c7-9c0d-4724-bad4-95fc4a5754c3.jpg" 
-                alt="Лист"
-                className="w-6 h-6 object-contain"
-              />
+            <div className="flex items-center justify-center gap-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow">
+                <img 
+                  src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/013239c7-9c0d-4724-bad4-95fc4a5754c3.jpg" 
+                  alt="Лист"
+                  className="w-6 h-6 object-contain"
+                />
+              </div>
               <h3 className="text-xl font-semibold text-primary italic">Мир Аккумуляторов</h3>
             </div>
             <p className="text-muted-foreground">
