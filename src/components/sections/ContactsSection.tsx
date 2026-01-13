@@ -40,7 +40,7 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               size="lg" 
               variant="outline"
               className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
-              onClick={() => window.open('https://t.me/awwskrr', '_blank')}
+              onClick={() => window.open('https://t.me/awwskrr?text=Здравствуйте,%20мне%20нужна%20помощь!', '_blank')}
             >
               <div className="flex flex-col items-center gap-1">
                 <div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               size="lg" 
               variant="outline"
               className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
-              onClick={() => window.open('https://t.me/nobodystillhere', '_blank')}
+              onClick={() => window.open('https://t.me/nobodystillhere?text=Здравствуйте,%20мне%20нужна%20помощь!', '_blank')}
             >
               <div className="flex flex-col items-center gap-1">
                 <div className="flex items-center gap-2">
