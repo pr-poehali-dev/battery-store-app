@@ -211,7 +211,7 @@ const Index = () => {
         {activeSection === 'contacts' && (
           <ContactsSection
             stores={stores}
-            serviceCenter={serviceCenter}
+            serviceCenter={serviceCenters[0]}
           />
         )}
 
