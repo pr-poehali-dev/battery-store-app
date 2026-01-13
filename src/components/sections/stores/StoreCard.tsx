@@ -57,8 +57,8 @@ const storeImages: Record<number, string[]> = {
     'https://cdn.poehali.dev/files/IMG_0926.jpeg'
   ],
   6: [
-    'https://cdn.poehali.dev/files/IMG_0855.jpeg',
-    'https://cdn.poehali.dev/files/IMG_0856.jpeg'
+    'https://cdn.poehali.dev/files/IMG_0928.jpeg',
+    'https://cdn.poehali.dev/files/IMG_0929.jpeg'
   ]
 };
 
