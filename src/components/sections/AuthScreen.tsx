@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
@@ -19,6 +20,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
   const [codeSent, setCodeSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [testCode, setTestCode] = useState<string | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const handleSendCode = async () => {
     if (!phone.trim()) {
@@ -34,6 +36,15 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
       toast({
         title: 'Ошибка',
         description: 'Введите ваше имя',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (!agreedToTerms) {
+      toast({
+        title: 'Ошибка',
+        description: 'Необходимо согласиться с обработкой данных',
         variant: 'destructive',
       });
       return;
@@ -215,11 +226,31 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
                 </>
               )}
 
+              <div className="flex items-start space-x-2 p-4 bg-muted/50 rounded-lg">
+                <Checkbox
+                  id="terms"
+                  checked={agreedToTerms}
+                  onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                  disabled={codeSent}
+                />
+                <div className="grid gap-1.5 leading-none">
+                  <label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-relaxed cursor-pointer"
+                  >
+                    Я соглашаюсь на обработку моих персональных данных
+                  </label>
+                  <p className="text-xs text-muted-foreground">
+                    Мы используем ваши данные для обработки заказов и улучшения сервиса
+                  </p>
+                </div>
+              </div>
+
               {!codeSent ? (
                 <Button
                   className="w-full h-12 text-base"
                   onClick={handleSendCode}
-                  disabled={isLoading}
+                  disabled={isLoading || !agreedToTerms}
                 >
                   {isLoading ? (
                     <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
