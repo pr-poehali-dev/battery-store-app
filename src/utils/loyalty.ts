@@ -10,6 +10,7 @@ export interface LoyaltyLevel {
   borderColor: string;
   minPurchases: number;
   discountPercent: number;
+  cashbackPercent: number;
   benefits: string[];
 }
 
@@ -24,9 +25,11 @@ export const loyaltyLevels: LoyaltyLevel[] = [
     borderColor: 'border-blue-500/30',
     minPurchases: 0,
     discountPercent: 0,
+    cashbackPercent: 2,
     benefits: [
       'Базовая гарантия',
-      'Доступ к акциям'
+      'Доступ к акциям',
+      'Возврат 2% кэшбеком с каждой покупки'
     ]
   },
   {
@@ -39,9 +42,11 @@ export const loyaltyLevels: LoyaltyLevel[] = [
     borderColor: 'border-green-500/30',
     minPurchases: 1,
     discountPercent: 5,
+    cashbackPercent: 5,
     benefits: [
       'Скидка 5% на все покупки',
-      'Приоритетная консультация'
+      'Приоритетная консультация',
+      'Возврат 5% кэшбеком'
     ]
   }
 ];
