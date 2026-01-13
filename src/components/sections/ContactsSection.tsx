@@ -102,19 +102,135 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
         </CardContent>
       </Card>
 
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Icon name="MapPin" size={24} className="text-primary" />
+            <CardTitle>Наши магазины</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-3">
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="font-semibold mb-2">Ул. Павловича, 26</p>
+              <div className="space-y-1 text-sm">
+                <a href="tel:+74212454141" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 45-41-41
+                </a>
+                <a href="tel:+74212461041" className="flex items-center gap-2 text-muted-foreground hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 46-10-41 <span className="text-xs">(для юр.лиц)</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="font-semibold mb-2">Ул. Павловича, 11</p>
+              <div className="space-y-1 text-sm">
+                <a href="tel:+74212459999" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 45-99-99
+                </a>
+                <a href="tel:+74212461041" className="flex items-center gap-2 text-muted-foreground hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 46-10-41 <span className="text-xs">(для юр.лиц)</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="font-semibold mb-2">Ул. Суворова, 73</p>
+              <div className="space-y-1 text-sm">
+                <a href="tel:+74212974141" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 97-41-41
+                </a>
+                <a href="tel:+74212461041" className="flex items-center gap-2 text-muted-foreground hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 46-10-41 <span className="text-xs">(для юр.лиц)</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="font-semibold mb-2">Ул. Воронежская, 66</p>
+              <div className="space-y-1 text-sm">
+                <a href="tel:+74212284141" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 28-41-41
+                </a>
+                <a href="tel:+74212461041" className="flex items-center gap-2 text-muted-foreground hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 46-10-41 <span className="text-xs">(для юр.лиц)</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="font-semibold mb-2">Проспект 60-летия Октября, 154</p>
+              <div className="space-y-1 text-sm">
+                <a href="tel:+74212284545" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 28-45-45
+                </a>
+                <a href="tel:+74212461041" className="flex items-center gap-2 text-muted-foreground hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 46-10-41 <span className="text-xs">(для юр.лиц)</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="font-semibold mb-2">Ул. Краснореченская, 149</p>
+              <div className="space-y-1 text-sm">
+                <a href="tel:+74212474141" className="flex items-center gap-2 text-primary hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 47-41-41
+                </a>
+                <a href="tel:+74212461041" className="flex items-center gap-2 text-muted-foreground hover:underline">
+                  <Icon name="Phone" size={16} />
+                  +7 (4212) 46-10-41 <span className="text-xs">(для юр.лиц)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-2 border-amber-500/20">
         <CardHeader>
           <div className="flex items-center gap-2">
             <Icon name="Wrench" size={24} className="text-amber-600" />
-            <CardTitle>{serviceCenter.name}</CardTitle>
+            <CardTitle>Сервисный центр</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="space-y-2">
+            <a href="tel:+74212284242" className="flex items-center gap-2 text-primary hover:underline">
+              <Icon name="Phone" size={18} />
+              +7 (4212) 28-42-42
+            </a>
+            <a href="tel:+74212465090" className="flex items-center gap-2 text-primary hover:underline">
+              <Icon name="Phone" size={18} />
+              +7 (4212) 46-50-90
+            </a>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="border-2 border-primary/20">
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Icon name="Mail" size={24} className="text-primary" />
+            <CardTitle>Электронная почта</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground mb-2">{serviceCenter.description}</p>
-          <div className="flex items-start gap-2">
-            <Icon name="MapPin" size={18} className="text-amber-600 mt-0.5 flex-shrink-0" />
-            <p className="font-medium">{serviceCenter.address}</p>
-          </div>
+          <a href="mailto:info@miraccum.ru" className="flex items-center gap-2 text-primary hover:underline text-lg">
+            <Icon name="Mail" size={20} />
+            info@miraccum.ru
+          </a>
         </CardContent>
       </Card>
 
