@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import FooterInfo from '@/components/ui/FooterInfo';
-import CategoryCarousel from '@/components/home/CategoryCarousel';
 
 interface HomeSectionProps {
   userPurchaseCount: number;
@@ -101,8 +100,6 @@ const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: H
           </p>
         </CardContent>
       </Card>
-
-      <CategoryCarousel setActiveSection={setActiveSection} />
 
       <div className="grid md:grid-cols-2 gap-4">
         <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-2 border-green-500/20 hover:shadow-xl transition-all duration-300 group">

@@ -5,6 +5,7 @@ import FooterInfo from '@/components/ui/FooterInfo';
 import CatalogHeader from '@/components/catalog/CatalogHeader';
 import CatalogFilters from '@/components/catalog/CatalogFilters';
 import ProductCard from '@/components/catalog/ProductCard';
+import CategoryCarousel from '@/components/catalog/CategoryCarousel';
 
 interface Product {
   id: number;
@@ -121,6 +122,8 @@ const CatalogSection = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <CategoryCarousel />
+      
       <CatalogHeader 
         productsCount={filteredProducts.length}
         sortBy={sortBy}
