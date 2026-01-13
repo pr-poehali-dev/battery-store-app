@@ -55,7 +55,7 @@ const HomeSection = ({ userCashback, brands, vibrate, setActiveSection }: HomeSe
               </p>
               <div className="flex items-center gap-2 text-xs font-semibold text-primary justify-center md:justify-start">
                 <Icon name="Award" size={14} />
-                <span>Официальный представитель Carku в России</span>
+                <span>Мы работаем с брендом Carku</span>
               </div>
               <a 
                 href="https://youtu.be/8ESv9PV_tpc"

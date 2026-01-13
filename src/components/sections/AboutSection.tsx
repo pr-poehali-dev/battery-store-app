@@ -69,7 +69,7 @@ const AboutSection = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Icon name="Factory" size={20} className="text-primary" />
-              Мы - официальные дилеры
+              Наши бренды
             </h3>
             <div className="grid gap-2">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
