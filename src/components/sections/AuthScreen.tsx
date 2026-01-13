@@ -26,9 +26,11 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
     const cleaned = value.replace(/\D/g, '');
     const limited = cleaned.slice(0, 10);
     
-    if (limited.length <= 3) return limited;
-    if (limited.length <= 6) return `${limited.slice(0, 3)} ${limited.slice(3)}`;
-    return `${limited.slice(0, 3)} ${limited.slice(3, 6)} ${limited.slice(6)}`;
+    if (limited.length === 0) return '';
+    if (limited.length <= 3) return `(${limited}`;
+    if (limited.length <= 6) return `(${limited.slice(0, 3)}) ${limited.slice(3)}`;
+    if (limited.length <= 8) return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(6)}`;
+    return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(6, 8)}-${limited.slice(8, 10)}`;
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,22 +210,19 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
               <div className="space-y-2">
                 <Label htmlFor="phone">Номер телефона</Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-mono text-base">
-                    7
-                  </span>
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 pointer-events-none">
+                    <span className="text-sm font-semibold text-foreground">+7</span>
+                  </div>
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="900 123 4567"
+                    placeholder="(900) 123-45-67"
                     value={phone}
                     onChange={handlePhoneChange}
                     disabled={codeSent}
-                    className="pl-9 font-mono"
+                    className="pl-12 text-base tracking-wide"
                   />
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Введите 10 цифр без скобок и пробелов
-                </p>
               </div>
 
               {codeSent && (
