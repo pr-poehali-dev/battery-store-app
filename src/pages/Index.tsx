@@ -65,8 +65,12 @@ const Index = () => {
               </div>
             </button>
             <div className="flex items-center gap-3 flex-1 justify-center">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-2xl">🔋</span>
+              <div className="bg-white px-2 py-1 rounded shadow-md">
+                <img 
+                  src="https://miraccum.ru/wp-content/uploads/2021/06/Rectangle.png" 
+                  alt="Мир Аккумуляторов"
+                  className="h-10 w-auto object-contain"
+                />
               </div>
               <h1 className="text-2xl md:text-3xl font-bold text-white italic">Мир Аккумуляторов</h1>
             </div>
