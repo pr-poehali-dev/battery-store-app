@@ -207,7 +207,7 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
         <CardContent className="space-y-4">
           {loyaltyLevels.map((level, index) => {
             const isCurrentLevel = getUserLevel(user).id === level.id;
-            const isUnlocked = (user.totalSpent || 0) >= level.minSpent;
+            const isUnlocked = (user.purchaseCount || 0) >= level.minPurchases;
             
             return (
               <Card 
@@ -255,9 +255,9 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
                     <div className="flex-1">
                       <CardTitle className="text-2xl">{level.name}</CardTitle>
                       <CardDescription className="text-base font-medium">
-                        {level.minSpent === 0 
+                        {level.minPurchases === 0 
                           ? '🎉 Доступен сразу' 
-                          : `💰 От ${level.minSpent.toLocaleString()} ₽`
+                          : `💰 От ${level.minPurchases} ${level.minPurchases === 1 ? 'покупки' : 'покупок'}`
                         }
                       </CardDescription>
                     </div>
