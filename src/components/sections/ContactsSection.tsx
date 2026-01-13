@@ -67,7 +67,7 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
             <Button 
               size="lg" 
               className="w-full bg-blue-600 hover:bg-blue-700"
-              onClick={() => window.open('https://t.me/mir_akkum_shop_bot', '_blank')}
+              onClick={() => window.open('https://t.me/mir_akkum_shop_bot?start=help', '_blank')}
             >
               <Icon name="Bot" size={20} className="mr-2" />
               Telegram-бот
