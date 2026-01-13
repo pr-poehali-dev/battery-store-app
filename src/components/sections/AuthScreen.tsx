@@ -22,11 +22,27 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
   const [testCode, setTestCode] = useState<string | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
+  const formatPhoneNumber = (value: string) => {
+    const cleaned = value.replace(/\D/g, '');
+    const limited = cleaned.slice(0, 10);
+    
+    if (limited.length <= 3) return limited;
+    if (limited.length <= 6) return `${limited.slice(0, 3)} ${limited.slice(3)}`;
+    return `${limited.slice(0, 3)} ${limited.slice(3, 6)} ${limited.slice(6)}`;
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhone(formatted);
+  };
+
   const handleSendCode = async () => {
-    if (!phone.trim()) {
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    if (!cleanPhone || cleanPhone.length !== 10) {
       toast({
         title: 'Ошибка',
-        description: 'Введите номер телефона',
+        description: 'Введите корректный номер телефона (10 цифр)',
         variant: 'destructive',
       });
       return;
@@ -55,7 +71,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
       const response = await fetch('https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'send_code', phone }),
+        body: JSON.stringify({ action: 'send_code', phone: cleanPhone }),
       });
 
       const data = await response.json();
@@ -103,6 +119,8 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
       return;
     }
 
+    const cleanPhone = phone.replace(/\D/g, '');
+
     setIsLoading(true);
     try {
       const response = await fetch('https://functions.poehali.dev/cecdecab-000b-4d65-9160-6e06bc91079f', {
@@ -110,7 +128,7 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'verify_code',
-          phone,
+          phone: cleanPhone,
           code,
           is_registration: isRegistration,
           name: isRegistration ? name : undefined,
@@ -192,9 +210,9 @@ const AuthScreen = ({ handlePhoneAuth }: AuthScreenProps) => {
                 <Input
                   id="phone"
                   type="tel"
-                  placeholder="9001234567"
+                  placeholder="900 123 4567"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={handlePhoneChange}
                   disabled={codeSent}
                 />
                 <p className="text-xs text-muted-foreground">
