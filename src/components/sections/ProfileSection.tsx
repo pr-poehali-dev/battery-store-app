@@ -41,7 +41,10 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
       </Card>
 
       <Card className={`border-2 ${getUserLevel(user).borderColor} bg-gradient-to-br ${getUserLevel(user).bgGradient} overflow-hidden relative group hover:shadow-xl transition-all duration-500`}>
-        <div className="absolute top-0 right-0 text-8xl opacity-10 animate-pulse">{getUserLevel(user).icon}</div>
+        <div className="absolute top-0 right-0 w-48 h-48 opacity-5">
+          <span className="text-9xl absolute top-4 right-4">{getUserLevel(user).icon}</span>
+          <span className="text-8xl italic font-bold text-primary/20 absolute top-20 right-8">🍃</span>
+        </div>
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
         <CardHeader className="relative z-10">
           <div className="flex items-start justify-between mb-4">
@@ -219,6 +222,10 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
                     : 'border opacity-70 hover:opacity-90'
                 }`}
               >
+                <div className="absolute bottom-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+                  <span className="text-6xl absolute bottom-2 right-2">{level.icon}</span>
+                  <span className="text-5xl italic font-bold text-primary/30 absolute bottom-10 right-6">🍃</span>
+                </div>
                 {isCurrentLevel && (
                   <div className="absolute top-3 right-3">
                     <Badge className="bg-primary shadow-lg animate-pulse-slow">
