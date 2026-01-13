@@ -14,9 +14,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import WarrantySection from '@/components/sections/WarrantySection';
-import QRScannerSection from '@/components/sections/QRScannerSection';
 import BlogSection from '@/components/sections/BlogSection';
-import ReservationSection from '@/components/sections/ReservationSection';
 import LoadingScreen from '@/components/LoadingScreen';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useAuth } from '@/hooks/useAuth';
@@ -225,16 +223,8 @@ const Index = () => {
           <WarrantySection />
         )}
 
-        {activeSection === 'qr-scanner' && (
-          <QRScannerSection setActiveSection={setActiveSection} />
-        )}
-
         {activeSection === 'blog' && (
           <BlogSection />
-        )}
-
-        {activeSection === 'reservations' && (
-          <ReservationSection user={user} />
         )}
 
       </main>
@@ -375,19 +365,7 @@ const Index = () => {
                     <Icon name="ShieldCheck" size={20} className="mr-3" />
                     Проверка гарантии
                   </Button>
-                  <Button
-                    variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
-                      activeSection === 'qr-scanner' ? 'bg-white/20 shadow-md' : ''
-                    }`}
-                    onClick={() => {
-                      setActiveSection('qr-scanner');
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    <Icon name="QrCode" size={20} className="mr-3" />
-                    QR-сканер
-                  </Button>
+
                   <Button
                     variant="ghost"
                     className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
@@ -401,19 +379,7 @@ const Index = () => {
                     <Icon name="Newspaper" size={20} className="mr-3" />
                     Блог
                   </Button>
-                  <Button
-                    variant="ghost"
-                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
-                      activeSection === 'reservations' ? 'bg-white/20 shadow-md' : ''
-                    }`}
-                    onClick={() => {
-                      setActiveSection('reservations');
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    <Icon name="Package" size={20} className="mr-3" />
-                    Бронирования
-                  </Button>
+
                   <Button
                     variant="ghost"
                     className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
