@@ -199,6 +199,19 @@ const CartSection = ({
                   </Badge>
                 </div>
               )}
+              {userPurchaseCount === 0 && (
+                <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <Icon name="Gift" size={24} className="text-green-600 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-green-700 mb-1">🎉 Совершите первую покупку!</p>
+                      <p className="text-sm text-muted-foreground">
+                        После оформления заказа вы станете постоянным клиентом и получите скидку 5% на все последующие покупки!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="flex justify-between items-center text-2xl font-bold border-t pt-4">
                 <span>К оплате:</span>
                 <span className="text-primary">
