@@ -12,6 +12,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedManufacturer, setSelectedManufacturer] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedBodyTypeJIS, setSelectedBodyTypeJIS] = useState('');
   const [selectedBodyTypeEN, setSelectedBodyTypeEN] = useState('');
   const [selectedTechnology, setSelectedTechnology] = useState('');
@@ -23,6 +24,24 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const categories = Array.from(new Set(products.map(p => p.category))).sort();
   const brands = Array.from(new Set(products.map(p => p.brand))).sort();
   const manufacturers = Array.from(new Set(products.map(p => p.manufacturer).filter(Boolean))).sort() as string[];
+  
+  const getCountryFromManufacturer = (manufacturer: string): string => {
+    if (manufacturer.includes('КНР') || manufacturer.includes('Китай')) return 'Китай';
+    if (manufacturer.includes('Корея')) return 'Южная Корея';
+    if (manufacturer.includes('Япония')) return 'Япония';
+    if (manufacturer.includes('Россия') || manufacturer.includes('РФ')) return 'Россия';
+    if (manufacturer.includes('Германия')) return 'Германия';
+    if (manufacturer.includes('США')) return 'США';
+    if (manufacturer.includes('Турция')) return 'Турция';
+    if (manufacturer.includes('Польша')) return 'Польша';
+    if (manufacturer.includes('Чехия')) return 'Чехия';
+    if (manufacturer.includes('Италия')) return 'Италия';
+    if (manufacturer.includes('Франция')) return 'Франция';
+    if (manufacturer.includes('Испания')) return 'Испания';
+    return manufacturer;
+  };
+  
+  const countries = Array.from(new Set(products.map(p => p.manufacturer).filter(Boolean).map(m => getCountryFromManufacturer(m!)))).sort() as string[];
   const bodyTypesJIS = Array.from(new Set(products.map(p => p.bodyTypeJIS).filter(Boolean))).sort() as string[];
   const bodyTypesEN = Array.from(new Set(products.map(p => p.bodyTypeEN).filter(Boolean))).sort() as string[];
   const technologies = Array.from(new Set(products.map(p => p.technology).filter(Boolean))).sort() as string[];
@@ -50,13 +69,14 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
       const matchesCategory = !selectedCategory || product.category === selectedCategory;
       const matchesBrand = !selectedBrand || product.brand === selectedBrand;
       const matchesManufacturer = !selectedManufacturer || product.manufacturer === selectedManufacturer;
+      const matchesCountry = !selectedCountry || (product.manufacturer && getCountryFromManufacturer(product.manufacturer) === selectedCountry);
       const matchesBodyTypeJIS = !selectedBodyTypeJIS || product.bodyTypeJIS === selectedBodyTypeJIS;
       const matchesBodyTypeEN = !selectedBodyTypeEN || product.bodyTypeEN === selectedBodyTypeEN;
       const matchesTechnology = !selectedTechnology || product.technology === selectedTechnology;
       const matchesPolarity = !selectedPolarity || product.polarity === selectedPolarity;
       
       return matchesSearch && matchesPrice && matchesCapacity && matchesCurrent && matchesCar && 
-             matchesCategory && matchesBrand && matchesManufacturer && matchesBodyTypeJIS && 
+             matchesCategory && matchesBrand && matchesManufacturer && matchesCountry && matchesBodyTypeJIS && 
              matchesBodyTypeEN && matchesTechnology && matchesPolarity;
     })
     .sort((a, b) => {
@@ -87,6 +107,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     setSelectedCategory('');
     setSelectedBrand('');
     setSelectedManufacturer('');
+    setSelectedCountry('');
     setSelectedBodyTypeJIS('');
     setSelectedBodyTypeEN('');
     setSelectedTechnology('');
@@ -160,6 +181,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     selectedCategory,
     selectedBrand,
     selectedManufacturer,
+    selectedCountry,
     selectedBodyTypeJIS,
     selectedBodyTypeEN,
     selectedTechnology,
@@ -170,6 +192,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     categories,
     brands,
     manufacturers,
+    countries,
     bodyTypesJIS,
     bodyTypesEN,
     technologies,
@@ -186,6 +209,7 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     setSelectedCategory,
     setSelectedBrand,
     setSelectedManufacturer,
+    setSelectedCountry,
     setSelectedBodyTypeJIS,
     setSelectedBodyTypeEN,
     setSelectedTechnology,

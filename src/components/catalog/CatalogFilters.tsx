@@ -22,6 +22,8 @@ interface CatalogFiltersProps {
   setSelectedBrand: (value: string) => void;
   selectedManufacturer: string;
   setSelectedManufacturer: (value: string) => void;
+  selectedCountry: string;
+  setSelectedCountry: (value: string) => void;
   selectedBodyTypeJIS: string;
   setSelectedBodyTypeJIS: (value: string) => void;
   selectedBodyTypeEN: string;
@@ -35,6 +37,7 @@ interface CatalogFiltersProps {
   categories: string[];
   brands: string[];
   manufacturers: string[];
+  countries: string[];
   bodyTypesJIS: string[];
   bodyTypesEN: string[];
   technologies: string[];
@@ -42,6 +45,24 @@ interface CatalogFiltersProps {
   allCars: string[];
   resetFilters: () => void;
 }
+
+const getCountryFlag = (country: string): string => {
+  const countryFlags: { [key: string]: string } = {
+    'Китай': '🇨🇳',
+    'Южная Корея': '🇰🇷',
+    'Япония': '🇯🇵',
+    'Россия': '🇷🇺',
+    'Германия': '🇩🇪',
+    'США': '🇺🇸',
+    'Турция': '🇹🇷',
+    'Польша': '🇵🇱',
+    'Чехия': '🇨🇿',
+    'Италия': '🇮🇹',
+    'Франция': '🇫🇷',
+    'Испания': '🇪🇸'
+  };
+  return countryFlags[country] || '🌍';
+};
 
 const CatalogFilters = ({
   searchQuery,
@@ -58,6 +79,8 @@ const CatalogFilters = ({
   setSelectedBrand,
   selectedManufacturer,
   setSelectedManufacturer,
+  selectedCountry,
+  setSelectedCountry,
   selectedBodyTypeJIS,
   setSelectedBodyTypeJIS,
   selectedBodyTypeEN,
@@ -71,6 +94,7 @@ const CatalogFilters = ({
   categories,
   brands,
   manufacturers,
+  countries,
   bodyTypesJIS,
   bodyTypesEN,
   technologies,
@@ -96,6 +120,7 @@ const CatalogFilters = ({
     },
     selectedBrand && { label: `Бренд: ${selectedBrand}`, clear: () => setSelectedBrand('') },
     selectedManufacturer && { label: `Производитель: ${selectedManufacturer}`, clear: () => setSelectedManufacturer('') },
+    selectedCountry && { label: `Страна: ${getCountryFlag(selectedCountry)} ${selectedCountry}`, clear: () => setSelectedCountry('') },
     selectedBodyTypeJIS && { label: `JIS: ${selectedBodyTypeJIS}`, clear: () => setSelectedBodyTypeJIS('') },
     selectedBodyTypeEN && { label: `EN: ${selectedBodyTypeEN}`, clear: () => setSelectedBodyTypeEN('') },
     selectedTechnology && { label: `Технология: ${selectedTechnology}`, clear: () => setSelectedTechnology('') },
@@ -290,13 +315,27 @@ const CatalogFilters = ({
               </div>
 
               <div className="space-y-2">
+                <label className="text-sm font-medium">Страна производства</label>
+                <select
+                  value={selectedCountry}
+                  onChange={(e) => setSelectedCountry(e.target.value)}
+                  className="w-full p-2 border border-input rounded-md bg-background"
+                >
+                  <option value="">Все страны</option>
+                  {countries.map((country) => (
+                    <option key={country} value={country}>{getCountryFlag(country)} {country}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
                 <label className="text-sm font-medium">Производитель</label>
                 <select
                   value={selectedManufacturer}
                   onChange={(e) => setSelectedManufacturer(e.target.value)}
                   className="w-full p-2 border border-input rounded-md bg-background"
                 >
-                  <option value="">Все страны</option>
+                  <option value="">Все производители</option>
                   {manufacturers.map((manufacturer) => (
                     <option key={manufacturer} value={manufacturer}>{manufacturer}</option>
                   ))}

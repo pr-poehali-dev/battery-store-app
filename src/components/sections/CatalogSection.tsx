@@ -40,6 +40,8 @@ interface CatalogSectionProps {
   setSelectedBrand: (value: string) => void;
   selectedManufacturer: string;
   setSelectedManufacturer: (value: string) => void;
+  selectedCountry: string;
+  setSelectedCountry: (value: string) => void;
   selectedBodyTypeJIS: string;
   setSelectedBodyTypeJIS: (value: string) => void;
   selectedBodyTypeEN: string;
@@ -55,6 +57,7 @@ interface CatalogSectionProps {
   categories: string[];
   brands: string[];
   manufacturers: string[];
+  countries: string[];
   bodyTypesJIS: string[];
   bodyTypesEN: string[];
   technologies: string[];
@@ -81,6 +84,8 @@ const CatalogSection = ({
   setSelectedBrand,
   selectedManufacturer,
   setSelectedManufacturer,
+  selectedCountry,
+  setSelectedCountry,
   selectedBodyTypeJIS,
   setSelectedBodyTypeJIS,
   selectedBodyTypeEN,
@@ -96,6 +101,7 @@ const CatalogSection = ({
   categories,
   brands,
   manufacturers,
+  countries,
   bodyTypesJIS,
   bodyTypesEN,
   technologies,
@@ -136,6 +142,8 @@ const CatalogSection = ({
         setSelectedBrand={setSelectedBrand}
         selectedManufacturer={selectedManufacturer}
         setSelectedManufacturer={setSelectedManufacturer}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
         selectedBodyTypeJIS={selectedBodyTypeJIS}
         setSelectedBodyTypeJIS={setSelectedBodyTypeJIS}
         selectedBodyTypeEN={selectedBodyTypeEN}
@@ -149,6 +157,7 @@ const CatalogSection = ({
         categories={categories}
         brands={brands}
         manufacturers={manufacturers}
+        countries={countries}
         bodyTypesJIS={bodyTypesJIS}
         bodyTypesEN={bodyTypesEN}
         technologies={technologies}

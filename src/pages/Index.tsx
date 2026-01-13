@@ -151,6 +151,8 @@ const Index = () => {
             setSelectedBrand={cart.setSelectedBrand}
             selectedManufacturer={cart.selectedManufacturer}
             setSelectedManufacturer={cart.setSelectedManufacturer}
+            selectedCountry={cart.selectedCountry}
+            setSelectedCountry={cart.setSelectedCountry}
             selectedBodyTypeJIS={cart.selectedBodyTypeJIS}
             setSelectedBodyTypeJIS={cart.setSelectedBodyTypeJIS}
             selectedBodyTypeEN={cart.selectedBodyTypeEN}
@@ -166,6 +168,7 @@ const Index = () => {
             categories={cart.categories}
             brands={cart.brands}
             manufacturers={cart.manufacturers}
+            countries={cart.countries}
             bodyTypesJIS={cart.bodyTypesJIS}
             bodyTypesEN={cart.bodyTypesEN}
             technologies={cart.technologies}
