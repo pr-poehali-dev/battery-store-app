@@ -99,12 +99,6 @@ const StoreCard = ({ store, isSelected, isNearest, onSelect, onCall, onBuildRout
                   {isNearest && (
                     <Badge className="bg-green-500">Ближайший</Badge>
                   )}
-                  {averageRating && (
-                    <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200">
-                      <Icon name="Star" size={12} className="mr-1 text-amber-500 fill-amber-500" />
-                      {averageRating}
-                    </Badge>
-                  )}
                 </div>
                 <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground">
                   <Icon name="MapPin" size={16} className="mt-0.5 flex-shrink-0" />
