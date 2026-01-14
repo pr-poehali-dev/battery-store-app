@@ -84,54 +84,57 @@ const AboutSection = () => {
               <Icon name="Factory" size={20} className="text-primary" />
               Наши бренды
             </h3>
-            <div className="grid gap-2">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-52 h-24 flex-shrink-0 flex items-center justify-center">
+            <div className="grid gap-3">
+              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/80 border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="w-32 h-20 flex-shrink-0 flex items-center justify-center bg-white rounded-lg">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0814.png" 
                     alt="CARKU"
-                    className="w-full h-full object-contain scale-125"
+                    className="max-w-full max-h-full object-contain"
                   />
                 </div>
-                <div className="text-sm">
-                  <span className="font-medium">CARKU</span> - Jiangxi Oursun New Energy Co., Ltd (КНР)
+                <div className="text-sm flex-1">
+                  <div className="font-semibold text-base mb-1">CARKU</div>
+                  <div className="text-muted-foreground">Jiangxi Oursun New Energy Co., Ltd (КНР)</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center">
+              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/80 border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="w-32 h-20 flex-shrink-0 flex items-center justify-center bg-white rounded-lg">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0817.jpeg" 
                     alt="TITAN"
-                    className="w-full h-full object-contain"
+                    className="max-w-full max-h-full object-contain"
                   />
                 </div>
-                <div className="text-sm">
-                  <span className="font-medium">TITAN</span> - TUBOR, г. Бор (Нижегородская обл.)
+                <div className="text-sm flex-1">
+                  <div className="font-semibold text-base mb-1">TITAN</div>
+                  <div className="text-muted-foreground">TUBOR, г. Бор (Нижегородская обл.)</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-36 h-16 flex-shrink-0 flex items-center justify-center overflow-hidden">
+              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/80 border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="w-32 h-20 flex-shrink-0 flex items-center justify-center bg-white rounded-lg">
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0819.jpeg" 
                     alt="ЗВЕРЬ"
-                    className="w-full scale-[0.9]"
-                    style={{ objectFit: 'contain', objectPosition: 'center' }}
+                    className="max-w-full max-h-full object-contain"
                   />
                 </div>
-                <div className="text-sm">
-                  <span className="font-medium">ЗВЕРЬ</span> - Актех, г. Свирск (Иркутская обл.)
+                <div className="text-sm flex-1">
+                  <div className="font-semibold text-base mb-1">ЗВЕРЬ</div>
+                  <div className="text-muted-foreground">Актех, г. Свирск (Иркутская обл.)</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-white/80">
-                <div className="w-52 h-24 flex-shrink-0 flex items-center justify-center">
+              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/80 border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="w-32 h-20 flex-shrink-0 flex items-center justify-center bg-white rounded-lg">
                   <img 
                     src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/c9930e40-27fd-4ec6-a191-6991e35016dd.jpg" 
                     alt="VOLT"
-                    className="w-full h-full object-contain scale-125"
+                    className="max-w-full max-h-full object-contain"
                   />
                 </div>
-                <div className="text-sm">
-                  <span className="font-medium">VOLT, GLADIATOR, CONTACT</span> - TUNGSTONE, г. Рязань
+                <div className="text-sm flex-1">
+                  <div className="font-semibold text-base mb-1">VOLT, GLADIATOR, CONTACT</div>
+                  <div className="text-muted-foreground">TUNGSTONE, г. Рязань</div>
                 </div>
               </div>
             </div>
