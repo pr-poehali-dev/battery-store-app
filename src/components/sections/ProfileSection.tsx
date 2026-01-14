@@ -146,6 +146,80 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
         </CardContent>
       </Card>
 
+      {(user.purchaseCount || 0) >= 1 && (
+        <Card className="border-2 border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5 shadow-xl">
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-green-500/20 rounded-lg">
+                <Icon name="Sparkles" size={28} className="text-green-600" />
+              </div>
+              <div>
+                <CardTitle className="text-2xl">Эксклюзивные акции</CardTitle>
+                <CardDescription className="text-base">Только для постоянных клиентов</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Card className="overflow-hidden border-2 border-amber-500/30 shadow-lg">
+              <div className="relative h-40">
+                <img 
+                  src="https://cdn.poehali.dev/projects/f99c8e4e-d4fc-41fa-8066-0aef1add9ef0/files/da6f4b8c-9659-41ce-9885-e38394da2a85.jpg"
+                  alt="VIP акция"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 right-2 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                  <Icon name="Crown" size={14} />
+                  VIP
+                </div>
+              </div>
+              <div className="p-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10 space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
+                    <Icon name="Gift" size={20} className="text-amber-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-1">Дополнительная скидка на новые поступления</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Помимо основной скидки 5%, получите ещё 3% на аккумуляторы из последних поставок
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-sm font-medium text-green-600 bg-green-500/10 rounded-lg p-3">
+                  <Icon name="Check" size={18} />
+                  <span>Суммарная скидка до 8%</span>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="overflow-hidden border-2 border-blue-500/30 shadow-lg">
+              <div className="p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                    <Icon name="Calendar" size={20} className="text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-1">Приоритетное бронирование</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Забронируйте любой аккумулятор до его поступления на склад с гарантированной скидкой
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <div className="flex gap-3 pt-2">
+              <Button 
+                className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                onClick={() => window.location.href = 'tel:+74212466688'}
+              >
+                <Icon name="Phone" size={18} className="mr-2" />
+                Узнать подробности
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <Card className="hover:shadow-xl transition-shadow duration-500">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">

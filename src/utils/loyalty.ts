@@ -44,7 +44,8 @@ export const loyaltyLevels: LoyaltyLevel[] = [
     cashbackPercent: 0,
     benefits: [
       'Скидка 5% на все покупки',
-      'Приоритетная консультация'
+      'Приоритетная консультация',
+      'Доступ к эксклюзивным акциям'
     ]
   }
 ];
