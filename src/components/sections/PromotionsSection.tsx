@@ -81,21 +81,109 @@ const PromotionsSection = () => {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-2 right-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                      ВЫГОДА
+                      ДО 100%
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                      <Icon name="Recycle" size={20} className="text-green-600" />
+                  <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                        <Icon name="Recycle" size={20} className="text-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-2">Сдай старый аккумулятор и получи скидку до 100%</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          на весь ассортимент из каталога
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg mb-1">Живая тема!</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Купим ваш старый аккумулятор — продадим новый и установим бесплатно
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Утилизация старых аккумуляторов с выгодой
-                      </p>
+
+                    <div className="space-y-3 text-sm">
+                      <div className="bg-white/60 rounded-lg p-3 space-y-2">
+                        <div className="flex items-start gap-2">
+                          <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+                          <p className="text-muted-foreground">
+                            Предложение действует при покупке любого товара, представленного на сайте miraccum.ru и в магазинах «Мир Аккумуляторов»
+                          </p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+                          <p className="text-muted-foreground">
+                            Вы можете принести как 1, так и несколько б/у аккумуляторов
+                          </p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+                          <p className="text-muted-foreground">
+                            Максимальная сумма скидки составляет 100% от стоимости приобретаемого товара
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                        <div className="flex items-start gap-2">
+                          <Icon name="Lightbulb" size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-xs text-muted-foreground">
+                            <p className="font-semibold text-blue-900 mb-1">Пример:</p>
+                            <p>Вы принесли 2 б/у аккумулятора (по 1500₽ каждый) и покупаете товар на 3100₽. Скидка составит 3000₽</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2 text-xs">
+                          <Icon name="Info" size={14} className="text-amber-600 mt-0.5 flex-shrink-0" />
+                          <p className="text-muted-foreground">
+                            Сумма скидки не может превышать стоимость приобретаемых товаров
+                          </p>
+                        </div>
+                        <div className="flex items-start gap-2 text-xs">
+                          <Icon name="Info" size={14} className="text-amber-600 mt-0.5 flex-shrink-0" />
+                          <p className="text-muted-foreground">
+                            Скидка по дисконтной карте в этом случае не действует
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white/80 rounded-lg p-3 space-y-3">
+                      <h4 className="font-semibold text-sm flex items-center gap-2">
+                        <Icon name="DollarSign" size={16} className="text-green-600" />
+                        Стоимость покупки Б/У аккумуляторов:
+                      </h4>
+                      <div className="space-y-2 text-xs">
+                        <div className="flex justify-between p-2 bg-gray-50 rounded">
+                          <span className="font-medium">МОТО (емкость 4-30 Ач)</span>
+                          <span className="font-semibold">—</span>
+                        </div>
+                        <div className="flex justify-between p-2 bg-gray-50 rounded">
+                          <span className="font-medium">B19, B24, L0, L1</span>
+                          <span className="font-semibold text-green-700">400 руб.</span>
+                        </div>
+                        <div className="flex justify-between p-2 bg-gray-50 rounded">
+                          <span className="font-medium">D23, D26, L2, L3, L4</span>
+                          <span className="font-semibold text-green-700">600 руб.</span>
+                        </div>
+                        <div className="flex justify-between p-2 bg-gray-50 rounded">
+                          <span className="font-medium">D31, D33, E41, L5, L6</span>
+                          <span className="font-semibold text-green-700">800 руб.</span>
+                        </div>
+                        <div className="flex justify-between p-2 bg-gray-50 rounded">
+                          <span className="font-medium">F51</span>
+                          <span className="font-semibold text-green-700">1200 руб.</span>
+                        </div>
+                        <div className="flex justify-between p-2 bg-gray-50 rounded">
+                          <span className="font-medium">G51, H52</span>
+                          <span className="font-semibold text-green-700">1800 руб.</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white/80 rounded-lg p-3">
+                      <img 
+                        src="https://cdn.poehali.dev/files/_4szhzN3Sbk.jpg"
+                        alt="Таблица стоимости б/у аккумуляторов"
+                        className="w-full rounded-lg"
+                      />
                     </div>
                   </div>
                 </Card>
