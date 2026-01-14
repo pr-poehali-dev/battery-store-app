@@ -145,44 +145,15 @@ const PromotionsSection = () => {
                       </div>
                     </div>
 
-                    <div className="bg-white/80 rounded-lg p-3 space-y-3">
+                    <div className="bg-white/80 rounded-lg p-3 space-y-2">
                       <h4 className="font-semibold text-sm flex items-center gap-2">
                         <Icon name="DollarSign" size={16} className="text-green-600" />
                         Стоимость покупки Б/У аккумуляторов:
                       </h4>
-                      <div className="space-y-2 text-xs">
-                        <div className="flex justify-between p-2 bg-gray-50 rounded">
-                          <span className="font-medium">МОТО (емкость 4-30 Ач)</span>
-                          <span className="font-semibold">—</span>
-                        </div>
-                        <div className="flex justify-between p-2 bg-gray-50 rounded">
-                          <span className="font-medium">B19, B24, L0, L1</span>
-                          <span className="font-semibold text-green-700">400 руб.</span>
-                        </div>
-                        <div className="flex justify-between p-2 bg-gray-50 rounded">
-                          <span className="font-medium">D23, D26, L2, L3, L4</span>
-                          <span className="font-semibold text-green-700">600 руб.</span>
-                        </div>
-                        <div className="flex justify-between p-2 bg-gray-50 rounded">
-                          <span className="font-medium">D31, D33, E41, L5, L6</span>
-                          <span className="font-semibold text-green-700">800 руб.</span>
-                        </div>
-                        <div className="flex justify-between p-2 bg-gray-50 rounded">
-                          <span className="font-medium">F51</span>
-                          <span className="font-semibold text-green-700">1200 руб.</span>
-                        </div>
-                        <div className="flex justify-between p-2 bg-gray-50 rounded">
-                          <span className="font-medium">G51, H52</span>
-                          <span className="font-semibold text-green-700">1800 руб.</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-white/80 rounded-lg p-3">
                       <img 
                         src="https://cdn.poehali.dev/files/_4szhzN3Sbk.jpg"
                         alt="Таблица стоимости б/у аккумуляторов"
-                        className="w-full rounded-lg"
+                        className="w-full rounded-lg border border-gray-200"
                       />
                     </div>
                   </div>
