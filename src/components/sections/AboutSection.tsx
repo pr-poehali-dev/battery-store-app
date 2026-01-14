@@ -269,7 +269,7 @@ const AboutSection = () => {
                         </span>
                       </div>
                       <p className="text-xs text-muted-foreground text-center">
-                        Эти деньги вернутся на ваш бонусный счет!
+                        Скидка применяется сразу при покупке!
                       </p>
                     </div>
                   )}
