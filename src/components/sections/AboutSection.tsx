@@ -116,7 +116,7 @@ const AboutSection = () => {
                   <img 
                     src="https://cdn.poehali.dev/files/IMG_0819.jpeg" 
                     alt="ЗВЕРЬ"
-                    className="max-w-full max-h-full object-contain"
+                    className="max-w-full max-h-full object-contain scale-150"
                   />
                 </div>
                 <div className="text-sm flex-1">
