@@ -119,7 +119,7 @@ const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: H
                   {userPurchaseCount > 0 ? 'Вы - постоянный клиент!' : 'После первой покупки'}
                 </p>
                 <p className="text-2xl font-bold text-green-600">
-                  {userPurchaseCount > 0 ? '5% скидка' : '0%'}
+                  5% скидка
                 </p>
               </div>
               <Icon name="Gift" size={28} className="text-green-600 relative z-10" />
