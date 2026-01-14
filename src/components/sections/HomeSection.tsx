@@ -1,8 +1,11 @@
+import { useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import FooterInfo from '@/components/ui/FooterInfo';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 interface HomeSectionProps {
   userPurchaseCount: number;
@@ -11,16 +14,56 @@ interface HomeSectionProps {
   setActiveSection: (section: string) => void;
 }
 
+const carouselSlides = [
+  'https://miraccum.ru/wp-content/uploads/2024/10/imageMiniSliderAccum.jpg',
+  'https://miraccum.ru/wp-content/uploads/2023/09/Titan-1270x476-72dpi.jpg',
+  'https://miraccum.ru/wp-content/uploads/2025/10/Izobrazhenie-WhatsApp-2025-10-06-v-20.22.24_f792f813.jpg',
+  'https://miraccum.ru/wp-content/uploads/2025/04/carku-truck-3-1-scaled.jpg',
+  'https://miraccum.ru/wp-content/uploads/2024/11/Izobrazhenie-WhatsApp-2024-11-14-v-10.21.09_7e50b704.jpg',
+  'https://miraccum.ru/wp-content/uploads/2021/07/remake1done.jpg',
+  'https://miraccum.ru/wp-content/uploads/2022/12/remake4done.jpg'
+];
+
 const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: HomeSectionProps) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
   return (
     <div className="space-y-4 animate-fade-in">
-      <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-        <img 
-          src="https://cdn.poehali.dev/files/IMG_0744.jpeg" 
-          alt="Мир Аккумуляторов"
-          className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
-        />
+      <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex">
+            {carouselSlides.map((slide, index) => (
+              <div key={index} className="flex-[0_0_100%] min-w-0">
+                <img 
+                  src={slide} 
+                  alt={`Слайд ${index + 1}`}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <button
+          onClick={scrollPrev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-all shadow-lg z-10"
+        >
+          <Icon name="ChevronLeft" size={24} className="text-gray-800" />
+        </button>
+        <button
+          onClick={scrollNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-all shadow-lg z-10"
+        >
+          <Icon name="ChevronRight" size={24} className="text-gray-800" />
+        </button>
       </div>
 
       <Card className="bg-gradient-to-br from-red-500/15 via-primary/10 to-blue-500/15 border-2 border-primary/40 shadow-xl hover:shadow-2xl transition-shadow duration-300">
