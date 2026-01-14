@@ -26,6 +26,9 @@ interface ProductCardProps {
   product: Product;
   getCategoryBadge: (category: string) => { icon: string; color: string; label: string };
   addToCart: (product: Product) => void;
+  isFavorite?: boolean;
+  onToggleFavorite?: (productId: number) => void;
+  onView?: (productId: number) => void;
 }
 
 const getCountryFlag = (manufacturer: string): string => {
@@ -56,9 +59,12 @@ const getCountryFlag = (manufacturer: string): string => {
   return '🌍';
 };
 
-const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps) => {
+const ProductCard = ({ product, getCategoryBadge, addToCart, isFavorite = false, onToggleFavorite, onView }: ProductCardProps) => {
   return (
-    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+    <Card 
+      className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+      onClick={() => onView?.(product.id)}
+    >
       <div className="relative aspect-square bg-white flex items-center justify-center p-4">
         <img 
           src={product.image} 
@@ -69,6 +75,19 @@ const ProductCard = ({ product, getCategoryBadge, addToCart }: ProductCardProps)
           <span className="mr-1">{getCategoryBadge(product.category).icon}</span>
           {getCategoryBadge(product.category).label}
         </Badge>
+        {onToggleFavorite && (
+          <Button
+            size="sm"
+            variant="ghost"
+            className="absolute top-3 left-3 bg-white/90 hover:bg-white shadow-sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleFavorite(product.id);
+            }}
+          >
+            <Icon name="Heart" size={18} className={isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'} />
+          </Button>
+        )}
       </div>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg leading-tight">{product.name}</CardTitle>

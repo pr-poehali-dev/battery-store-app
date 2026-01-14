@@ -15,6 +15,8 @@ import StoresSection from '@/components/sections/StoresSection';
 import PromotionsSection from '@/components/sections/PromotionsSection';
 import WarrantySection from '@/components/sections/WarrantySection';
 import BlogSection from '@/components/sections/BlogSection';
+import FavoritesSection from '@/components/sections/FavoritesSection';
+import HistorySection from '@/components/sections/HistorySection';
 import LoadingScreen from '@/components/LoadingScreen';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useAuth } from '@/hooks/useAuth';
@@ -189,6 +191,9 @@ const Index = () => {
             resetFilters={cart.resetFilters}
             getCategoryBadge={cart.getCategoryBadge}
             addToCart={cart.addToCart}
+            favorites={cart.favorites}
+            onToggleFavorite={cart.toggleFavorite}
+            onViewProduct={cart.addToViewHistory}
           />
         )}
 
@@ -240,6 +245,29 @@ const Index = () => {
 
         {activeSection === 'blog' && (
           <BlogSection />
+        )}
+
+        {activeSection === 'favorites' && (
+          <FavoritesSection
+            favoriteProducts={cart.getFavoriteProducts()}
+            favorites={cart.favorites}
+            getCategoryBadge={cart.getCategoryBadge}
+            addToCart={cart.addToCart}
+            onToggleFavorite={cart.toggleFavorite}
+            onViewProduct={cart.addToViewHistory}
+          />
+        )}
+
+        {activeSection === 'history' && (
+          <HistorySection
+            historyProducts={cart.getViewHistoryProducts()}
+            favorites={cart.favorites}
+            getCategoryBadge={cart.getCategoryBadge}
+            addToCart={cart.addToCart}
+            onToggleFavorite={cart.toggleFavorite}
+            onViewProduct={cart.addToViewHistory}
+            onClearHistory={cart.clearViewHistory}
+          />
         )}
 
       </main>
@@ -340,6 +368,35 @@ const Index = () => {
                   >
                     <Icon name="ShoppingBag" size={20} className="mr-3" />
                     Каталог
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'favorites' ? 'bg-white/20 shadow-md' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('favorites');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="Heart" size={20} className="mr-3" />
+                    Избранное
+                    {cart.favorites.length > 0 && (
+                      <Badge className="ml-auto">{cart.favorites.length}</Badge>
+                    )}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-base h-12 text-white hover:bg-white/10 transition-all duration-200 ${
+                      activeSection === 'history' ? 'bg-white/20 shadow-md' : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection('history');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="History" size={20} className="mr-3" />
+                    История просмотров
                   </Button>
                   <Button
                     variant="ghost"

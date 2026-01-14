@@ -67,6 +67,9 @@ interface CatalogSectionProps {
   resetFilters: () => void;
   getCategoryBadge: (category: string) => { icon: string; color: string; label: string };
   addToCart: (product: Product) => void;
+  favorites?: number[];
+  onToggleFavorite?: (productId: number) => void;
+  onViewProduct?: (productId: number) => void;
 }
 
 const CatalogSection = ({
@@ -110,7 +113,10 @@ const CatalogSection = ({
   allCars,
   resetFilters,
   getCategoryBadge,
-  addToCart
+  addToCart,
+  favorites = [],
+  onToggleFavorite,
+  onViewProduct
 }: CatalogSectionProps) => {
   const hasActiveFilters = searchQuery || 
     (priceRange[0] > 0 || priceRange[1] < 50000) ||
@@ -182,6 +188,9 @@ const CatalogSection = ({
             product={product}
             getCategoryBadge={getCategoryBadge}
             addToCart={addToCart}
+            isFavorite={favorites.includes(product.id)}
+            onToggleFavorite={onToggleFavorite}
+            onView={onViewProduct}
           />
         ))}
       </div>

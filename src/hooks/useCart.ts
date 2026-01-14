@@ -13,6 +13,14 @@ import {
 
 export const useCart = (vibrate: (pattern: number | number[]) => void) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem('favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [viewHistory, setViewHistory] = useState<number[]>(() => {
+    const saved = localStorage.getItem('viewHistory');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [capacityRange, setCapacityRange] = useState([0, 200]);
@@ -178,12 +186,47 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     setCart([]);
   };
 
+  const toggleFavorite = (productId: number) => {
+    vibrate(50);
+    setFavorites(prev => {
+      const updated = prev.includes(productId)
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId];
+      localStorage.setItem('favorites', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const addToViewHistory = (productId: number) => {
+    setViewHistory(prev => {
+      const filtered = prev.filter(id => id !== productId);
+      const updated = [productId, ...filtered].slice(0, 20);
+      localStorage.setItem('viewHistory', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const clearViewHistory = () => {
+    setViewHistory([]);
+    localStorage.removeItem('viewHistory');
+  };
+
+  const getFavoriteProducts = () => {
+    return products.filter(p => favorites.includes(p.id));
+  };
+
+  const getViewHistoryProducts = () => {
+    return viewHistory.map(id => products.find(p => p.id === id)).filter(Boolean) as Product[];
+  };
+
   const cartTotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const cartDiscount = Math.floor(cartTotal * 0.05);
   const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
     cart,
+    favorites,
+    viewHistory,
     searchQuery,
     priceRange,
     capacityRange,
@@ -232,6 +275,11 @@ export const useCart = (vibrate: (pattern: number | number[]) => void) => {
     addToCart,
     removeFromCart,
     updateQuantity,
-    clearCart
+    clearCart,
+    toggleFavorite,
+    addToViewHistory,
+    clearViewHistory,
+    getFavoriteProducts,
+    getViewHistoryProducts
   };
 };
