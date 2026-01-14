@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -33,6 +33,18 @@ const Index = () => {
   const { showInstallPrompt, setShowInstallPrompt, handleInstallApp } = usePWA();
 
   const userPurchaseCount = user ? (user.purchaseCount || 0) : 0;
+
+  useEffect(() => {
+    const handleBrandFilter = (event: CustomEvent) => {
+      const brand = event.detail;
+      cart.setSelectedBrand(brand);
+      cart.resetFilters();
+      setTimeout(() => cart.setSelectedBrand(brand), 0);
+    };
+
+    window.addEventListener('filterByBrand', handleBrandFilter as EventListener);
+    return () => window.removeEventListener('filterByBrand', handleBrandFilter as EventListener);
+  }, [cart]);
 
   if (isLoading) {
     return <LoadingScreen />;

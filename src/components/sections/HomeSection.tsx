@@ -14,18 +14,70 @@ interface HomeSectionProps {
   setActiveSection: (section: string) => void;
 }
 
-const carouselSlides = [
-  'https://miraccum.ru/wp-content/uploads/2024/10/imageMiniSliderAccum.jpg',
-  'https://miraccum.ru/wp-content/uploads/2023/09/Titan-1270x476-72dpi.jpg',
-  'https://miraccum.ru/wp-content/uploads/2025/10/Izobrazhenie-WhatsApp-2025-10-06-v-20.22.24_f792f813.jpg',
-  'https://miraccum.ru/wp-content/uploads/2025/04/carku-truck-3-1-scaled.jpg',
-  'https://miraccum.ru/wp-content/uploads/2024/11/Izobrazhenie-WhatsApp-2024-11-14-v-10.21.09_7e50b704.jpg',
-  'https://miraccum.ru/wp-content/uploads/2021/07/remake1done.jpg',
-  'https://miraccum.ru/wp-content/uploads/2022/12/remake4done.jpg'
-];
+interface CarouselSlide {
+  image: string;
+  action: () => void;
+  alt: string;
+}
 
 const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: HomeSectionProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
+
+  const carouselSlides: CarouselSlide[] = [
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2024/10/imageMiniSliderAccum.jpg',
+      action: () => setActiveSection('catalog'),
+      alt: 'Аккумуляторы для автомобилей'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2023/09/Titan-1270x476-72dpi.jpg',
+      action: () => {
+        setActiveSection('catalog');
+        setTimeout(() => {
+          const event = new CustomEvent('filterByBrand', { detail: 'Titan' });
+          window.dispatchEvent(event);
+        }, 100);
+      },
+      alt: 'Аккумуляторы Titan'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2025/10/Izobrazhenie-WhatsApp-2025-10-06-v-20.22.24_f792f813.jpg',
+      action: () => setActiveSection('promotions'),
+      alt: 'Установка аккумулятора в подарок'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2025/04/carku-truck-3-1-scaled.jpg',
+      action: () => {
+        setActiveSection('catalog');
+        setTimeout(() => {
+          const event = new CustomEvent('filterByBrand', { detail: 'Carku' });
+          window.dispatchEvent(event);
+        }, 100);
+      },
+      alt: 'Аккумуляторы Carku'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2024/11/Izobrazhenie-WhatsApp-2024-11-14-v-10.21.09_7e50b704.jpg',
+      action: () => {
+        setActiveSection('catalog');
+        setTimeout(() => {
+          const event = new CustomEvent('filterByBrand', { detail: 'Зверь' });
+          window.dispatchEvent(event);
+        }, 100);
+      },
+      alt: 'Аккумуляторы Зверь'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2021/07/remake1done.jpg',
+      action: () => setActiveSection('promotions'),
+      alt: 'Акции и специальные предложения'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2022/12/remake4done.jpg',
+      action: () => setActiveSection('catalog'),
+      alt: 'Широкий выбор аккумуляторов'
+    }
+  ];
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -43,9 +95,10 @@ const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: H
             {carouselSlides.map((slide, index) => (
               <div key={index} className="flex-[0_0_100%] min-w-0">
                 <img 
-                  src={slide} 
-                  alt={`Слайд ${index + 1}`}
-                  className="w-full h-auto object-cover"
+                  src={slide.image} 
+                  alt={slide.alt}
+                  className="w-full h-auto object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={slide.action}
                 />
               </div>
             ))}
