@@ -5,7 +5,23 @@ const FooterInfo = () => {
   return (
     <Card className="bg-gradient-to-br from-blue-500/10 via-green-500/10 to-blue-500/10 border-blue-300/30">
       <CardContent className="pt-6 pb-6">
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-4">
+          <div className="space-y-2">
+            <a 
+              href="mailto:miraccum@mail.ru"
+              className="flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              <Icon name="Mail" size={16} />
+              <span className="text-sm font-medium">miraccum@mail.ru</span>
+            </a>
+            <a 
+              href="mailto:miraccum77@mail.ru"
+              className="flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              <Icon name="Mail" size={16} />
+              <span className="text-sm font-medium">miraccum77@mail.ru</span>
+            </a>
+          </div>
           <div>
             <div className="flex items-center justify-center gap-2">
               <Icon name="Copyright" size={16} className="text-blue-600" />

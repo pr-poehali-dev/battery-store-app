@@ -56,7 +56,7 @@ const CartSection = ({
   userId,
   userPurchaseCount
 }: CartSectionProps) => {
-  const cartCashback = Math.floor(cartTotal * 0.03);
+
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -215,7 +215,7 @@ const CartSection = ({
                 <span className="text-primary">{cartTotal.toLocaleString()} ₽</span>
               </div>
               <a
-                href={`https://t.me/nobodystillhere?text=${encodeURIComponent(`Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\nКэшбек: +${cartCashback} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`)}`}
+                href={`https://t.me/nobodystillhere?text=${encodeURIComponent(`Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ textDecoration: 'none', display: 'block' }}
