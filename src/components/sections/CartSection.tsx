@@ -56,6 +56,7 @@ const CartSection = ({
   userId,
   userPurchaseCount
 }: CartSectionProps) => {
+  const cartCashback = Math.floor(cartTotal * 0.03);
 
   return (
     <div className="space-y-6 animate-fade-in">
