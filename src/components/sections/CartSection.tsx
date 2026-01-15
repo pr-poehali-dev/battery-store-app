@@ -213,18 +213,22 @@ const CartSection = ({
                 <span>К оплате</span>
                 <span className="text-primary">{cartTotal.toLocaleString()} ₽</span>
               </div>
-              <Button
-                size="lg"
-                className="w-full text-lg"
-                disabled={!selectedStore}
-                onClick={() => {
-                  const message = `Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\nКэшбек: +${cartCashback} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`;
-                  window.open(`https://t.me/nobodystillhere?text=${encodeURIComponent(message)}`, '_blank');
-                }}
+              <a
+                href={`https://t.me/nobodystillhere?text=${encodeURIComponent(`Здравствуйте! Хочу оформить заказ:\n\nТовары:\n${cart.map(item => `${item.product.name} — ${item.quantity} шт. × ${item.product.price} ₽`).join('\n')}\n\nИтого: ${cartTotal.toLocaleString()} ₽\nКэшбек: +${cartCashback} ₽\n\nМагазин для самовывоза:\n${selectedStore}\n\nОплата при получении`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', display: 'block' }}
               >
-                <Icon name="MessageCircle" size={20} className="mr-2" />
-                Оформить заказ
-              </Button>
+                <Button
+                  size="lg"
+                  className="w-full text-lg"
+                  disabled={!selectedStore}
+                  type="button"
+                >
+                  <Icon name="MessageCircle" size={20} className="mr-2" />
+                  Оформить заказ
+                </Button>
+              </a>
               {!selectedStore && (
                 <p className="text-sm text-amber-600 text-center">
                   ⚠️ Выберите магазин для самовывоза
@@ -237,6 +241,18 @@ const CartSection = ({
           </Card>
         </>
       )}
+
+      <Card className="bg-gradient-to-br from-red-500/10 via-pink-500/10 to-red-500/10 border-2 border-red-300/30 overflow-hidden">
+        <CardContent className="pt-6 pb-6">
+          <div className="text-center space-y-3">
+            <div className="text-5xl animate-pulse-slow">❤️</div>
+            <h3 className="text-xl font-bold text-red-600">Спасибо, что выбираете нас!</h3>
+            <p className="text-sm text-muted-foreground">
+              Мы ценим ваше доверие и всегда рады помочь
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       <FooterInfo />
     </div>
