@@ -89,13 +89,7 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
               <Icon name="Phone" size={18} />
               <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для юр.лиц)</span></span>
             </a>
-            <a 
-              href="tel:+74212461041" 
-              className="flex items-center gap-2 text-primary hover:underline"
-            >
-              <Icon name="Phone" size={18} />
-              <span>+7 (4212) 46-10-41 <span className="text-xs text-muted-foreground">(для корпоративных продаж)</span></span>
-            </a>
+
           </div>
           <div className="pt-2 border-t border-border/50 space-y-2">
             <p className="text-sm text-muted-foreground font-medium">Время работы:</p>
