@@ -247,9 +247,9 @@ const ContactsSection = ({ stores, serviceCenter }: ContactsSectionProps) => {
           </div>
         </CardHeader>
         <CardContent>
-          <a href="mailto:info@miraccum.ru" className="flex items-center gap-2 text-primary hover:underline text-lg">
+          <a href="mailto:miraccum@mail.ru" className="flex items-center gap-2 text-primary hover:underline text-lg">
             <Icon name="Mail" size={20} />
-            info@miraccum.ru
+            miraccum@mail.ru
           </a>
         </CardContent>
       </Card>
