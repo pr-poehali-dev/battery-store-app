@@ -9,9 +9,9 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "https://cdn.poehali.dev/files/IMG_1020.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ],
@@ -22,14 +22,14 @@
       "short_name": "Каталог",
       "description": "Открыть каталог товаров",
       "url": "/?section=catalog",
-      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+      "icons": [{ "src": "https://cdn.poehali.dev/files/IMG_1020.jpeg", "sizes": "512x512" }]
     },
     {
       "name": "Корзина",
       "short_name": "Корзина",
       "description": "Открыть корзину",
       "url": "/?section=cart",
-      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+      "icons": [{ "src": "https://cdn.poehali.dev/files/IMG_1020.jpeg", "sizes": "512x512" }]
     }
   ]
 }
