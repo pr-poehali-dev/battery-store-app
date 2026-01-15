@@ -36,29 +36,22 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
         </CardHeader>
       </Card>
 
-      <Card className="border-2 border-primary/20">
+      <Card className="border-2 border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <Icon name="User" size={24} className="text-primary" />
-            <CardTitle>Ваш ID клиента</CardTitle>
+            <Icon name="Percent" size={24} className="text-green-600" />
+            <CardTitle>Ваша скидка</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="bg-white p-6 rounded-lg border-2 border-primary/30 text-center space-y-3">
+        <CardContent>
+          <div className="bg-white p-6 rounded-lg border-2 border-green-500/30 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Icon name="Percent" size={20} className="text-green-600" />
-              <h3 className="font-semibold text-lg">
-                {(user.purchaseCount || 0) > 0 ? 'Скидка 5% активна!' : 'Совершите первую покупку'}
-              </h3>
+              <Icon name="BadgePercent" size={32} className="text-green-600" />
+              <h3 className="font-bold text-3xl text-green-600">5%</h3>
             </div>
-            <p className="text-sm text-muted-foreground mb-4">
-              Упомяните ваш ID при покупке для получения скидки
+            <p className="text-sm text-muted-foreground">
+              Постоянная скидка на все товары
             </p>
-            <div className="text-center p-4 bg-primary/5 rounded-lg">
-              <p className="text-lg font-mono font-bold text-primary">
-                ID: {user.telegram_id || user.phone}
-              </p>
-            </div>
           </div>
         </CardContent>
       </Card>
