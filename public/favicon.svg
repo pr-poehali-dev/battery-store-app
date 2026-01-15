@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Синий фон точно как на фото -->
-  <rect width="100" height="100" fill="#4A79A8"/>
+  <!-- Синий фон как на логотипе -->
+  <rect width="100" height="100" fill="#426B99"/>
   
-  <!-- Зеленый листок с наклоном вправо -->
-  <ellipse cx="50" cy="47" rx="17" ry="27" fill="#7FB544" transform="rotate(-12 50 47)"/>
+  <!-- Зеленый листок точно как на картинке -->
+  <path d="M 32 25 Q 20 32, 18 50 Q 20 72, 32 85 Q 38 78, 40 65 Q 42 50, 40 38 Q 37 28, 32 25 Z" 
+        fill="#8BC34A" 
+        stroke="#6DA03A"
+        stroke-width="1"/>
   
-  <!-- Желтая молния внутри листка -->
-  <g transform="translate(50, 47)">
-    <path d="M -2 -11 L -5.5 -1 L 0 -1 L -3 10 L 6 -3 L 1.5 -3 Z" 
-          fill="#FFEB3B" 
-          stroke="none"/>
-  </g>
+  <!-- Желтая молния -->
+  <path d="M 30 35 L 26 50 L 32 50 L 28 70 L 38 48 L 33 48 Z" 
+        fill="#FDD835"
+        stroke="#F9A825"
+        stroke-width="0.5"/>
 </svg>
