@@ -238,6 +238,18 @@ const CartSection = ({
         </>
       )}
 
+      <Card className="bg-gradient-to-br from-red-500/10 via-pink-500/10 to-red-500/10 border-2 border-red-300/30 overflow-hidden">
+        <CardContent className="pt-6 pb-6">
+          <div className="text-center space-y-4">
+            <div className="text-6xl animate-pulse-slow">❤️</div>
+            <h3 className="text-2xl font-bold text-red-600">Спасибо, что выбираете нас!</h3>
+            <p className="text-base text-muted-foreground max-w-md mx-auto">
+              Мы ценим ваше доверие и всегда рады помочь с выбором качественных аккумуляторов
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       <FooterInfo />
     </div>
   );
