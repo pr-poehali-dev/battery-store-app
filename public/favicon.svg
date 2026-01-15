@@ -1,23 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8BC34A;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:1" />
-    </linearGradient>
-  </defs>
+  <!-- Синий фон точно как на фото -->
+  <rect width="100" height="100" fill="#4A79A8"/>
   
-  <!-- Синий фон -->
-  <rect width="100" height="100" fill="#4A6FA5"/>
+  <!-- Зеленый листок с наклоном вправо -->
+  <ellipse cx="50" cy="47" rx="17" ry="27" fill="#7FB544" transform="rotate(-12 50 47)"/>
   
-  <!-- Зеленый листок -->
-  <path d="M 50 20 Q 30 35, 35 55 Q 40 70, 50 80 Q 60 70, 65 55 Q 70 35, 50 20 Z" 
-        fill="url(#leafGradient)" 
-        stroke="#2E7D32" 
-        stroke-width="1.5"/>
-  
-  <!-- Желтая молния -->
-  <path d="M 50 30 L 45 50 L 52 50 L 48 65 L 58 45 L 52 45 Z" 
-        fill="#FDD835" 
-        stroke="#F9A825" 
-        stroke-width="1"/>
+  <!-- Желтая молния внутри листка -->
+  <g transform="translate(50, 47)">
+    <path d="M -2 -11 L -5.5 -1 L 0 -1 L -3 10 L 6 -3 L 1.5 -3 Z" 
+          fill="#FFEB3B" 
+          stroke="none"/>
+  </g>
 </svg>
