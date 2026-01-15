@@ -155,29 +155,6 @@ const ProfileSection = ({ user, handleLogout }: ProfileSectionProps) => {
         </Card>
       )}
 
-      <Card className="border-2 border-orange-500/30 bg-gradient-to-br from-orange-500/5 to-red-500/5">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Icon name="Info" size={24} className="text-orange-600" />
-            <CardTitle>Важная информация</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex items-start gap-2 text-sm">
-            <Icon name="AlertCircle" size={16} className="text-orange-600 mt-0.5 flex-shrink-0" />
-            <p>Скидки не суммируются с другими акциями</p>
-          </div>
-          <div className="flex items-start gap-2 text-sm">
-            <Icon name="AlertCircle" size={16} className="text-orange-600 mt-0.5 flex-shrink-0" />
-            <p>Сообщите ваш ID кассиру перед оформлением покупки</p>
-          </div>
-          <div className="flex items-start gap-2 text-sm">
-            <Icon name="AlertCircle" size={16} className="text-orange-600 mt-0.5 flex-shrink-0" />
-            <p>Скидка применяется автоматически при предъявлении ID</p>
-          </div>
-        </CardContent>
-      </Card>
-
       <FooterInfo />
     </div>
   );
