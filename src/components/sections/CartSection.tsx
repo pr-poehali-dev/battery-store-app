@@ -84,18 +84,6 @@ const CartSection = ({
         </Card>
       ) : (
         <>
-          <Card className="bg-gradient-to-br from-red-500/10 via-pink-500/10 to-red-500/10 border-2 border-red-300/30 overflow-hidden">
-            <CardContent className="pt-6 pb-6">
-              <div className="text-center space-y-3">
-                <div className="text-5xl animate-pulse-slow">❤️</div>
-                <h3 className="text-xl font-bold text-red-600">Спасибо, что выбираете нас!</h3>
-                <p className="text-sm text-muted-foreground">
-                  Мы ценим ваше доверие и всегда рады помочь
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
           <div className="space-y-4">
             {cart.map(item => (
               <Card key={item.product.id}>

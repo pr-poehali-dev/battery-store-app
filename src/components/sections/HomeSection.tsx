@@ -25,12 +25,12 @@ const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: H
 
   const carouselSlides: CarouselSlide[] = [
     {
-      image: 'https://cdn.poehali.dev/files/IMG_0793.jpeg',
+      image: 'https://miraccum.ru/wp-content/uploads/2024/10/imageMiniSliderAccum.jpg',
       action: () => setActiveSection('catalog'),
       alt: 'Аккумуляторы для автомобилей'
     },
     {
-      image: 'https://cdn.poehali.dev/files/IMG_0793.jpeg',
+      image: 'https://miraccum.ru/wp-content/uploads/2023/09/Titan-1270x476-72dpi.jpg',
       action: () => {
         setActiveSection('catalog');
         setTimeout(() => {
@@ -41,9 +41,41 @@ const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: H
       alt: 'Аккумуляторы Titan'
     },
     {
-      image: 'https://cdn.poehali.dev/files/IMG_0793.jpeg',
+      image: 'https://miraccum.ru/wp-content/uploads/2025/10/Izobrazhenie-WhatsApp-2025-10-06-v-20.22.24_f792f813.jpg',
       action: () => setActiveSection('promotions'),
       alt: 'Установка аккумулятора в подарок'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2025/04/carku-truck-3-1-scaled.jpg',
+      action: () => {
+        setActiveSection('catalog');
+        setTimeout(() => {
+          const event = new CustomEvent('filterByBrand', { detail: 'Carku' });
+          window.dispatchEvent(event);
+        }, 100);
+      },
+      alt: 'Аккумуляторы Carku'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2024/11/Izobrazhenie-WhatsApp-2024-11-14-v-10.21.09_7e50b704.jpg',
+      action: () => {
+        setActiveSection('catalog');
+        setTimeout(() => {
+          const event = new CustomEvent('filterByBrand', { detail: 'Зверь' });
+          window.dispatchEvent(event);
+        }, 100);
+      },
+      alt: 'Аккумуляторы Зверь'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2021/07/remake1done.jpg',
+      action: () => setActiveSection('promotions'),
+      alt: 'Акции и специальные предложения'
+    },
+    {
+      image: 'https://miraccum.ru/wp-content/uploads/2022/12/remake4done.jpg',
+      action: () => setActiveSection('catalog'),
+      alt: 'Широкий выбор аккумуляторов'
     }
   ];
 
