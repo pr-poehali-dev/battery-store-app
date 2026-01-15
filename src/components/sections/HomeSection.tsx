@@ -93,12 +93,15 @@ const HomeSection = ({ userPurchaseCount, brands, vibrate, setActiveSection }: H
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {carouselSlides.map((slide, index) => (
-              <div key={index} className="flex-[0_0_100%] min-w-0">
+              <div 
+                key={index} 
+                className="flex-[0_0_100%] min-w-0 cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={slide.action}
+              >
                 <img 
                   src={slide.image} 
                   alt={slide.alt}
-                  className="w-full h-auto object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                  onClick={slide.action}
+                  className="w-full h-auto object-cover"
                 />
               </div>
             ))}
